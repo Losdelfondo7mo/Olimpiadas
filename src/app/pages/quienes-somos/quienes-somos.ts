@@ -16,19 +16,19 @@ export class QuienesSomos {
       descripcion: 'el mas crack de todos los cracks '
     },
     {
-       nombre: 'Juan Ignacio',
+       nombre: 'Vianel Almendra ',
       imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
       descripcion: 'el mas crack de todos los cracks ' 
     },
     {
-      nombre: 'Juan Ignacio',
+      nombre: 'Axel Gonzalez',
       imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
       descripcion: 'el mas crack de todos los cracks '
     },
     {
-      nombre: 'Juan Ignacio',
+      nombre: 'Lautaro Antiñanco',
       imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
-      descripcion: 'el mas crack de todos los cracks '
+      descripcion: 'el modelito  '
     },
   ]
 
