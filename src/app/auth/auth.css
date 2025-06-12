@@ -1,12 +1,30 @@
+.custom-header {
+  background-color: #2651D3;
+}
+
+.custom-btn {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+  background-color: #fff;
+  color: #2651D3;
+  border-color: #fff;
+}
+
+/* AUTH WRAPPER STYLES */
 .auth-wrapper {
   position: relative;
   width: 800px;
   height: 500px;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   background: #fff;
- padding: 10px;
+  padding: 10px;
   margin: auto;
 }
 
@@ -30,7 +48,7 @@
 
 .info-section {
   width: 50%;
-  background: linear-gradient(135deg, #6c5ce7, #a363d9);
+  background: linear-gradient(135deg, #2651D3, #3d6ef2);
   color: white;
   padding: 2rem;
   display: flex;
@@ -42,7 +60,7 @@
 .info-section button {
   padding: 0.8rem 1.5rem;
   background: white;
-  color: #6c5ce7;
+  color: #2651D3;
   border: none;
   border-radius: 8px;
   font-weight: bold;
@@ -57,29 +75,55 @@
   justify-content: center;
 }
 
+.form-section form {
+  width: 100%;
+  max-width: 350px; /* controla el ancho del formulario */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .form-section form input {
   width: 100%;
   margin-bottom: 1rem;
   padding: 0.8rem;
   border: 2px solid #ddd;
   border-radius: 8px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+
 }
 
 .form-section form button {
+  width: 100%;
   padding: 1rem;
-  background: #6c5ce7;
+  background: #2651D3;
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-
+.form-section form button:hover {
+  background-color: #1e3ea5;
+}
 .ng-valid:not(form).ng-touched   {
-    border: 2px solid darkblue; /* green */
+    border: 2px solid rgb(29, 223, 12); /* green */
   }
  
 .ng-invalid:not(form).ng-touched  {
     border: 2px solid #a94442; /* red */
   }
+
+input.ng-valid.ng-touched {
+  border: 2px solid #28a745; /* verde éxito */
+}
+
+.success-message {
+  color: #28a745;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+

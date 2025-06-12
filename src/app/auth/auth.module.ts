@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth';
-import { Login } from './login/login';
 import { Registro } from './registro/registro';
 
 

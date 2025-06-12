@@ -1,3 +1,10 @@
 .custom-footer {
-  background: linear-gradient(135deg, #6c5ce7 0%, #a363d9 100%);
+  background-color: #2651D3;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.custom-footer small {
+  font-size: 0.9rem;
 }

@@ -15,19 +15,15 @@ export class AuthComponent {
   showLogin = true;
 
   loginForm: FormGroup;
-  registerForm: FormGroup;
+
 
   constructor(private fb: FormBuilder, private router:Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
 
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+    
   }
 
   toggle(): void {
@@ -38,9 +34,10 @@ export class AuthComponent {
     return this.loginForm.get ('password');
 }
 
-  get Email(){
-    return this.loginForm.get('email');
+ get Username() {
+  return this.loginForm.get('username');
 }
+
 onEnviar(event:Event){
   if (this.loginForm.valid)
   {

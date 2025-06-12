@@ -1,22 +1,22 @@
 <div class="auth-wrapper my-5">
   <div class="auth-panel" [class.active]="showLogin">
     <div class="info-section">
-      <h1>¡Bienvenido!</h1>
+      <h1>¡Hola otra vezzzz!</h1>
       <p>¿No tienes una cuenta aún?</p>
       <button (click)="goToRegister()">Crear Cuenta</button>
     </div>
     <div class="form-section">
       <h2>Iniciar Sesión</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin($event)">
-        <input formControlName="email" type="email" placeholder="Correo electrónico" required />
-            @if (Email?.errors && Email?.touched) {
-             @if (Email?.hasError('required'))
+        <input formControlName="username" type="text" placeholder="Usuario" required />
+            @if (Username?.errors && Username?.touched) {
+             @if (Username?.hasError('required'))
             {
                 <p class="text-danger">
-                    El email es requerido.
+                    El usuario es requerido.
                 </p>
             }
-             @else if (Email?.hasError('email'))
+             @else if (Username?.hasError('email'))
             {
                 <p class="text-danger">
                     El formato del email debe ser válido.
@@ -38,4 +38,3 @@
     </div>
   </div>
 </div>
-

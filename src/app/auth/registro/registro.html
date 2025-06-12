@@ -1,16 +1,18 @@
 <div class="auth-wrapper my-5">
   <div class="auth-panel active">
     <div class="info-section">
-      <h1>¡Hola nuevo usuario!</h1>
+      <h1>¡Bienvenido!</h1>
       <p>¿Ya tenés cuenta?</p>
       <button (click)="backToLogin()">Iniciar Sesión</button>
     </div>
     <div class="form-section">
-      <h2>Crear Cuenta</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <input formControlName="name" type="text" placeholder="Nombre completo" required />
+        <input formControlName="nombre" type="text" placeholder="Nombre" required />
+        <input formControlName="apellido" type="text" placeholder="Apellido" required />
         <input formControlName="email" type="email" placeholder="Correo electrónico" required />
+        <input formControlName="usuario" type="text" placeholder="Usuario" required />
         <input formControlName="password" type="password" placeholder="Contraseña" required />
+        <input formControlName="password" type="password" placeholder="Confirmar contraseña" required />
         <button type="submit">Registrarse</button>
       </form>
     </div>

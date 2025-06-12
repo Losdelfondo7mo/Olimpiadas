@@ -1,3 +1,16 @@
 .custom-header {
-  background: linear-gradient(135deg, #6c5ce7 0%, #a363d9 100%);
+  background-color: #2651D3;
+}
+
+.custom-btn {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+  background-color: #fff;
+  color: #2651D3;
+  border-color: #fff;
 }

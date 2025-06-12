@@ -14,8 +14,10 @@ export class Registro {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      usuario: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
