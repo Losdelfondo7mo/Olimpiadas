@@ -1,15 +1,34 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './registro.html',
   styleUrl: './registro.css'
 })
 export class Registro {
-  email='';
-  password ='';
+  registerForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
+
+  onRegister(): void {
+    if (this.registerForm.valid) {
+      console.log('Registro exitoso', this.registerForm.value);
+      // lógica real de registro...
+    }
+  }
+
+  backToLogin(): void {
+    this.router.navigate(['/auth']);
+  }
+
 }

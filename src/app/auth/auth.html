@@ -1,3 +1,41 @@
-<!-- src/app/auth/auth.component.html -->
-<router-outlet></router-outlet>
+<div class="auth-wrapper my-5">
+  <div class="auth-panel" [class.active]="showLogin">
+    <div class="info-section">
+      <h1>¡Bienvenido!</h1>
+      <p>¿No tienes una cuenta aún?</p>
+      <button (click)="goToRegister()">Crear Cuenta</button>
+    </div>
+    <div class="form-section">
+      <h2>Iniciar Sesión</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin($event)">
+        <input formControlName="email" type="email" placeholder="Correo electrónico" required />
+            @if (Email?.errors && Email?.touched) {
+             @if (Email?.hasError('required'))
+            {
+                <p class="text-danger">
+                    El email es requerido.
+                </p>
+            }
+             @else if (Email?.hasError('email'))
+            {
+                <p class="text-danger">
+                    El formato del email debe ser válido.
+                  </p>
+            }
+        }
+        <input formControlName="password" type="password" placeholder="Contraseña" required />
+         @if (Password?.errors && Password?.touched) {
+            @if (Password?.hasError('required'))
+            {
+                <p class="text-danger">
+                    La contraseña es requerido.
+                </p>
+            }
+        }
+           
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  </div>
+</div>
 

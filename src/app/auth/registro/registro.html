@@ -1,20 +1,18 @@
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
-    <h3 class="text-center mb-4">Registro</h3>
-    <form>
-      <div class="mb-3">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" placeholder="Contraseña">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Confirmar Contraseña</label>
-        <input type="password" class="form-control" id="password" placeholder="Contraseña">
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Registrate</button>
-      <p>¿Ya tienes cuenta? <a routerLink="/login"> Inicia sesión</a></p>
-    </form>
+<div class="auth-wrapper my-5">
+  <div class="auth-panel active">
+    <div class="info-section">
+      <h1>¡Hola nuevo usuario!</h1>
+      <p>¿Ya tenés cuenta?</p>
+      <button (click)="backToLogin()">Iniciar Sesión</button>
+    </div>
+    <div class="form-section">
+      <h2>Crear Cuenta</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <input formControlName="name" type="text" placeholder="Nombre completo" required />
+        <input formControlName="email" type="email" placeholder="Correo electrónico" required />
+        <input formControlName="password" type="password" placeholder="Contraseña" required />
+        <button type="submit">Registrarse</button>
+      </form>
+    </div>
   </div>
+</div>

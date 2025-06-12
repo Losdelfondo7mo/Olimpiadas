@@ -5,13 +5,15 @@ import { Registro } from './auth/registro/registro';
 import { QuienesSomos } from './pages/quienes-somos/quienes-somos';
 import { AuthComponent } from './auth/auth';
 import { Home } from './pages/home/home';
+import { Component } from '@angular/core';
 
 export const routes: Routes = [
-    {path: "login", component: Login },
     {path: "dasboard", component: Dashboard },
-    {path: "registro", component:Registro},
     {path: "quienes_somos", component:QuienesSomos},
-    {path: "auth", component: AuthComponent},
+    {path: "auth", children:[
+        { path: '', component: AuthComponent},
+        { path: 'registro', component: Registro}
+    ]},
     {path: "home", component: Home},
     {path:"", redirectTo: "/login", pathMatch: "full"}
 ];

@@ -5,3 +5,4 @@
 .ng-invalid:not(form).ng-touched  {
     border: 2px solid #a94442; /* red */
   }
+
