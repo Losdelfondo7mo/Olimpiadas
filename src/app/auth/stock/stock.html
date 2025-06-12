@@ -1,0 +1,28 @@
+<div class="stock-admin">
+  <h2>Administrador de Stock</h2>
+  <form #productForm="ngForm"="ngForm" (ngSubmit)="addProduct(productForm)">
+    <input type="text" [(ngModel)]="newProduct.name" name="name" placeholder="Nombre del producto" required>
+    <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" placeholder="Cantidad" required min="0">
+    <button type="submit">Agregar Producto</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>{{ product.name }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          <button (click)="editProduct(i)">Editar</button>
+          <button (click)="deleteProduct(i)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +6,6 @@ import { routes } from '../../app.routes';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard {
+export default class Dashboard {
 
 }
