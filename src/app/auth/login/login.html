@@ -5,11 +5,33 @@
       <div class="mb-3">
         <label for="email" class="form-label">Correo Electrónico</label>
         <input type="email" formControlName="email" class="form-control" id="email">
+          @if (Email?.errors && Email?.touched){
+            @if (Email?.hasError('required')) {
+              <p class="text-danger">
+                El email es requerido.
+              </p>
+            }
+            @else if (Email?.hasError('email')) {
+              <p class="text-danger">
+                El formato del Email debe ser Valido
+              </p>
+            }
+          }
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" formControlName="password " class="form-control" id="password">
+        <input type="password" formControlName="password" class="form-control" id="password">
+          @if (Password?.errors && Password?.touched) {
+            @if (Password?.hasError('required'))
+            {
+                <p class="text-danger">
+                    La contraseña es requerido.
+                </p>
+            }
+        }
       </div>
       <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+      <p>¿No tienes cuenta? <a routerLink="/registro"> registrate</a></p>
+
     </form>
   </div>

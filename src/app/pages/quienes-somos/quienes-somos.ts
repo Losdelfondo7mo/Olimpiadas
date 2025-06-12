@@ -12,7 +12,7 @@ export class QuienesSomos {
   miembros = [
     {
       nombre: 'Juan Ignacio',
-      imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
+      imagen: 'https://i.pinimg.com/736x/a9/f8/2e/a9f82e6b30e9cdff93d4dd15eba41528.jpg',
       descripcion: 'el mas crack de todos los cracks '
     },
     {

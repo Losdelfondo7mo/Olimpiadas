@@ -3,11 +3,15 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { Login } from './auth/login/login';
 import { Registro } from './auth/registro/registro';
 import { QuienesSomos } from './pages/quienes-somos/quienes-somos';
+import { AuthComponent } from './auth/auth';
+import { Home } from './pages/home/home';
 
 export const routes: Routes = [
     {path: "login", component: Login },
     {path: "dasboard", component: Dashboard },
     {path: "registro", component:Registro},
     {path: "quienes_somos", component:QuienesSomos},
+    {path: "auth", component: AuthComponent},
+    {path: "home", component: Home},
     {path:"", redirectTo: "/login", pathMatch: "full"}
 ];
