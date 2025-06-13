@@ -15,7 +15,6 @@
   border-color: #fff;
 }
 
-/* AUTH WRAPPER STYLES */
 .auth-wrapper {
   position: relative;
   width: 800px;
@@ -110,13 +109,13 @@
   background-color: #1e3ea5;
 }
 
-.ng-valid:not(form).ng-touched   {
-    border: 2px solid darkblue; /* green */
-  }
- 
-.ng-invalid:not(form).ng-touched  {
-    border: 2px solid #a94442; /* red */
-  }
+.is-valid{
+  border: 2px solid green!important;
+}
+
+.is-invalid{
+  border: 2px solid red !important;
+}
 
 .text-danger{
   font-size: 0.8rem;

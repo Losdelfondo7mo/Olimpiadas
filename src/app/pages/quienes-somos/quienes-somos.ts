@@ -11,20 +11,20 @@ import { CommonModule } from '@angular/common';
 export class QuienesSomos {
   miembros = [
   {
-  nombre: 'Juan Ignacio',
+  nombre: 'Juan Montaño',
   imagen:  "/miembros/juan.jpg",
   descripcion: 'Desarrollador Full Stack'
   },
 
     {
        nombre: 'Vianel Almendra ',
-      imagen: "/miembros/Vianel.jpeg",
-      descripcion: '??????' 
+      imagen: "/miembros/vianel.heic",
+      descripcion: 'Desarrollador frontend' 
     },
     {
       nombre: 'Axel Gonzalez',
       imagen: "/miembros/Axel.jpeg",
-      descripcion: 'Desarrollador Frontend'
+      descripcion: 'Scrum Master'
     },
     {
       nombre: 'Lautaro Antiñanco',

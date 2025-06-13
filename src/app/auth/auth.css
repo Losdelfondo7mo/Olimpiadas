@@ -15,7 +15,7 @@
   border-color: #fff;
 }
 
-/* AUTH WRAPPER STYLES */
+
 .auth-wrapper {
   position: relative;
   width: 800px;
@@ -113,25 +113,13 @@
 
 
 
-.ng-valid:not(form).ng-touched   {
-    border: 2px solid rgb(29, 223, 12); /* green */
-  }
- 
-.ng-invalid:not(form).ng-touched  {
-    border: 2px solid #a94442; /* red */
-  }
-
-input.ng-valid.ng-touched {
-  border: 2px solid #28a745; /* verde éxito */
+.is-valid{
+  border: 2px solid green !important;
 }
 
-.success-message {
-  color: #28a745;
-  font-weight: bold;
-  margin-bottom: 10px;
+.is-invalid{
+  border: 2px solid red !important;
 }
-
-
 
 
 

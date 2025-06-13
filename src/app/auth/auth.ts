@@ -43,11 +43,13 @@ onEnviar(event:Event){
   {
     //conectar al backend
     console.log(this.loginForm.value)
+    alert('Bien, pudiste ingresar ') //no se porque este no anda verificar luego 
   }
   else
   {
     //mensaje de  error
     console.log('Formulario invalido');
+    alert('Lo siento, verifica que los datos sean correctos')// este lo mismo
   }
 }
 
@@ -55,12 +57,14 @@ onEnviar(event:Event){
      if (this.loginForm.valid)
   {
     //conectar al backend
-    console.log(this.loginForm.value)
+    console.log(this.loginForm.value);
+    alert('Bien, pudiste ingresar ')
   }
   else
   {
     //mensaje de  error
     console.log('Formulario invalido');
+    alert('Lo siento, verifica que los datos sean correctos')
   }
   }
 
