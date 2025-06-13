@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tables',
+  standalone: true,
   imports: [],
   templateUrl: './tables.html',
-  styleUrl: './tables.css'
+  styleUrls: ['./tables.css'], // opcional
 })
 export default class Tables {
-
 }
