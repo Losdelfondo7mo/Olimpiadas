@@ -10,25 +10,31 @@ import { CommonModule } from '@angular/common';
 })
 export class QuienesSomos {
   miembros = [
-    {
-      nombre: 'Juan Ignacio',
-      imagen: 'https://i.pinimg.com/736x/a9/f8/2e/a9f82e6b30e9cdff93d4dd15eba41528.jpg',
-      descripcion: 'el mas crack de todos los cracks '
-    },
+  {
+  nombre: 'Juan Ignacio',
+  imagen:  "/miembros/juan.jpg",
+  descripcion: 'Desarrollador Full Stack'
+  },
+
     {
        nombre: 'Vianel Almendra ',
-      imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
-      descripcion: 'el mas crack de todos los cracks ' 
+      imagen: "/miembros/Vianel.jpeg",
+      descripcion: '??????' 
     },
     {
       nombre: 'Axel Gonzalez',
-      imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
-      descripcion: 'el mas crack de todos los cracks '
+      imagen: "/miembros/Axel.jpeg",
+      descripcion: 'Desarrollador Frontend'
     },
     {
       nombre: 'Lautaro Antiñanco',
-      imagen: 'https://i.pinimg.com/736x/bd/82/37/bd82371b8a2d166e2a611ecf8e347c1a.jpg',
-      descripcion: 'el modelito  '
+      imagen: "/miembros/lautaro.jpg",
+      descripcion: 'Analista Funcional'
+    },
+    {
+      nombre: 'Noah Miura',
+      imagen: "/miembros/noah.jpg",
+      descripcion: 'Desarrollador Backend'
     },
   ]
 

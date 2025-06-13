@@ -6,13 +6,61 @@
       <button (click)="backToLogin()">Iniciar Sesión</button>
     </div>
     <div class="form-section">
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister($event)">
         <input formControlName="nombre" type="text" placeholder="Nombre" required />
+          @if (Nombre?.errors && Nombre?.touched) {
+             @if (Nombre?.hasError('required'))
+            {
+                <p class="text-danger">
+                    El nombre es requerido.
+                </p>
+            }
+          }
         <input formControlName="apellido" type="text" placeholder="Apellido" required />
+          @if (Apellido?.errors && Apellido?.touched) {
+             @if (Apellido?.hasError('required'))
+            {
+                <p class="text-danger">
+                    El apellido es requerido.
+                </p>
+            }
+          }
         <input formControlName="email" type="email" placeholder="Correo electrónico" required />
+          @if (Email?.errors && Email?.touched) {
+             @if (Email?.hasError('required'))
+            {
+                <p class="text-danger">
+                    El email es requerido.
+                </p>
+            }
+          }
         <input formControlName="usuario" type="text" placeholder="Usuario" required />
+          @if (Usuario?.errors && Usuario?.touched) {
+             @if (Usuario?.hasError('required'))
+            {
+                <p class="text-danger">
+                    El usuario es requerido.
+                </p>
+            }
+          }
         <input formControlName="password" type="password" placeholder="Contraseña" required />
+          @if (Password?.errors && Password?.touched) {
+             @if (Password?.hasError('required'))
+            {
+                <p class="text-danger">
+                    La contraseña es requerida.
+                </p>
+            }
+          }
         <input formControlName="password" type="password" placeholder="Confirmar contraseña" required />
+          @if (Password?.errors && Password?.touched) {
+             @if (Password?.hasError('required'))
+            {
+                <p class="text-danger">
+                    Debes confirmar tu contraseña.
+                </p>
+            }
+          }
         <button type="submit">Registrarse</button>
       </form>
     </div>

@@ -85,8 +85,8 @@
 
 .form-section form input {
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.8rem;
+  margin-bottom: 0.4rem;
+  padding: 0.5rem;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -96,7 +96,7 @@
 
 .form-section form button {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   background: #2651D3;
   color: white;
   border: none;
@@ -117,3 +117,8 @@
 .ng-invalid:not(form).ng-touched  {
     border: 2px solid #a94442; /* red */
   }
+
+.text-danger{
+  font-size: 0.8rem;
+  margin: 0 0 4px ;
+}

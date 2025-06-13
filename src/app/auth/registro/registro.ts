@@ -21,11 +21,33 @@ export class Registro {
       password: ['', Validators.required],
     });
   }
+  get Nombre() {
+   return this.registerForm.get('nombre');
+}
 
-  onRegister(): void {
+  get Apellido() {
+   return this.registerForm.get('apellido');
+}
+
+  get Email() {
+   return this.registerForm.get('email');
+}
+
+get Usuario(){
+  return this.registerForm.get('usuario');
+}
+
+  get Password() {
+   return this.registerForm.get('password');
+}
+
+  onRegister(event:Event) {
     if (this.registerForm.valid) {
       console.log('Registro exitoso', this.registerForm.value);
       // lógica real de registro...
+    }
+    else{
+      console.log('Registro exitoso', this.registerForm.value)
     }
   }
 

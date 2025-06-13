@@ -94,6 +94,7 @@
 
 }
 
+
 .form-section form button {
   width: 100%;
   padding: 1rem;
@@ -109,6 +110,9 @@
 .form-section form button:hover {
   background-color: #1e3ea5;
 }
+
+
+
 .ng-valid:not(form).ng-touched   {
     border: 2px solid rgb(29, 223, 12); /* green */
   }
@@ -127,3 +131,14 @@ input.ng-valid.ng-touched {
   margin-bottom: 10px;
 }
 
+
+
+
+
+
+
+
+.carousel-img {
+  height: 200px;
+  object-fit: cover;
+}
