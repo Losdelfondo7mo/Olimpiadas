@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 
 export interface Producto {
@@ -13,47 +14,46 @@ export interface Producto {
 @Injectable({
   providedIn: 'root',
 })
-export class CarritoService {
-  private carrito: Producto[] = [];
+export class CartService {
+  private carrito = new BehaviorSubject<any[]>([]);
+  carrito$ = this.carrito.asObservable();
 
-  // 🔄 Devuelve una copia del carrito actual
-  obtenerCarrito(): Producto[] {
-    return [...this.carrito];
+  get currentCart() {
+    return this.carrito.getValue();
   }
 
-  // ➕ Agrega producto al carrito
-  agregarAlCarrito(producto: Producto): void {
-    const item = this.carrito.find(p => p.id === producto.id);
-    if (item) {
-      item.cantidad! += 1;
+  agregar(producto: any) {
+    const carritoActual = this.currentCart;
+    const existe = carritoActual.find(p => p.id === producto.id);
+    if (existe) {
+      existe.cantidad++;
     } else {
-      this.carrito.push({ ...producto, cantidad: 1 });
+      carritoActual.push({
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: producto.precio, 
+        cantidad: 1
+      });
     }
+  this.carrito.next([...carritoActual]);
+}
+
+  eliminar(id: number) {
+    const nuevo = this.currentCart.filter(p => p.id !== id);
+    this.carrito.next(nuevo);
   }
 
-  // ➖ Elimina un producto por ID
-  eliminarDelCarrito(id: number): void {
-    this.carrito = this.carrito.filter(item => item.id !== id);
+  vaciar() {
+    this.carrito.next([]);
   }
 
-  // 🧹 Limpia todo
-  vaciarCarrito(): void {
-    this.carrito = [];
-  }
-
-  // 💲 Total a pagar
   get total(): number {
-    return this.carrito.reduce((sum, item) => sum + item.precio * (item.cantidad || 1), 0);
+    return this.currentCart.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
   }
 
-  // 💳 Simula el pago
-  pagar(): void {
-    if (this.carrito.length === 0) return;
-
-    const confirmado = window.confirm(`¿Deseas realizar el pago por $${this.total.toFixed(2)}?`);
-    if (confirmado) {
-      alert('¡Gracias por tu compra!');
-      this.vaciarCarrito();
-    }
+  pagar() {
+    alert(`¡Gracias por tu compra de $${this.total}!`);
+    this.vaciar();
   }
+
 }

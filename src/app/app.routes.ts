@@ -5,6 +5,7 @@ import { QuienesSomos } from './pages/quienes-somos/quienes-somos';
 import { AuthComponent } from './auth/auth';
 import { Home } from './pages/home/home';
 import { Cart } from './pages/cart/cart';
+import { Product } from './pages/product/product';
 
 export const routes: Routes = [
     {path: "dasboard", component: Dashboard },
@@ -13,7 +14,7 @@ export const routes: Routes = [
         { path: '', component: AuthComponent},
         { path: 'registro', component: Registro}
     ]},
-    {path: "home", component: Home},
+    {path: "productos", component: Product},
     {path: "cart", component:Cart},
     {path:"", redirectTo: "/auth", pathMatch: "full"}
 ];

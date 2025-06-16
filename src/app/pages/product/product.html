@@ -1,1 +1,18 @@
-
+<div class="carrito">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let producto of productos">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ producto.nombre }}</h5>
+          <p class="card-text">{{ producto.descripcion }}</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Precio:</strong> ${{ producto.precio }}</li>
+          </ul>
+          <button (click)="agregarAlCarrito(producto)" class="btn btn-primary mt-2">
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
