@@ -1,0 +1,31 @@
+
+.team-card {
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eaeaea;
+  border-radius: 1rem;
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.team-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #2651d3;
+  box-shadow: 0 4px 10px rgba(38, 81, 211, 0.2);
+  margin-bottom: 1rem;
+}
+
+/* Ajustes responsivos para mostrar 3 por fila en pantallas grandes */
+@media (min-width: 10px) {
+  .team-card {
+    max-width: 100%;
+  }
+}

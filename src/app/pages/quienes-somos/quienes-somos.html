@@ -1,0 +1,19 @@
+<div class="container py-5">
+  <h2 class="text-center mb-5">¿Quiénes somos?</h2>
+  <div class="row justify-content-center">
+    <div
+      class="col-sm-6 col-md-4 col-lg-3 mb-4"
+      *ngFor="let miembro of miembros"
+    >
+      <div class="team-card shadow-sm p-4 text-center h-100 rounded-4">
+        <img
+          [src]="miembro.imagen"
+          [alt]="miembro.nombre"
+          class="team-img mb-3"
+        />
+        <h5 class="fw-bold">{{ miembro.nombre }}</h5>
+        <p class="text-muted small">{{ miembro.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.custom-header {
+  background-color: #2651D3;
+}
+
+.custom-btn {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+  background-color: #fff;
+  color: #2651D3;
+  border-color: #fff;
+}

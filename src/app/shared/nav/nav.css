@@ -1,0 +1,21 @@
+.nav-link{
+    cursor: pointer;
+}
+
+.custom-header {
+  background-color: #E9E9E9;
+}
+
+.custom-hover {
+  color: #2651D3;
+  border-color: #2651D3
+
+
+}
+
+/* Hover personalizado con #fff de fondo y #2651D3 en texto y borde */
+.custom-hover:hover {
+  background-color: #fff;
+  color: #2651D3;
+  border-color: #2651D3;
+}
