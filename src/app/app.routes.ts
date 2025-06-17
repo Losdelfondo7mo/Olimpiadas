@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './pages/dashboard/dashboard';
+import Dashboard from './auth/dashboard/dashboard';
 import { Registro } from './auth/registro/registro';
 import { QuienesSomos } from './pages/quienes-somos/quienes-somos';
 import { AuthComponent } from './auth/auth';
@@ -16,5 +16,37 @@ export const routes: Routes = [
     ]},
     {path: "productos", component: Product},
     {path: "cart", component:Cart},
-    {path:"", redirectTo: "/auth", pathMatch: "full"}
+    {path:"", redirectTo: "/auth", pathMatch: "full"},
+    {path: "admin", component: Dashboard },
+    {path: "registro", component:Registro},
+    {
+        path: '',
+        loadComponent: () => import('./shared/components/layout/layout'),
+        children: [
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./auth/dashboard/dashboard'),
+
+            },
+            {
+                path: 'profile',
+                loadComponent: () => import('./auth/profile/profile'),
+
+            },
+            {
+                path: 'tables',
+                loadComponent: () => import('./auth/tables/tables'),
+
+            },
+            {
+            path: '',
+            redirectTo: 'dashboard',
+            pathMatch: 'full'
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard',
+            }
+        ]
+    }
 ];
