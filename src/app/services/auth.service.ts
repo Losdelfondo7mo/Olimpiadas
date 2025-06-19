@@ -57,9 +57,14 @@ export class AuthService {
   }
 //guardar usuario
   get usuarioActual(): string | null {
-  const raw = localStorage.getItem('usuario');
-  return raw ? JSON.parse(raw) : null;
-}
+    const raw = localStorage.getItem('usuario');
+    try {
+      const parsed = raw ? JSON.parse(raw) : null;
+      return parsed?.usuario || null;
+    } catch {
+      return null;
+    }
+  }
 
 
 
