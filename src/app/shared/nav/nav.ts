@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit} from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-nav',
-  imports: [],
+  standalone: true,
+  imports: [ RouterModule,CommonModule],
   templateUrl: './nav.html',
-  styleUrl: './nav.css'
+  styleUrls: ['./nav.css']
 })
 export class Nav {
+    constructor(public authService: AuthService, private router: Router) {}
 
+    logout(): void {
+    this.authService.cerrarSesion();
+    this.router.navigate(['/auth']);
+  }
 }

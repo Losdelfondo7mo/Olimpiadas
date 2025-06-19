@@ -1,0 +1,9 @@
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.nav-tabs .nav-link.active {
+  font-weight: bold;
+  background-color: #2651d3;
+  color: white;
+}
