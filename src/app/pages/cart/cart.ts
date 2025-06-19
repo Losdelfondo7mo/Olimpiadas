@@ -43,7 +43,7 @@ export class Cart {
 
   pagar() {
   this.ordersService.agregarPedido({
-    usuario: 'invitado',
+    usuario: this.authService.usuarioActual || 'invitado',
     productos: this.carrito,
     total: this.cartService.total,
   });
