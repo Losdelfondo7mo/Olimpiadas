@@ -1,0 +1,96 @@
+<div class="mb-4">
+  <h4>Agregar nuevo producto</h4>
+  <form (ngSubmit)="agregarProducto()" class="row g-2 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label">Nombre</label>
+      <input [(ngModel)]="nuevoProducto.nombre" name="nombre" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Descripción</label>
+      <input [(ngModel)]="nuevoProducto.descripcion" name="descripcion" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Precio</label>
+      <input type="number" [(ngModel)]="nuevoProducto.precio" name="precio" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Stock</label>
+      <input type="number" [(ngModel)]="nuevoProducto.stock" name="stock" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Agregar</button>
+    </div>
+  </form>
+</div>
+
+<hr>
+
+<div class="table-responsive">
+  <h4>Listado de productos</h4>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>${{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>
+          <button (click)="eliminarProducto(producto.id)" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+        </td>
+        <td>
+            <button (click)="iniciarEdicion(producto)" class="btn btn-warning btn-sm me-1">
+                <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button (click)="eliminarProducto(producto.id)" class="btn btn-danger btn-sm">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade show" tabindex="-1" style="display: block;" *ngIf="productoEditando">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar producto</h5>
+        <button type="button" class="btn-close" (click)="cancelarEdicion()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label class="form-label">Nombre</label>
+          <input [(ngModel)]="productoEditando.nombre" name="nombreEdit" class="form-control mb-2" />
+
+          <label class="form-label">Descripción</label>
+          <input [(ngModel)]="productoEditando.descripcion" name="descripcionEdit" class="form-control mb-2" />
+
+          <label class="form-label">Precio</label>
+          <input type="number" [(ngModel)]="productoEditando.precio" name="precioEdit" class="form-control mb-2" />
+
+          <label class="form-label">Stock</label>
+          <input type="number" [(ngModel)]="productoEditando.stock" name="stockEdit" class="form-control mb-2" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fondo oscuro detrás del modal -->
+<div class="modal-backdrop fade show" *ngIf="productoEditando"></div>
+

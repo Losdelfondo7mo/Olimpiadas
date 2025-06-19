@@ -1,0 +1,22 @@
+<div *ngIf="pedidos.length === 0">
+  No hay pedidos aún.
+</div>
+
+<div *ngFor="let pedido of pedidos" class="pedido-card">
+  <h3>Pedido #{{ pedido.id }} - {{ pedido.estado | uppercase }}</h3>
+  <p><strong>Usuario:</strong> {{ pedido.usuario }}</p>
+  <p><strong>Total:</strong> ${{ pedido.total }}</p>
+  <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
+
+  <div>
+    <h4>Productos:</h4>
+    <ul>
+      <li *ngFor="let prod of pedido.productos">
+        {{ prod.nombre }} (x{{ prod.cantidad }}) - ${{ prod.precio }}
+      </li>
+    </ul>
+  </div>
+
+  <button (click)="cambiarEstado(pedido.id, 'aprobado')">Aprobar</button>
+  <button (click)="cambiarEstado(pedido.id, 'cancelado')">Cancelar</button>
+</div>

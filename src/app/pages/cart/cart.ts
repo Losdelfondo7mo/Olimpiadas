@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../product/product';
+import { OrdersService } from '../../services/orders.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +24,7 @@ export class Cart {
     cantidad: number;
   }[] = [];
 
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, private ordersService: OrdersService, private authService:AuthService) {}
 
   ngOnInit(): void {
     this.cartService.carrito$.subscribe(carrito => {
@@ -45,6 +47,16 @@ export class Cart {
   get total() {
     return this.cartService.total;
   }
+
+  finalizarCompra() {
+  this.ordersService.agregarPedido({
+    usuario: 'invitado',
+    productos: this.carrito,
+    total: this.cartService.total,
+  });
+
+  console.log('✅ Pedido agregado como invitado');
+}
 }
 
 

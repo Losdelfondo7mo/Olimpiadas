@@ -43,7 +43,7 @@
                 </p>
             }
           }
-        <input formControlName="password" type="password" placeholder="Contraseña" required [class.is-valid]=" Password?.valid && Password?.touched" [class.is-invalid] ="Password?.invalid && Password?.touched" />
+        <input formControlName="contraseña" type="password" placeholder="Contraseña" required [class.is-valid]=" Password?.valid && Password?.touched" [class.is-invalid] ="Password?.invalid && Password?.touched" />
           @if (Password?.errors && Password?.touched) {
              @if (Password?.hasError('required'))
             {
@@ -54,13 +54,13 @@
           }
           
 
-        <input formControlName="confirmPassword" type="password" placeholder="Confirmar contraseña" required [class.is-valid]=" ConfirmPassword?.valid && ConfirmPassword?.touched" [class.is-invalid] ="ConfirmPassword?.invalid && ConfirmPassword?.touched" />
-          @if (registerForm.errors?.['password'] && registerForm.touched) {
+        <input formControlName="confirmar_contraseña" type="password" placeholder="Confirmar contraseña" required [class.is-valid]=" ConfirmPassword?.valid && ConfirmPassword?.touched" [class.is-invalid] ="ConfirmPassword?.invalid && ConfirmPassword?.touched" />
+          @if (registerForm.errors?.['contraseña'] && registerForm.touched) {
             <p class="text-danger">Las contraseñas no coinciden.</p>
           }
           @if (
-            registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value &&
-            registerForm.get('confirmPassword')?.touched
+            registerForm.get('contraseña')?.value !== registerForm.get('confirmar_contraseña')?.value &&
+            registerForm.get('confirmar_contraseña')?.touched
             ) {
                 <p class="text-danger">Las contraseñas no coinciden.</p>
               }

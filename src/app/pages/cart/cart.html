@@ -13,6 +13,6 @@
 <p *ngIf="carrito.length > 0"><strong>Total: ${{ total }}</strong></p>
 
 <div class="botones-carrito" *ngIf="carrito.length > 0">
-  <button (click)="vaciar()">Vaciar carrito</button>
+  <button (click)="finalizarCompra()">Vaciar carrito</button>
   <button (click)="pagar()">Pagar</button>
 </div>

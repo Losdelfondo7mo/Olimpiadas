@@ -13,7 +13,10 @@ export class QuienesSomos {
   {
   nombre: 'Juan Montaño',
   imagen:  "/miembros/juan.jpg",
-  descripcion: 'Desarrollador Full Stack'
+  descripcion: 'Desarrollador Full Stack',
+  email: 'juan.mont1208@gmail.com',
+  telefono: '2945642191',
+  rol: 'Desarrollador Full Stack'
   },
 
     {

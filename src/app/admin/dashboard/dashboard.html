@@ -1,0 +1,41 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center">Panel de Administración</h2>
+
+  <ul class="nav nav-tabs justify-content-center mb-4">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'productos'" (click)="setTab('productos')">
+        Productos
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'pedidos'" (click)="setTab('pedidos')">
+        Pedidos
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'usuarios'" (click)="setTab('usuarios')">
+        Usuarios
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeTab === 'estadisticas'" (click)="setTab('estadisticas')">
+        Estadísticas
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div *ngIf="activeTab === 'productos'">
+     <app-admin-products></app-admin-products>
+    </div>
+    <div *ngIf="activeTab === 'pedidos'">
+        <app-admin-orders></app-admin-orders>
+    </div>
+    <div *ngIf="activeTab === 'usuarios'">
+      <!--<app-admin-usuarios></app-admin-usuarios>--->
+    </div>
+    <div *ngIf="activeTab === 'estadisticas'">
+      <!---<app-admin-estadisticas></app-admin-estadisticas>--->
+    </div>
+  </div>
+</div>

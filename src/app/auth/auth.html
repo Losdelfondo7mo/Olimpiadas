@@ -32,7 +32,7 @@
     <div class="form-section">
       <h2>Iniciar Sesión</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin($event)">
-        <input formControlName="username" type="text" placeholder="Usuario" required required [class.is-valid]=" Username?.valid && Username?.touched" [class.is-invalid] ="Username?.invalid && Username?.touched"/>
+        <input formControlName="usuario" type="text" placeholder="Usuario" required required [class.is-valid]=" Username?.valid && Username?.touched" [class.is-invalid] ="Username?.invalid && Username?.touched"/>
             @if (Username?.errors && Username?.touched) {
              @if (Username?.hasError('required'))
             {
@@ -41,7 +41,7 @@
                 </p>
             }
         }
-        <input formControlName="password" type="password" placeholder="Contraseña" required required [class.is-valid]=" Password?.valid && Password?.touched" [class.is-invalid] ="Password?.invalid && Password?.touched"/>
+        <input formControlName="contraseña" type="password" placeholder="Contraseña" required required [class.is-valid]=" Password?.valid && Password?.touched" [class.is-invalid] ="Password?.invalid && Password?.touched"/>
          @if (Password?.errors && Password?.touched) {
             @if (Password?.hasError('required'))
             {
