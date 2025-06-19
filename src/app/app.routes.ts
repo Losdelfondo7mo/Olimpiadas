@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth-guard';
 import { adminDashboard } from './admin/dashboard/dashboard';
 import { Registro } from './auth/registro/registro';
 import { AdminGuard } from './guard/admin-guard';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
     {path: "quienes_somos", component:QuienesSomos,},
