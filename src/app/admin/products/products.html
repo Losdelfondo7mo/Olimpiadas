@@ -1,6 +1,6 @@
 <div class="mb-4">
-  <h4>Agregar nuevo producto</h4>
-  <form (ngSubmit)="agregarProducto()" class="row g-2 align-items-end">
+  <h4 class="mb-3">Agregar nuevo producto</h4>
+  <form (ngSubmit)="agregarProducto()" class="row g-3 align-items-end">
     <div class="col-md-3">
       <label class="form-label">Nombre</label>
       <input [(ngModel)]="nuevoProducto.nombre" name="nombre" class="form-control" required>
@@ -14,27 +14,26 @@
       <input type="number" [(ngModel)]="nuevoProducto.precio" name="precio" class="form-control" required>
     </div>
     <div class="col-md-2">
-      <label class="form-label">Stock</label>
-      <input type="number" [(ngModel)]="nuevoProducto.stock" name="stock" class="form-control" required>
+      <label class="form-label d-block text-muted small">Stock (no visible)</label>
+      <span class="text-muted">—</span>
     </div>
     <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">Agregar</button>
+      <button type="submit" class="btn btn-success w-100">Agregar</button>
     </div>
   </form>
 </div>
 
-<hr>
+<hr class="my-4">
 
 <div class="table-responsive">
-  <h4>Listado de productos</h4>
-  <table class="table table-bordered table-hover">
-    <thead class="table-light">
+  <h4 class="mb-3">Listado de productos</h4>
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light text-center">
       <tr>
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Precio</th>
-        <th>Stock</th>
-        <th>Acciones</th>
+        <th colspan="2">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -42,45 +41,43 @@
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
-        <td>{{ producto.stock }}</td>
-        <td>
+        <td class="text-center">
+          <button (click)="iniciarEdicion(producto)" class="btn btn-warning btn-sm">
+            <i class="bi bi-pencil"></i> Editar
+          </button>
+        </td>
+        <td class="text-center">
           <button (click)="eliminarProducto(producto.id)" class="btn btn-danger btn-sm">
             <i class="bi bi-trash"></i> Eliminar
           </button>
-        </td>
-        <td>
-            <button (click)="iniciarEdicion(producto)" class="btn btn-warning btn-sm me-1">
-                <i class="bi bi-pencil"></i> Editar
-            </button>
-            <button (click)="eliminarProducto(producto.id)" class="btn btn-danger btn-sm">
-                <i class="bi bi-trash"></i> Eliminar
-            </button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
+<!-- Modal de edición -->
 <div class="modal fade show" tabindex="-1" style="display: block;" *ngIf="productoEditando">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content shadow">
       <div class="modal-header">
         <h5 class="modal-title">Editar producto</h5>
         <button type="button" class="btn-close" (click)="cancelarEdicion()"></button>
       </div>
       <div class="modal-body">
         <form>
-          <label class="form-label">Nombre</label>
-          <input [(ngModel)]="productoEditando.nombre" name="nombreEdit" class="form-control mb-2" />
-
-          <label class="form-label">Descripción</label>
-          <input [(ngModel)]="productoEditando.descripcion" name="descripcionEdit" class="form-control mb-2" />
-
-          <label class="form-label">Precio</label>
-          <input type="number" [(ngModel)]="productoEditando.precio" name="precioEdit" class="form-control mb-2" />
-
-          <label class="form-label">Stock</label>
-          <input type="number" [(ngModel)]="productoEditando.stock" name="stockEdit" class="form-control mb-2" />
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input [(ngModel)]="productoEditando.nombre" name="nombreEdit" class="form-control" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Descripción</label>
+            <input [(ngModel)]="productoEditando.descripcion" name="descripcionEdit" class="form-control" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Precio</label>
+            <input type="number" [(ngModel)]="productoEditando.precio" name="precioEdit" class="form-control" />
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -91,6 +88,4 @@
   </div>
 </div>
 
-<!-- Fondo oscuro detrás del modal -->
 <div class="modal-backdrop fade show" *ngIf="productoEditando"></div>
-

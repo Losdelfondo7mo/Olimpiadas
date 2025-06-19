@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
 
 
 interface Producto {
@@ -8,7 +9,6 @@ interface Producto {
   nombre: string;
   descripcion: string;
   precio: number;
-  stock: number;
 }
 
 @Component({
@@ -18,23 +18,22 @@ interface Producto {
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
-export class adminProducts {
-    productos: Producto[] = [
-    { id: 1, nombre: 'Producto A', descripcion: 'Descripción A', precio: 100, stock: 10 },
-    { id: 2, nombre: 'Producto B', descripcion: 'Descripción B', precio: 150, stock: 5 }
-  ];
-
-  nuevoProducto: Producto = { id: 0, nombre: '', descripcion: '', precio: 0, stock: 0 };
+export class adminProducts implements OnInit{
+     productos: Producto[] = [];
+  nuevoProducto: Omit<Producto, 'id'> = { nombre: '', descripcion: '', precio: 0, };
   productoEditando: Producto | null = null;
 
-  agregarProducto() {
-    const nuevo = { ...this.nuevoProducto, id: Date.now() };
-    this.productos.push(nuevo);
-    this.nuevoProducto = { id: 0, nombre: '', descripcion: '', precio: 0, stock: 0 };
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.productService.getProductos().subscribe(data => {
+      this.productos = data;
+    });
   }
 
-  eliminarProducto(id: number) {
-    this.productos = this.productos.filter(p => p.id !== id);
+  agregarProducto() {
+    this.productService.agregarProducto(this.nuevoProducto);
+    this.nuevoProducto = { nombre: '', descripcion: '', precio: 0, };
   }
 
   iniciarEdicion(producto: Producto) {
@@ -46,8 +45,15 @@ export class adminProducts {
     const index = this.productos.findIndex(p => p.id === this.productoEditando!.id);
     if (index > -1) {
       this.productos[index] = { ...this.productoEditando };
+      // Actualizar localStorage
+      localStorage.setItem('productos', JSON.stringify(this.productos));
     }
     this.productoEditando = null;
+  }
+
+  eliminarProducto(id: number) {
+    this.productos = this.productos.filter(p => p.id !== id);
+    localStorage.setItem('productos', JSON.stringify(this.productos));
   }
 
   cancelarEdicion() {
