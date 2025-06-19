@@ -6,6 +6,7 @@ import { Cart } from './pages/cart/cart';
 import { Product } from './pages/product/product';
 import { AuthGuard } from './auth/auth-guard';
 import { adminDashboard } from './admin/dashboard/dashboard';
+import { Error404 } from './pages/error404/error404'
 
 export const routes: Routes = [
     {path: "quienes_somos", component:QuienesSomos,},
