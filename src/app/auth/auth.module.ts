@@ -4,8 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthComponent } from './auth';
-import { Registro } from './registro/registro';
+
 
 
 
