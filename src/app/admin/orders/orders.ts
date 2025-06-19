@@ -17,7 +17,7 @@ export class AdimnOrders implements OnInit {
 
   ngOnInit(): void {
     this.pedidos = this.ordersService.getPedidos();
-    console.log('📦 Pedidos cargados en admin:', this.pedidos);
+    console.log('Pedidos cargados en admin:', this.pedidos);
   }
 
   cambiarEstado(id: number, estado: 'aprobado' | 'cancelado') {

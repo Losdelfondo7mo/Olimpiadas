@@ -26,15 +26,15 @@ export class AuthService {
     contraseña,
   }).pipe(
     tap(respuesta => {
-      console.log('Respuesta del login:', respuesta); // 👈 DEBUG
+      console.log('Respuesta del login:', respuesta);
 
       this.guardarSesion(respuesta.access_token);
 
       if (respuesta.usuario) {
         localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
-        console.log('Usuario guardado:', respuesta.usuario);
+        console.log('Usuario guardado:', respuesta);
       } else {
-        console.warn('⚠️ No se recibió el usuario en la respuesta del login');
+        console.warn(' No se recibió el usuario en la respuesta del login');
       }
     })
   );
@@ -58,7 +58,6 @@ export class AuthService {
 //guardar usuario
   get usuarioActual(): string | null {
   const raw = localStorage.getItem('usuario');
-  console.log('🧪 Usuario actual leído de localStorage:', raw); // 👈 DEBUG
   return raw ? JSON.parse(raw) : null;
 }
 

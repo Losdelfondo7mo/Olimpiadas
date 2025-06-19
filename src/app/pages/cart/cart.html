@@ -1,18 +1,28 @@
+<div class="carrito-container">
+  <h2 class="carrito-titulo">Carrito</h2>
 
-<h2>Carrito</h2>
+  <ul class="carrito-lista">
+    <li class="carrito-item" *ngFor="let item of carrito">
+      <div class="item-info">
+        <span class="item-nombre">{{ item.nombre }} x{{ item.cantidad }}</span>
+        <span class="item-precio">${{ item.precio * item.cantidad }}</span>
+      </div>
+      <button (click)="eliminar(item.id)"
+              class="btn-eliminar"
+              [attr.aria-label]="'Eliminar ' + item.nombre + ' del carrito'">
+        <i class="bi bi-trash-fill"></i>
+      </button>
+    </li>
+  </ul>
 
-<ul>
-  <li *ngFor="let item of carrito">
-    <span>{{ item.nombre }} x{{ item.cantidad }} - ${{ item.precio * item.cantidad }}</span>
-    <button (click)="eliminar(item.id)">Eliminar</button>
-  </li>
-</ul>
+  <p *ngIf="carrito.length === 0" class="carrito-vacio">El carrito está vacío.</p>
 
-<p *ngIf="carrito.length === 0">El carrito está vacío.</p>
+  <p *ngIf="carrito.length > 0" class="carrito-total">
+    <strong>Total:</strong> ${{ total }}
+  </p>
 
-<p *ngIf="carrito.length > 0"><strong>Total: ${{ total }}</strong></p>
-
-<div class="botones-carrito" *ngIf="carrito.length > 0">
-  <button (click)="finalizarCompra()">Vaciar carrito</button>
-  <button (click)="pagar()">Pagar</button>
+  <div class="carrito-acciones" *ngIf="carrito.length > 0">
+    <button (click)="vaciar()" class="btn-accion btn-vaciar">Vaciar</button>
+    <button (click)="pagar()" class="btn-accion btn-pagar">Pagar</button>
+  </div>
 </div>

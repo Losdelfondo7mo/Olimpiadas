@@ -55,7 +55,7 @@ export class AuthComponent {
         console.log(respuesta);
         if (respuesta.access_token) {
           localStorage.setItem('access_token', respuesta.access_token);
-          localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
+          localStorage.setItem('usuario', JSON.stringify(respuesta));
           alert('Bien, pudiste ingresar');
           this.router.navigate(['/productos']);
         } else {

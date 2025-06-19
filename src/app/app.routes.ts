@@ -10,17 +10,17 @@ import { AuthGuard } from './auth/auth-guard';
 import { adminDashboard } from './admin/dashboard/dashboard';
 
 export const routes: Routes = [
-    {path: "quienes_somos", component:QuienesSomos, canActivate:[AuthGuard]},
+    {path: "quienes_somos", component:QuienesSomos,},
     {path: "auth", children:[
         { path: '', component: AuthComponent},
         { path: 'registro', component: Registro}
     ]},
-    {path: "productos", component: Product, canActivate:[AuthGuard]},
-    {path: "cart", component:Cart, canActivate:[AuthGuard]},
+    {path: "productos", component: Product, },
+    {path: "cart", component:Cart, },
     {path:"", redirectTo: "/auth", pathMatch: "full"},
     {path: "admin", component: Dashboard, canActivate:[AuthGuard] },
     {path: "registro", component:Registro},
-    { path: 'adminis', component: adminDashboard, canActivate: [AuthGuard] },
+    { path: 'adminis', component: adminDashboard,  },
 
     {
         path: '',

@@ -4,11 +4,12 @@ import { CartService } from '../../services/cart.service';
 import { Product } from '../product/product';
 import { OrdersService } from '../../services/orders.service';
 import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
@@ -41,8 +42,15 @@ export class Cart {
   }
 
   pagar() {
-    this.cartService.pagar();
-  }
+  this.ordersService.agregarPedido({
+    usuario: 'invitado',
+    productos: this.carrito,
+    total: this.cartService.total,
+  });
+
+  this.cartService.pagar();
+}
+
 
   get total() {
     return this.cartService.total;
@@ -50,12 +58,12 @@ export class Cart {
 
   finalizarCompra() {
   this.ordersService.agregarPedido({
-    usuario: 'invitado',
+    usuario: this.authService.usuarioActual || 'invitado',
     productos: this.carrito,
     total: this.cartService.total,
   });
 
-  console.log('✅ Pedido agregado como invitado');
+  console.log('Pedido agregado como invitado');
 }
 }
 

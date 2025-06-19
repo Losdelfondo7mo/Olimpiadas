@@ -13,7 +13,6 @@
 
 }
 
-/* Hover personalizado con #fff de fondo y #2651D3 en texto y borde */
 .custom-hover:hover {
   background-color: #fff;
   color: #2651D3;

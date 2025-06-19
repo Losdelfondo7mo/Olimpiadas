@@ -1,41 +1,78 @@
-<div class="container py-4">
-  <h2 class="mb-4 text-center">Panel de Administración</h2>
+<div class="container py-5">
+  <h2 class="mb-5 text-center">Panel de Administración</h2>
 
-  <ul class="nav nav-tabs justify-content-center mb-4">
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeTab === 'productos'" (click)="setTab('productos')">
-        Productos
-      </button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeTab === 'pedidos'" (click)="setTab('pedidos')">
-        Pedidos
-      </button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeTab === 'usuarios'" (click)="setTab('usuarios')">
-        Usuarios
-      </button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" [class.active]="activeTab === 'estadisticas'" (click)="setTab('estadisticas')">
-        Estadísticas
-      </button>
-    </li>
-  </ul>
+  <div class="row g-4 justify-content-center mb-4">
+    <!-- Productos -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card shadow-sm h-100 text-center border-primary" (click)="setTab('productos')" style="cursor: pointer;">
+        <div class="card-body">
+          <i class="bi bi-box-seam fs-1 text-primary"></i>
+          <h5 class="card-title mt-3">Productos</h5>
+          <p class="text-muted small">Gestión de productos</p>
+        </div>
+        <div *ngIf="activeTab === 'productos'" class="card-footer text-white bg-primary">
+          Activo
+        </div>
+      </div>
+    </div>
 
-  <div class="tab-content">
+    <!-- Pedidos -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card shadow-sm h-100 text-center border-success" (click)="setTab('pedidos')" style="cursor: pointer;">
+        <div class="card-body">
+          <i class="bi bi-clipboard-check fs-1 text-success"></i>
+          <h5 class="card-title mt-3">Pedidos</h5>
+          <p class="text-muted small">Gestión de pedidos</p>
+        </div>
+        <div *ngIf="activeTab === 'pedidos'" class="card-footer text-white bg-success">
+          Activo
+        </div>
+      </div>
+    </div>
+
+    <!-- Usuarios -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card shadow-sm h-100 text-center border-info" (click)="setTab('usuarios')" style="cursor: pointer;">
+        <div class="card-body">
+          <i class="bi bi-people fs-1 text-info"></i>
+          <h5 class="card-title mt-3">Usuarios</h5>
+          <p class="text-muted small">Listado de usuarios</p>
+        </div>
+        <div *ngIf="activeTab === 'usuarios'" class="card-footer text-white bg-info">
+          Activo
+        </div>
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card shadow-sm h-100 text-center border-warning" (click)="setTab('estadisticas')" style="cursor: pointer;">
+        <div class="card-body">
+          <i class="bi bi-bar-chart-line fs-1 text-warning"></i>
+          <h5 class="card-title mt-3">Estadísticas</h5>
+          <p class="text-muted small">Datos y métricas</p>
+        </div>
+        <div *ngIf="activeTab === 'estadisticas'" class="card-footer text-white bg-warning">
+          Activo
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido dinámico -->
+  <div class="tab-content mt-4">
     <div *ngIf="activeTab === 'productos'">
-     <app-admin-products></app-admin-products>
+      <app-admin-products></app-admin-products>
     </div>
     <div *ngIf="activeTab === 'pedidos'">
-        <app-admin-orders></app-admin-orders>
+      <app-admin-orders></app-admin-orders>
     </div>
     <div *ngIf="activeTab === 'usuarios'">
-      <!--<app-admin-usuarios></app-admin-usuarios>--->
+      <!-- <app-admin-usuarios></app-admin-usuarios> -->
     </div>
     <div *ngIf="activeTab === 'estadisticas'">
-      <!---<app-admin-estadisticas></app-admin-estadisticas>--->
+      <!-- <app-admin-estadisticas></app-admin-estadisticas> -->
     </div>
   </div>
 </div>
+

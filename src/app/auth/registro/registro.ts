@@ -79,6 +79,7 @@ export class Registro  {
       error: (err) => {
         
         alert(err.error?.detail || 'Error al registrar usuario');
+        console.log(this.registerForm)
       }
     });
   } else {

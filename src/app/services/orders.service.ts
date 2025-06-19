@@ -34,8 +34,8 @@ export class OrdersService {
       fecha: new Date(),
     };
     this.pedidos.push(nuevo);
-    localStorage.setItem('pedidos', JSON.stringify(this.pedidos)); // 👈
-    console.log('✅ Pedido guardado en localStorage:', nuevo);
+    localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
+    console.log('Pedido guardado en localStorage:', nuevo);
   }
 
   getPedidos(): Pedido[] {
@@ -46,7 +46,7 @@ export class OrdersService {
     const pedido = this.pedidos.find(p => p.id === id);
     if (pedido) {
       pedido.estado = estado;
-      localStorage.setItem('pedidos', JSON.stringify(this.pedidos)); // 👈 actualizar storage
+      localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
     }
   }
 }
