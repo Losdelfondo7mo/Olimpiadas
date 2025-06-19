@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { fader } from './route-animations';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -10,7 +9,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './auth.html',
   imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule],
-  animations: [fader],
   styleUrls: ['./auth.css']
 })
 export class AuthComponent {
@@ -56,6 +54,7 @@ export class AuthComponent {
         if (respuesta.access_token) {
           localStorage.setItem('access_token', respuesta.access_token);
           localStorage.setItem('usuario', JSON.stringify(respuesta));
+          localStorage.setItem( 'rol', respuesta.rol);
           alert('Bien, pudiste ingresar');
           this.router.navigate(['/productos']);
         } else {
