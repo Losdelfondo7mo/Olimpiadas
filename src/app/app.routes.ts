@@ -18,4 +18,5 @@ export const routes: Routes = [
     {path: "cart", component:Cart, },
     {path:"", redirectTo: "/auth", pathMatch: "full"},
     { path: 'adminis', component: adminDashboard,  },
+    { path: '**', component: Error404,  },
 ]
