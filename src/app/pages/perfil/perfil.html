@@ -1,0 +1,33 @@
+<div class="perfil-fondo py-5 animate-fade-in">
+  <div class="card shadow rounded-4 p-4 border-0 profile-card mx-auto">
+    <h3 class="mb-4 text-primary d-flex align-items-center gap-2">
+      <i class="bi bi-person-badge-fill fs-3"></i> Mi Perfil
+    </h3>
+
+    <ul class="list-group list-group-flush mb-4">
+      <li class="list-group-item profile-item">
+        <i class="bi bi-person-fill me-2 text-secondary"></i>
+        <strong>Nombre:</strong> {{ nombre }}
+      </li>
+      <li class="list-group-item profile-item">
+        <i class="bi bi-person-vcard-fill me-2 text-secondary"></i>
+        <strong>Apellido:</strong> {{ apellido }}
+      </li>
+      <li class="list-group-item profile-item">
+        <i class="bi bi-envelope-fill me-2 text-secondary"></i>
+        <strong>Email:</strong> {{ email }}
+      </li>
+      <li class="list-group-item profile-item">
+        <i class="bi bi-person-circle me-2 text-secondary"></i>
+        <strong>Usuario:</strong> {{ usuario }}
+      </li>
+    </ul>
+
+    <div class="text-center">
+      <button (click)="logout()" class="btn btn-danger btn-sm d-flex align-items-center gap-2 mx-auto">
+        <i class="bi bi-door-closed"></i> Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>
+

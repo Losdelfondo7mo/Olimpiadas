@@ -7,6 +7,9 @@ export interface LoginResponse {
   token_type: string;
   usuario: string;
   rol: string;
+  email: string;
+  nombre: string;
+  apellido: string
 }
 
 @Injectable({
@@ -34,6 +37,9 @@ export class AuthService {
       if (respuesta.usuario) {
         localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
         localStorage.setItem('rol', respuesta.rol);
+        localStorage.setItem('nombre', respuesta.nombre);
+        localStorage.setItem('apellido', respuesta.apellido);
+        localStorage.setItem('email', respuesta.email)
         console.log('Usuario guardado:', respuesta);
       } else {
         console.warn(' No se recibió el usuario en la respuesta del login');

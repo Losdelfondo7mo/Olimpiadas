@@ -16,13 +16,26 @@ export class Product implements OnInit {
 
   constructor(private productosService: ProductService, private cartService: CartService) {}
 
+    toastVisible = false;
+    toastMensaje = '';
+
+    mostrarToast(mensaje: string) {
+      this.toastMensaje = mensaje;
+      this.toastVisible = true;
+
+      setTimeout(() => {
+        this.toastVisible = false;
+      }, 2000); // El toast se cierra solo después de 2 segundos
+    }
+
     ngOnInit() {
       this.productosService.getProductos().subscribe(data => {
         this.productos = data;
       });
     }
 
-  agregarAlCarrito(producto: Producto) {
+    agregarAlCarrito(producto: Producto) {
     this.cartService.agregar(producto);
+    this.mostrarToast(`"${producto.nombre}" fue agregado al carrito `);
   }
 }

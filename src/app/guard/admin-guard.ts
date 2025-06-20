@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate {
     }
 
     // si no es admin nos redirige a un error
-    this.router.navigate(['/']);
+    this.router.navigate(['/not-found']);
     return false;
   }
 }

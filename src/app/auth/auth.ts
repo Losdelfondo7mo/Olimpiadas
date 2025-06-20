@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -14,13 +15,41 @@ import { CommonModule } from '@angular/common';
 export class AuthComponent {
   showLogin = true;
   loginForm: FormGroup;
+  providers: any = {};
 
-  constructor(private fb: FormBuilder, private router: Router, private loginService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private loginService: AuthService, private http: HttpClient) {
     this.loginForm = this.fb.group({
       usuario: ['', Validators.required],
       contraseña: ['', Validators.required],
     });
   }
+
+  //inicio de sesion con google etc
+
+  ngOnInit(): void {
+  this.http.get<any[]>('https://backend-9s6b.onrender.com/api/auth/oauth/providers')
+    .subscribe({
+      next: res => {
+        console.log('Proveedores recibidos:', res);
+        // Convertir array a objeto
+        this.providers = res.reduce((acc, p) => {
+          acc[p.name] = p.authorization_url;
+          return acc;
+        }, {} as Record<string, string>);
+        console.log('Proveedores procesados:', this.providers);
+      },
+      error: err => console.error('Error al obtener proveedores', err)
+    });
+}
+
+  loginCon(proveedor: string) {
+  const url = this.providers[proveedor];
+  if (url) {
+    window.location.href = url;
+  } else {
+    alert('Proveedor no disponible: ' + proveedor);
+  }
+}
 
   toggle(): void {
     this.showLogin = !this.showLogin;

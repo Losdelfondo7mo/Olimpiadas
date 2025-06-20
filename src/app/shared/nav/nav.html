@@ -10,10 +10,15 @@
       <a routerLink="cart" class="btn custom-hover btn-sm">
         <i class="bi bi-cart3"></i>
       </a>
-      <button (click)="logout()" class="btn btn-sm btn-danger d-flex align-items-center gap-2">
-        <i class="bi bi-door-closed"></i>
-          cerrar sesion
+      <button
+        (click)="irAlPerfil()"
+        class="btn custom-hover btn-sm d-flex align-items-center gap-1"
+        title="Mi Perfil"
+      >
+        <i class="bi bi-person-circle fs-5"></i>
+        <span class="d-none d-sm-inline">{{ authService.usuarioActual }}</span>
       </button>
+
     </div>
   </nav>
 </header>

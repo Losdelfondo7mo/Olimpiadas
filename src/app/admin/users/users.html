@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h4 class="mb-3 text-primary">📋 Usuarios registrados</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-light text-center">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td class="text-center">{{ usuario.id }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

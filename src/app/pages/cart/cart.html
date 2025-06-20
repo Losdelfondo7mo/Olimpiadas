@@ -26,3 +26,22 @@
     <button (click)="pagar()" class="btn-accion btn-pagar">Pagar</button>
   </div>
 </div>
+
+<div
+  class="toast-container position-fixed bottom-0 end-0 p-3"
+  style="z-index: 1055"
+  *ngIf="toastVisible"
+>
+  <div class="toast show text-white bg-primary border-0">
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toastMensaje }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        (click)="toastVisible = false"
+      ></button>
+    </div>
+  </div>
+</div>

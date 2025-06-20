@@ -1,47 +1,70 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable , tap} from 'rxjs';
+
+
+
 
 export interface Producto {
   id: number;
   nombre: string;
-  precio: number;
   descripcion: string;
-  
+  precio: number;
+  disponibilidad: boolean;
+  categoria_id: number;
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private productosSubject = new BehaviorSubject<Producto[]>([]);
-  private contadorId = 1;
 
-  constructor() {
-    const guardados = localStorage.getItem('productos');
-    const productosIniciales = guardados ? JSON.parse(guardados) : this.productosBase();
-    this.productosSubject.next(productosIniciales);
-    this.contadorId = productosIniciales.length + 1;
+  private apiUrl = 'https://backend-9s6b.onrender.com/api/productos';
+
+  private productosSubject = new BehaviorSubject<Producto[]>([]);
+  productos$ = this.productosSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    this.cargarProductos();
   }
 
-    private productosBase(): Producto[] {
-    return [
-    { id: 1, nombre: 'Paquete al Caribe', precio: 1500, descripcion: '7 noches en hotel 5★ con vuelos ida y vuelta.' },
-    { id: 2, nombre: 'Alojamiento en Bariloche', precio: 450, descripcion: '3 noches en cabaña para 2 personas.' },
-    { id: 3, nombre: 'Alquiler de Auto en Córdoba', precio: 250, descripcion: 'Auto económico por 5 días.' },
-    { id: 4, nombre: 'Pasaje a Mendoza (aéreo)', precio: 200, descripcion: 'Pasaje ida y vuelta desde Buenos Aires.' },
-    { id: 5, nombre: 'Excursión Glaciar Perito Moreno', precio: 100, descripcion: 'Excursión guiada de día completo.' }
-  ];
-}
+
+    //para editar
+
+    editarProducto(producto: Producto): Observable<Producto> {
+    const token = localStorage.getItem('access_token');
+    console.log('token usado:', token)
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put<Producto>(`${this.apiUrl}/${producto.id}`, producto, { headers });
+  }
+
+ 
+  cargarProductos() {
+    this.http.get<Producto[]>(this.apiUrl)
+      .subscribe(productos => this.productosSubject.next(productos));
+  }
 
   getProductos(): Observable<Producto[]> {
-    return this.productosSubject.asObservable();
+    return this.productos$;
   }
 
-  agregarProducto(producto: Omit<Producto, 'id'>) {
-    const productos = this.productosSubject.value;
-    const nuevo: Producto = { id: this.contadorId++, ...producto };
-    const actualizados = [...productos, nuevo];
-    this.productosSubject.next(actualizados);
-    localStorage.setItem('productos', JSON.stringify(actualizados));
-  }
+  agregarProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
+  const token = localStorage.getItem('access_token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post<Producto>(`${this.apiUrl}/crear`, producto, { headers }).pipe(
+    tap(nuevoProducto => {
+      const productos = this.productosSubject.value;
+      this.productosSubject.next([...productos, nuevoProducto]);
+    })
+  );
+}
 }

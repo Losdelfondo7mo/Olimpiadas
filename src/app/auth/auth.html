@@ -53,6 +53,18 @@
            
         <button type="submit" [formGroup]="loginForm" (ngSubmit)="onEnviar($event)">Entrar</button>
       </form>
+
+       <button class="btn btn-outline-danger w-100 mb-2" (click)="loginCon('google')">
+          <i class="bi bi-google me-2"></i> Iniciar con Google
+        </button>
+
+        <button class="btn btn-outline-dark w-100 mb-2" (click)="loginCon('github')">
+          <i class="bi bi-github me-2"></i> Iniciar con GitHub
+        </button>
+
+        <button class="btn btn-outline-primary w-100 mb-2" (click)="loginCon('discord')">
+          <i class="bi bi-discord me-2"></i> Iniciar con Discord
+        </button>
     </div>
   </div>
 </div>

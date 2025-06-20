@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 interface Producto {
@@ -9,6 +11,8 @@ interface Producto {
   nombre: string;
   descripcion: string;
   precio: number;
+  disponibilidad: boolean;
+  categoria_id: number;
 }
 
 @Component({
@@ -20,8 +24,15 @@ interface Producto {
 })
 export class adminProducts implements OnInit{
      productos: Producto[] = [];
-  nuevoProducto: Omit<Producto, 'id'> = { nombre: '', descripcion: '', precio: 0, };
-  productoEditando: Producto | null = null;
+      nuevoProducto: Omit<Producto, 'id'> = {
+  nombre: '',
+  descripcion: '',
+  precio: 0,
+  disponibilidad: true,
+  categoria_id: 0
+};
+productoEditando: Producto | null = null;
+
 
   constructor(private productService: ProductService) {}
 
@@ -31,25 +42,40 @@ export class adminProducts implements OnInit{
     });
   }
 
+
+
   agregarProducto() {
-    this.productService.agregarProducto(this.nuevoProducto);
-    this.nuevoProducto = { nombre: '', descripcion: '', precio: 0, };
-  }
+  this.productService.agregarProducto(this.nuevoProducto).subscribe(() => {
+    // Resetear nuevoProducto con todas las propiedades requeridas
+    this.nuevoProducto = {
+      nombre: '',
+      descripcion: '',
+      precio: 0,
+      disponibilidad: true,
+      categoria_id: 0
+    };
+  });
+}
 
   iniciarEdicion(producto: Producto) {
     this.productoEditando = { ...producto };
   }
 
   guardarCambios() {
-    if (!this.productoEditando) return;
-    const index = this.productos.findIndex(p => p.id === this.productoEditando!.id);
+  if (!this.productoEditando) return;
+
+  this.productService.editarProducto(this.productoEditando).subscribe(actualizado => {
+    const index = this.productos.findIndex(p => p.id === actualizado.id);
     if (index > -1) {
-      this.productos[index] = { ...this.productoEditando };
-      // Actualizar localStorage
-      localStorage.setItem('productos', JSON.stringify(this.productos));
+      this.productos[index] = actualizado;
     }
     this.productoEditando = null;
-  }
+  }, error => {
+    console.error('Error al actualizar producto:', error);
+    alert('Hubo un error al actualizar el producto');
+  });
+}
+
 
   eliminarProducto(id: number) {
     this.productos = this.productos.filter(p => p.id !== id);

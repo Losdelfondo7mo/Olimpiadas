@@ -12,8 +12,7 @@ import { CommonModule } from '@angular/common';
 export class Nav {
     constructor(public authService: AuthService, private router: Router) {}
 
-    logout(): void {
-    this.authService.cerrarSesion();
-    this.router.navigate(['/auth']);
+  irAlPerfil(): void {
+    this.router.navigate(['/perfil']);
   }
 }

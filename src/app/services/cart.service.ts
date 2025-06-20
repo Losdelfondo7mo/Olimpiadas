@@ -52,7 +52,6 @@ export class CartService {
   }
 
   pagar() {
-    alert(`¡Gracias por tu compra de $${this.total}!`);
     this.vaciar();
   }
 

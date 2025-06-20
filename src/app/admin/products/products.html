@@ -3,11 +3,11 @@
     <div class="card-body">
       <h4 class="mb-4 text-primary"> Agregar nuevo producto</h4>
       <form (ngSubmit)="agregarProducto()" class="row g-3 align-items-end">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <label class="form-label">Nombre</label>
           <input [(ngModel)]="nuevoProducto.nombre" name="nombre" class="form-control" required>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <label class="form-label">Descripción</label>
           <input [(ngModel)]="nuevoProducto.descripcion" name="descripcion" class="form-control" required>
         </div>
@@ -15,10 +15,22 @@
           <label class="form-label">Precio</label>
           <input type="number" [(ngModel)]="nuevoProducto.precio" name="precio" class="form-control" required>
         </div>
+        <div class="col-md-2">
+          <label class="form-label">Disponibilidad</label>
+          <select [(ngModel)]="nuevoProducto.disponibilidad" name="disponibilidad" class="form-control">
+            <option [ngValue]="true">Sí</option>
+            <option [ngValue]="false">No</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Categoría ID</label>
+          <input type="number" [(ngModel)]="nuevoProducto.categoria_id" name="categoria_id" class="form-control" required>
+        </div>
         <div class="col-md-2 d-grid">
           <button type="submit" class="btn btn-success">Agregar</button>
         </div>
       </form>
+
     </div>
   </div>
 </div>

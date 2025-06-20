@@ -15,6 +15,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class Cart {
 
+  toastVisible = false;
+  toastMensaje = '';
+
+  mostrarToast(mensaje: string) {
+  this.toastMensaje = mensaje;
+  this.toastVisible = true;
+
+  setTimeout(() => {
+    this.toastVisible = false;
+  }, 3500);
+  }
+
 
   carrito: {
     id: number;
@@ -34,12 +46,18 @@ export class Cart {
   }
 
   eliminar(id: number) {
-    this.cartService.eliminar(id);
+  const eliminado = this.carrito.find(p => p.id === id);
+  this.cartService.eliminar(id);
+  if (eliminado) {
+    this.mostrarToast(`Se eliminó "${eliminado.nombre}" del carrito `);
+  }
   }
 
   vaciar() {
-    this.cartService.vaciar();
+  this.cartService.vaciar();
+  this.mostrarToast('Se vació el carrito ');
   }
+
 
   pagar() {
   this.ordersService.agregarPedido({
@@ -49,22 +67,16 @@ export class Cart {
   });
 
   this.cartService.pagar();
-}
+  this.mostrarToast('¡Compra realizada con éxito!');
+  }
 
 
   get total() {
     return this.cartService.total;
   }
 
-  finalizarCompra() {
-  this.ordersService.agregarPedido({
-    usuario: this.authService.usuarioActual || 'invitado',
-    productos: this.carrito,
-    total: this.cartService.total,
-  });
+ 
+}
 
-  console.log('Pedido agregado como invitado');
-}
-}
 
 
