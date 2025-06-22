@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-registro',
@@ -73,17 +75,34 @@ export class Registro  {
 
     this.authService.registrarUsuario(registroData).subscribe({
       next: (res) => {
-        alert('¡Usuario registrado exitosamente!');
-        this.router.navigate(['/auth']);
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: 'Tu cuenta ha sido creada correctamente.',
+          confirmButtonText: 'Iniciar sesión'
+        }).then(() => {
+          this.router.navigate(['/auth']);
+        });
       },
       error: (err) => {
         
-        alert(err.error?.detail || 'Error al registrar usuario');
+        Swal.fire({
+      icon: 'error',
+      title: 'Error al registrar',
+      
+      confirmButtonText: 'Aceptar'
+  });
+
         console.log(this.registerForm)
       }
     });
   } else {
-    alert('Las contraseñas no coinciden o hay errores en el formulario');
+    Swal.fire({
+      icon: 'warning',
+      title: 'Datos inválidos',
+      text: 'Las contraseñas no coinciden o hay campos incompletos.',
+      confirmButtonText: 'Revisar'
+    });
     this.registerForm.markAllAsTouched();
   }
 }

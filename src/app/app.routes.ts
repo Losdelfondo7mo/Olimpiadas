@@ -10,6 +10,7 @@ import { AdminGuard } from './guard/admin-guard';
 import { NotFound } from './pages/not-found/not-found';
 import { Perfil } from './pages/perfil/perfil';
 import { AuthCallback } from './auth/auth-callback';
+import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 
 export const routes: Routes = [
     {path: "quienes_somos", component:QuienesSomos,},
@@ -21,6 +22,7 @@ export const routes: Routes = [
       
     ]},
     {path: "perfil", component: Perfil, },
+    {path: "mis-pedidos", component: MisPedidos },
     {path: "productos", component: Product, },
     {path: "cart", component:Cart, },
     { path: 'admin', component: adminDashboard, canActivate: [AdminGuard] },

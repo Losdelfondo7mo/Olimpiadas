@@ -1,0 +1,13 @@
+<h2>Mis Pedidos</h2>
+<ul *ngIf="pedidos.length; else sinPedidos">
+  <li *ngFor="let pedido of pedidos">
+    <strong>ID:</strong> {{ pedido.id }} |
+    <strong>Estado:</strong> {{ pedido.estado }}
+    <button *ngIf="pedido.estado === 'pendiente'" (click)="cancelar(pedido.id)">
+      Cancelar
+    </button>
+  </li>
+</ul>
+<ng-template #sinPedidos>
+  <p>No tienes pedidos realizados.</p>
+</ng-template>

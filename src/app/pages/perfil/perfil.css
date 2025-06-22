@@ -1,10 +1,9 @@
-/* Fondo completo */
+
 .perfil-fondo {
-  background-color: #f1f3f5; /* Gris claro */
+  background-color: #f1f3f5; 
   min-height: 100vh;
 }
 
-/* Animación */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -20,13 +19,13 @@
   animation: fadeInUp 0.7s ease-out;
 }
 
-/* Tarjeta del perfil */
+
 .profile-card {
-  background-color: #f1f3f5; /* Igual al fondo general */
+  background-color: #f1f3f5; 
   max-width: 500px;
 }
 
-/* Ítems con animación */
+
 .profile-item {
   border: none;
   background-color: transparent;

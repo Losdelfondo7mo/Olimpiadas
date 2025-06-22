@@ -15,24 +15,14 @@ export class QuienesSomos {
   imagen:  "/miembros/juan.jpg",
   descripcion: 'Desarrollador Full Stack',
   email: 'juan.mont1208@gmail.com',
-  telefono: '2945642191',
   rol: 'Desarrollador Full Stack'
   },
 
-    {
-       nombre: 'Vianel Almendra ',
-      imagen: "/miembros/vianel.heic",
-      descripcion: 'Desarrollador frontend',
-      email: 'vianelalmendra180306@gmail.com',
-      telefono: '2945642191',
-      rol: 'Desarrollador Frontend'
-    },
     {
       nombre: 'Axel Gonzalez',
       imagen: "/miembros/Axel.jpeg",
       descripcion: 'Scrum Master',
       email: 'axelgonzalezyf28@gmail.com',
-      telefono: '2945642191',
       rol: 'Scrum Master'
     },
     {
@@ -40,7 +30,6 @@ export class QuienesSomos {
       imagen: "/miembros/lautaro.jpg",
       descripcion: 'Analista Funcional',
       email: 'lautarodaniel1401@gmail.com',
-      telefono: '2945642191',
       rol: 'Analista Funcional'
     },
     {
@@ -48,7 +37,6 @@ export class QuienesSomos {
       imagen: "/miembros/noah.jpg",
       descripcion: 'Desarrollador Backend',
       email: 'noahchamo@gmail.com',
-      telefono: '2945642191',
       rol: 'Desarrollador Backend'
     },
   ]

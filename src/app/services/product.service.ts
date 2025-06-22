@@ -27,7 +27,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {
     this.cargarProductos();
-  }
+    }
 
 
     //para editar

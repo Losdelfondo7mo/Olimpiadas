@@ -12,29 +12,27 @@ import { OrdersService, Pedido } from '../../services/orders.service';
   styleUrl: './orders.css'
 })
 export class AdminOrders implements OnInit {
-  pedidos: Pedido[] = [];
 
   constructor(private ordersService: OrdersService) {}
 
-  ngOnInit(): void {
-    this.pedidos = this.ordersService.getPedidos();
+  pendientes: any[] = [];
+
+  ngOnInit() {
+    this.ordersService.getPendientes().subscribe(data => {
+      this.pendientes = data;
+    });
   }
 
-  get pendientes(): Pedido[] {
-    return this.pedidos.filter(p => p.estado === 'pendiente');
+  confirmar(id: number) {
+    this.ordersService.confirmarPedido(id).subscribe(() => {
+      this.pendientes = this.pendientes.filter(p => p.id !== id);
+    });
   }
 
-  get aprobados(): Pedido[] {
-    return this.pedidos.filter(p => p.estado === 'aprobado');
-  }
-
-  get cancelados(): Pedido[] {
-    return this.pedidos.filter(p => p.estado === 'cancelado');
-  }
-
-  cambiarEstado(id: number, estado: 'aprobado' | 'cancelado') {
-    this.ordersService.cambiarEstado(id, estado);
-    this.pedidos = this.ordersService.getPedidos();
+  cancelar(id: number) {
+    this.ordersService.cancelarPedido(id).subscribe(() => {
+      this.pendientes = this.pendientes.filter(p => p.id !== id);
+    });
   }
 }
 

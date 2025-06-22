@@ -9,7 +9,8 @@ export interface LoginResponse {
   rol: string;
   email: string;
   nombre: string;
-  apellido: string
+  apellido: string;
+  usuario_id: number
 }
 
 @Injectable({
@@ -33,7 +34,7 @@ export class AuthService {
       console.log('Respuesta del login:', respuesta);
 
       this.guardarSesion(respuesta.access_token);
-
+      //guardamos los datos que nos pasa el usuario en el localstorage
       if (respuesta.usuario) {
         localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
         localStorage.setItem('rol', respuesta.rol);
@@ -63,7 +64,7 @@ export class AuthService {
   obtenerToken(): string | null {
     return localStorage.getItem('access_token');
   }
-//guardar usuario
+  //guardar usuarios, nombre, etc, para la creacion de la pagina del perfil, etc.
   get usuarioActual(): string | null {
     const raw = localStorage.getItem('usuario');
     try {
@@ -74,15 +75,12 @@ export class AuthService {
     }
   }
 
-  //poniendo el rol a los usuarios
+  //poniendo el rol a los usuarios, por defecto es un usuario
   getRol(): string | null {
   return localStorage.getItem('rol');
 }
 
-
-
   //cerrar sesión 
-
   cerrarSesion(): void {
   localStorage.removeItem('usuario');
   localStorage.removeItem('access_token');

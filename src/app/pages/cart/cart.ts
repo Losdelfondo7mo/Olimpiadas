@@ -60,15 +60,23 @@ export class Cart {
 
 
   pagar() {
-  this.ordersService.agregarPedido({
+  const pedido = {
     usuario: this.authService.usuarioActual || 'invitado',
     productos: this.carrito,
-    total: this.cartService.total,
-  });
+    total: this.cartService.total
+  };
 
-  this.cartService.pagar();
-  this.mostrarToast('¡Compra realizada con éxito!');
-  }
+  this.ordersService.agregarPedido(pedido).subscribe({
+    next: () => {
+      this.cartService.pagar(); // vacía el carrito solo si la compra se registró
+      this.mostrarToast('¡Compra realizada con éxito!');
+    },
+    error: err => {
+      console.error('Error al guardar el pedido:', err);
+      this.mostrarToast('Error al procesar la compra.');
+    }
+  });
+}
 
 
   get total() {

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-auth',
@@ -84,15 +86,20 @@ export class AuthComponent {
           localStorage.setItem('access_token', respuesta.access_token);
           localStorage.setItem('usuario', JSON.stringify(respuesta));
           localStorage.setItem( 'rol', respuesta.rol);
-          alert('Bien, pudiste ingresar');
+          localStorage.setItem('nombre', respuesta.apellido)
           this.router.navigate(['/productos']);
         } else {
-          alert('Contraseña incorrecta');
+          console.log('datos no encontrados')
         }
       },
       error: (error) => {
         console.error('Error en login:', error);
-        alert('Usuario no encontrado o error en el servidor');
+        Swal.fire({
+          icon: 'error',
+          title: 'Inicio de sesión fallido',
+          text: 'Usuario o contraseña mal escritas ',
+          confirmButtonText: 'Intentar de nuevo'
+        });
       },
       complete: () => {
         console.info('Login completo');

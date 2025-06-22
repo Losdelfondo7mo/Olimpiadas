@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto } from './cart.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 export interface Pedido {
@@ -18,7 +20,11 @@ export class OrdersService {
   private pedidos: Pedido[] = [];
   private contadorId = 1;
 
-  constructor() {
+  private baseUrl = 'https://backend-9s6b.onrender.com/api/pedidos';
+
+  constructor(private http: HttpClient) {
+    
+    // lo que tengo creado primero sin back
     const guardados = localStorage.getItem('pedidos');
     if (guardados) {
       this.pedidos = JSON.parse(guardados);
@@ -26,17 +32,39 @@ export class OrdersService {
     }
   }
 
-  agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>) {
-    const nuevo: Pedido = {
-      ...pedido,
-      id: this.contadorId++,
-      estado: 'pendiente',
-      fecha: new Date(),
-    };
-    this.pedidos.push(nuevo);
-    localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
-    console.log('Pedido guardado en localStorage:', nuevo);
+  // conexion con el backend 
+
+  agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>): Observable<any> {
+  const token = localStorage.getItem('access_token');
+
+  return this.http.post(this.baseUrl, pedido, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+}
+
+
+  getMisPedidos(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/mis-pedidos`);
   }
+
+  cancelarPedido(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/cancelar/${id}`, {});
+  }
+
+  getPendientes(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/pendientes`);
+  }
+
+  confirmarPedido(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/confirmar/${id}`, {});
+  }
+
+
+
+  //lo viego sin back
+
 
   getPedidos(): Pedido[] {
     return this.pedidos;

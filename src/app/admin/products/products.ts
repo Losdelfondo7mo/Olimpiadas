@@ -23,14 +23,14 @@ interface Producto {
   styleUrl: './products.css'
 })
 export class adminProducts implements OnInit{
-     productos: Producto[] = [];
-      nuevoProducto: Omit<Producto, 'id'> = {
-  nombre: '',
-  descripcion: '',
-  precio: 0,
-  disponibilidad: true,
-  categoria_id: 0
-};
+    productos: Producto[] = [];
+    nuevoProducto: Omit<Producto, 'id'> = {
+      nombre: '',
+      descripcion: '',
+      precio: 0,
+      disponibilidad: true,
+      categoria_id: 0
+    };
 productoEditando: Producto | null = null;
 
 
@@ -58,7 +58,7 @@ productoEditando: Producto | null = null;
 }
 
   iniciarEdicion(producto: Producto) {
-    this.productoEditando = { ...producto };
+    this.productoEditando = { ... producto };
   }
 
   guardarCambios() {
