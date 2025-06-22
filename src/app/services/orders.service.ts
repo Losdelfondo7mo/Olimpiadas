@@ -11,6 +11,7 @@ export interface Pedido {
   total: number;
   estado: 'pendiente' | 'aprobado' | 'cancelado';
   fecha: Date;
+  usuario_id: number
 }
 
 @Injectable({
@@ -35,13 +36,10 @@ export class OrdersService {
   // conexion con el backend 
 
   agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>): Observable<any> {
-  const token = localStorage.getItem('access_token');
+    return this.http.post(`${this.baseUrl}/crear`, pedido);
 
-  return this.http.post(this.baseUrl, pedido, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+
+  
 }
 
 

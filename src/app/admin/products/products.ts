@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -12,7 +12,7 @@ interface Producto {
   descripcion: string;
   precio: number;
   disponibilidad: boolean;
-  categoria_id: number;
+  categoria: string
 }
 
 @Component({
@@ -29,7 +29,7 @@ export class adminProducts implements OnInit{
       descripcion: '',
       precio: 0,
       disponibilidad: true,
-      categoria_id: 0
+      categoria: '',
     };
 productoEditando: Producto | null = null;
 
@@ -50,9 +50,9 @@ productoEditando: Producto | null = null;
     this.nuevoProducto = {
       nombre: '',
       descripcion: '',
+      categoria: '',
       precio: 0,
       disponibilidad: true,
-      categoria_id: 0
     };
   });
 }

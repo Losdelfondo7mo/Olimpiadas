@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OrdersService, Pedido } from '../../services/orders.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { OrdersService, Pedido } from '../../services/orders.service';
 })
 export class AdminOrders implements OnInit {
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService, private authService: AuthService) {
+  }
 
   pendientes: any[] = [];
 

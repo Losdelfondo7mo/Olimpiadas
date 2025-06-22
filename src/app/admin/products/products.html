@@ -23,8 +23,8 @@
           </select>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Categoría ID</label>
-          <input type="number" [(ngModel)]="nuevoProducto.categoria_id" name="categoria_id" class="form-control" required>
+          <label class="form-label">Categoría </label>
+          <input type="text" [(ngModel)]="nuevoProducto.categoria" name="categoria" class="form-control" required>
         </div>
         <div class="col-md-2 d-grid">
           <button type="submit" class="btn btn-success">Agregar</button>
@@ -89,6 +89,11 @@
           <div class="mb-3">
             <label class="form-label">Precio</label>
             <input type="number" [(ngModel)]="productoEditando.precio" name="precioEdit" class="form-control" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">categoria</label>
+            <input type="text" [(ngModel)]="productoEditando.categoria" name="categoria" class="form-control" />
           </div>
         </form>
       </div>

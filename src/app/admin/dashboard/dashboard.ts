@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { adminProducts } from '../products/products';
 import { AdminOrders } from '../orders/orders';
 import { Users } from "../users/users";
+import { AdminManager } from '../admin-manager/admin-manager';
 
 @Component({
   selector: 'app-dashboard',
   standalone:true,
-  imports: [CommonModule, adminProducts, AdminOrders, Users],
+  imports: [CommonModule, adminProducts, AdminOrders, Users, AdminManager],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

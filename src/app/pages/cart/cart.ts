@@ -33,6 +33,7 @@ export class Cart {
     nombre: string;
     precio: number;
     descripcion: string;
+    categoria: string;
     imagen: string;
     cantidad: number;
   }[] = [];
@@ -57,34 +58,44 @@ export class Cart {
   this.cartService.vaciar();
   this.mostrarToast('Se vació el carrito ');
   }
+  
+  get total(): number {
+  return this.cartService.total;
+}
+
 
 
   pagar() {
+  const usuarioStr = localStorage.getItem('usuario');
+  if (!usuarioStr) {
+    console.error('No hay usuario en localStorage');
+    return;
+  }
+
+  const usuario = JSON.parse(usuarioStr);
+
   const pedido = {
-    usuario: this.authService.usuarioActual || 'invitado',
-    productos: this.carrito,
-    total: this.cartService.total
-  };
+  usuario_id: usuario.id,
+  usuario: usuario.usuario || '',
+  productos: this.cartService.currentCart.map(p => ({
+    id: p.id,
+    nombre: p.nombre,
+    precio: p.precio,
+    cantidad: p.cantidad
+  })),
+  total: this.cartService.total
+};
 
   this.ordersService.agregarPedido(pedido).subscribe({
     next: () => {
-      this.cartService.pagar(); // vacía el carrito solo si la compra se registró
+      this.cartService.pagar();
       this.mostrarToast('¡Compra realizada con éxito!');
     },
-    error: err => {
-      console.error('Error al guardar el pedido:', err);
-      this.mostrarToast('Error al procesar la compra.');
-    }
+    error: err => console.error('Error al guardar el pedido:', err.error?.detail || err)
   });
 }
 
 
-  get total() {
-    return this.cartService.total;
-  }
 
- 
+
 }
-
-
-

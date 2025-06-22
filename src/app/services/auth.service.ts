@@ -75,6 +75,8 @@ export class AuthService {
     }
   }
 
+ 
+
   //poniendo el rol a los usuarios, por defecto es un usuario
   getRol(): string | null {
   return localStorage.getItem('rol');
