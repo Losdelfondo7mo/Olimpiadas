@@ -37,7 +37,7 @@ export class AdminManager implements OnInit{
   crearAdministrador() {
   const datosParaEnviar = {
     ...this.nuevoAdmin,
-    contraseña: this.nuevoAdmin.password // el backend espera 'contraseña'
+    contraseña: this.nuevoAdmin.password
   };
 
   this.adminManagerService.crearAdministrador(datosParaEnviar).subscribe({

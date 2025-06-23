@@ -34,7 +34,5 @@ export const routes: Routes = [
     ]},
     { path: 'admin', component: adminDashboard, canActivate: [AdminGuard] },
     { path: 'not-found', component: NotFound},
-    { path: '**', component: Error404}
-    
-
-]
+    { path: '**', component: Error404},
+];

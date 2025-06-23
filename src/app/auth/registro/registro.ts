@@ -70,7 +70,7 @@ export class Registro  {
       apellido: this.registerForm.get('apellido')?.value,
       email: this.registerForm.get('email')?.value,
       usuario: this.registerForm.get('usuario')?.value,
-      contraseña: password  //el backend espera "contraseña"
+      contraseña: password 
     };
 
     this.authService.registrarUsuario(registroData).subscribe({

@@ -1,0 +1,38 @@
+<form (ngSubmit)="cambiarContrasena()" #form="ngForm" class="mt-4">
+
+  <div class="mb-3">
+    <label for="actual" class="form-label">Contraseña Actual</label>
+    <input type="password" id="actual" [(ngModel)]="formData.passwordActual" name="actual"
+           required class="form-control" #actual="ngModel">
+    <div *ngIf="actual.invalid && actual.touched" class="text-danger">
+      La contraseña actual es obligatoria.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="nueva" class="form-label">Nueva Contraseña</label>
+    <input type="password" id="nueva" [(ngModel)]="formData.passwordNueva" name="nueva"
+           required minlength="6" class="form-control" #nueva="ngModel">
+    <div *ngIf="nueva.invalid && nueva.touched" class="text-danger">
+      La nueva contraseña debe tener al menos 6 caracteres.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="confirmar" class="form-label">Confirmar Nueva Contraseña</label>
+    <input type="password" id="confirmar" [(ngModel)]="formData.confirmarPassword" name="confirmar"
+           required class="form-control" #confirmar="ngModel">
+    <div *ngIf="confirmar.invalid && confirmar.touched" class="text-danger">
+      Por favor confirma la nueva contraseña.
+    </div>
+    <div *ngIf="formData.passwordNueva !== formData.confirmarPassword && confirmar.touched"
+         class="text-danger">
+      Las contraseñas no coinciden.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary"
+          [disabled]="form.invalid || formData.passwordNueva !== formData.confirmarPassword">
+    Cambiar Contraseña
+  </button>
+</form>

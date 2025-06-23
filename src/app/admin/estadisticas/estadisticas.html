@@ -1,12 +1,11 @@
 <div class="container py-5">
+
   <h2 class="text-center text-primary mb-5">
     <i class="bi bi-graph-up-arrow me-2"></i> Estadísticas de Pedidos
   </h2>
 
-  <div class="row g-4 justify-content-center" *ngIf="estadisticas">
-
-    <!-- Tarjeta -->
-    <div class="col-12 col-md-6 col-lg-4" *ngFor="let stat of estadisticasData">
+  <div class="row g-4 justify-content-center" *ngIf="estadisticasPedidosData.length > 0">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let stat of estadisticasPedidosData">
       <div class="card border-0 shadow rounded-4 p-4 h-100">
         <div class="d-flex align-items-center gap-3">
           <i [ngClass]="stat.icon" class="fs-1 text-primary"></i>
@@ -17,7 +16,26 @@
         </div>
       </div>
     </div>
-
   </div>
-</div>
 
+  <hr class="my-5" />
+
+  <h2 class="text-center text-success mb-5">
+    <i class="bi bi-people-fill me-2"></i> Estadísticas de Usuarios
+  </h2>
+
+  <div class="row g-4 justify-content-center" *ngIf="estadisticasUsuariosData.length > 0">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let stat of estadisticasUsuariosData">
+      <div class="card border-0 shadow rounded-4 p-4 h-100">
+        <div class="d-flex align-items-center gap-3">
+          <i [ngClass]="stat.icon" class="fs-1 text-success"></i>
+          <div>
+            <h6 class="mb-1 text-muted">{{ stat.label }}</h6>
+            <h4 class="mb-0 fw-bold">{{ stat.value }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

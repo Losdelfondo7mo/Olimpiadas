@@ -13,9 +13,9 @@ export class AuthCallback implements OnInit {
     const token = this.route.snapshot.queryParamMap.get('access_token');
     if (token) {
       localStorage.setItem('access_token', token);
-      this.router.navigate(['/productos']);
-    } else {
       this.router.navigate(['/auth']);
+    } else {
+      this.router.navigate(['/not-found']);
     }
   }
 }

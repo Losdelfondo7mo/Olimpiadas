@@ -49,28 +49,45 @@ export class OrdersService {
   agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, pedido);
 }
-  getMisPedidos(usuarioId: number, skip = 0, limit = 100): Observable<any> {
-  let params = new HttpParams()
-    .set('usuario_id', usuarioId.toString())
-    .set('skip', skip.toString())
-    .set('limit', limit.toString());
-
-  return this.http.get(`${this.baseUrl}/mis-pedidos`, { params });
-}
-  cancelarPedido(id: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/cancelar/${id}`, {});
+  getMisPedidos(usuarioId: number, skip = 0, limit = 100): Observable<Pedido[]> {
+    const token = localStorage.getItem('access_token')!;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    let params = new HttpParams()
+      .set('usuario_id', usuarioId.toString())
+      .set('skip', skip.toString())
+      .set('limit', limit.toString());
+    return this.http.get<Pedido[]>(`${this.baseUrl}/mis-pedidos`, { headers, params });
   }
+
+  cancelarPedido(pedidoId: number): Observable<any> {
+    const token = localStorage.getItem('access_token')!;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
+  }
+
+ getTodosPedidos(): Observable<Pedido[]> {
+    const token = localStorage.getItem('access_token')!;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<Pedido[]>(`${this.baseUrl}`, { headers });
+  }
+
+
+ confirmarPedido(pedidoId: number, producto_id: number): Observable<any> {
+    const token = localStorage.getItem('access_token')!;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.put(
+      `${this.baseUrl}/confirmar/${pedidoId}`,
+      { producto_id },
+      { headers }
+    );
+  }
+
 
   getPendientes(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/pendientes`);
-  }
-
-  confirmarPedido(pedidoId: number, producto_id: number): Observable<any> {
-  const token = localStorage.getItem('access_token');
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-
-  return this.http.put(`${this.baseUrl}/confirmar/${producto_id}`, { pedidoId }, { headers });
+  return this.http.get(`${this.baseUrl}/pendientes`);
 }
+
+
 
 
 

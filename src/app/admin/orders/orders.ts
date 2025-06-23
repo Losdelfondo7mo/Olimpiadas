@@ -21,51 +21,56 @@ export class AdminOrders implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private authService: AuthService,
     private productsService: ProductService
   ) {}
 
   ngOnInit() {
-    this.ordersService.getPendientes().subscribe((data: Pedido[]) => {
-      this.pendientes = data.filter((p: Pedido) => p.estado === 'PENDIENTE');
-      this.aprobados = data.filter((p: Pedido) => p.estado === 'APROBADO');
-      this.cancelados = data.filter((p: Pedido) => p.estado === 'CANCELADO');
-    });
+  this.ordersService.getPendientes().subscribe({
+    next: (data: Pedido[]) => {
+      this.pendientes = data.filter(p => p.estado === 'PENDIENTE');
+      this.aprobados = data.filter(p => p.estado === 'APROBADO');
+      this.cancelados = data.filter(p => p.estado === 'CANCELADO');
+    },
+    error: (err) => {
+      console.error('Error al cargar pedidos', err);
+    }
+  });
+}
 
-    this.productsService.getProductos().subscribe((productos: any[]) => {
-      productos.forEach((p: any) => this.productosMap.set(p.id, p));
-    });
-  }
+loadPedidos() {
+  this.ordersService.getTodosPedidos().subscribe({
+    next: (data) => {
+      console.log('Pedidos cargados:', data); 
+
+      this.pendientes = data.filter(p => p.estado === 'PENDIENTE');
+      this.aprobados = data.filter(p => p.estado === 'APROBADO');
+      this.cancelados = data.filter(p => p.estado === 'CANCELADO');
+    },
+    error: (err) => {
+      console.error('Error al cargar pedidos:', err);
+    }
+  });
+}
 
   confirmar(id: number) {
   const pedido = this.pendientes.find(p => p.id === id);
   if (pedido && pedido.detalles.length > 0) {
-    const producto_id = pedido.detalles[0].producto_id; // o iterar si hay más
+    const producto_id = pedido.detalles[0].producto_id;
     this.ordersService.confirmarPedido(pedido.id, producto_id).subscribe({
       next: () => {
-        this.aprobados.push(pedido);
-        this.pendientes = this.pendientes.filter(p => p.id !== id);
+        this.loadPedidos(); 
       },
       error: err => {
         console.error('Error al confirmar pedido:', err);
-        if (err.error) {
-          console.error('Detalles del backend:', err.error);
-        }
-      }
-    });
-  } else {
-    console.warn('Pedido no encontrado o sin detalles para confirmar');
-  }
-}
-
-
-  cancelar(id: number) {
-    this.ordersService.cancelarPedido(id).subscribe(() => {
-      const pedido = this.pendientes.find(p => p.id === id);
-      if (pedido) {
-        this.cancelados.push(pedido);
-        this.pendientes = this.pendientes.filter(p => p.id !== id);
       }
     });
   }
 }
+
+cancelar(id: number) {
+  this.ordersService.cancelarPedido(id).subscribe(() => {
+    this.loadPedidos(); 
+  });
+}
+}
+

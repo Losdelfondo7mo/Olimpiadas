@@ -38,17 +38,17 @@ export class AuthService {
 
       this.guardarSesion(respuesta.access_token);
       //guardamos los datos que nos pasa el usuario en el localstorage
-      if (respuesta.usuario) {
-    const usuarioCompleto = {
-    usuario: respuesta.usuario,
-    rol: respuesta.rol,
-    nombre: respuesta.nombre,
-    apellido: respuesta.apellido,
-    email: respuesta.email,
-    id: respuesta.usuario_id
-  };
-  localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
-}
+        if (respuesta.usuario) {
+        const usuarioCompleto = {
+        usuario: respuesta.usuario,
+        rol: respuesta.rol,
+        nombre: respuesta.nombre,
+        apellido: respuesta.apellido,
+        email: respuesta.email,
+        id: respuesta.usuario_id
+      };
+      localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
+    }
     }),
   );
   }
@@ -80,7 +80,6 @@ export class AuthService {
     }
   }
 
-  // Ejemplo de AuthService
   get usuarioId(): number | null {
     const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
     return usuario ? usuario.id : null;
@@ -95,7 +94,6 @@ export class AuthService {
     return null;
   }
 }
-
   get usuarioCompleto(): LoginResponse | null {
   const raw = localStorage.getItem('usuario');
   if (!raw) return null;
@@ -105,9 +103,6 @@ export class AuthService {
     return null;
   }
 }
-
-
-
   //cerrar sesión 
   cerrarSesion(): void {
   localStorage.removeItem('usuario');

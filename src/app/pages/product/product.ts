@@ -25,7 +25,7 @@ export class Product implements OnInit {
 
       setTimeout(() => {
         this.toastVisible = false;
-      }, 2000); // El toast se cierra solo después de 2 segundos
+      }, 3000);
     }
 
    productosPorCategoria: { [categoria: string]: Producto[] } = {};

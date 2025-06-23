@@ -28,7 +28,7 @@ export class MisPedidos implements OnInit {
         next: (data) => {
           console.log('Pedidos obtenidos:', data);
 
-          // Clasifica los pedidos por estado
+          // Clasifica los pedidos por su estado
           this.pedidosPendientes = data.filter((p: any) => p.estado === 'PENDIENTE');
           this.pedidosAprobados = data.filter((p: any) => p.estado === 'APROBADO');
           this.pedidosCancelados = data.filter((p: any) => p.estado === 'CANCELADO');
@@ -44,7 +44,6 @@ export class MisPedidos implements OnInit {
 
   cancelar(pedidoId: number) {
     this.ordersService.cancelarPedido(pedidoId).subscribe(() => {
-      // Elimina solo de los pendientes (no de aprobados/cancelados)
       this.pedidosPendientes = this.pedidosPendientes.filter(p => p.id !== pedidoId);
     }, error => {
       console.error('Error al cancelar pedido', error);

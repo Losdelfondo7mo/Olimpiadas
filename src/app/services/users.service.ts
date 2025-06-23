@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsersService {
   private apiUrl = 'https://backend-9s6b.onrender.com/api/usuarios/all';
+  private baseUrl = 'https://backend-9s6b.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
@@ -17,5 +18,9 @@ export class UsersService {
     });
 
     return this.http.get<any[]>(this.apiUrl, { headers });
+  }
+
+  getEstadisticasUsuarios(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/estadisticas`);
   }
 }

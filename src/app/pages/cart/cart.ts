@@ -12,8 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
-})
-export class Cart {
+  })
+  export class Cart {
 
   toastVisible = false;
   toastMensaje = '';
@@ -61,7 +61,7 @@ export class Cart {
   
   get total(): number {
   return this.cartService.total;
-}
+  }
 
 
 
@@ -75,17 +75,17 @@ export class Cart {
   const usuario = JSON.parse(usuarioStr);
 
   const pedido = {
-   usuario_id: usuario.id,
-  usuario: this.authService.usuarioActual || 'N/A',
-  monto_total: this.cartService.total, // agregás este campo
-  detalles: this.cartService.currentCart.map(p => ({
+    usuario_id: usuario.id,
+    usuario: this.authService.usuarioActual || 'N/A',
+    monto_total: this.cartService.total,
+    detalles: this.cartService.currentCart.map(p => ({
     producto_id: p.id,
     cantidad: p.cantidad,
     precio_unitario: p.precio
   })),
-  productos: this.cartService.currentCart,
-  total: this.cartService.total
-};
+    productos: this.cartService.currentCart,
+    total: this.cartService.total
+  };
 
   this.ordersService.agregarPedido(pedido).subscribe({
     next: () => {

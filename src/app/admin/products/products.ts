@@ -34,8 +34,6 @@ export class adminProducts implements OnInit{
     };
 
     productoEditando: Producto | null = null;
-  // Definimos las categorías y sus etiquetas
-  // Estas etiquetas se usarán para mostrar en la interfaz
 
     categoriaLabels: { [key: string]: string } = {
     paquetesCompletos: 'Paquetes turísticos completos',
@@ -64,7 +62,6 @@ export class adminProducts implements OnInit{
 
   agregarProducto() {
   this.productService.agregarProducto(this.nuevoProducto).subscribe(() => {
-    // Resetear nuevoProducto con todas las propiedades requeridas
     this.nuevoProducto = {
       nombre: '',
       descripcion: '',
