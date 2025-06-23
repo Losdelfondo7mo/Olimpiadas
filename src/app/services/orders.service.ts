@@ -19,7 +19,7 @@ export interface Pedido {
   productos?: Producto[];
   total: number;
   monto_total: number;
-  estado: 'pendiente' | 'aprobado' | 'cancelado';
+  estado: 'PENDIENTE' | 'APROBADO' | 'CANCELADO';
   fecha: Date;
   usuario_id: number
   detalles: DetallePedido[]

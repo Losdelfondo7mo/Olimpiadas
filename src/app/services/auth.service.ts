@@ -32,22 +32,26 @@ export class AuthService {
   }).pipe(
     tap(respuesta => {
       console.log('Respuesta del login:', respuesta);
+      console.log('Tipo de respuesta.usuario:', typeof respuesta.usuario);
+      console.log('Valor de respuesta.usuario:', respuesta.usuario);
 
       this.guardarSesion(respuesta.access_token);
       //guardamos los datos que nos pasa el usuario en el localstorage
       if (respuesta.usuario) {
-        localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
-        localStorage.setItem('rol', respuesta.rol);
-        localStorage.setItem('nombre', respuesta.nombre);
-        localStorage.setItem('apellido', respuesta.apellido);
-        localStorage.setItem('email', respuesta.email)
-        console.log('Usuario guardado:', respuesta);
-      } else {
-        console.warn(' No se recibió el usuario en la respuesta del login');
-      }
-    })
-  );
+    const usuarioCompleto = {
+    usuario: respuesta.usuario,
+    rol: respuesta.rol,
+    nombre: respuesta.nombre,
+    apellido: respuesta.apellido,
+    email: respuesta.email,
+    id: respuesta.usuario_id
+  };
+  localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
 }
+    }),
+  );
+  }
+  
   registrarUsuario(registroData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/crear`, registroData);
   }
@@ -75,18 +79,11 @@ export class AuthService {
     }
   }
 
+  // Ejemplo de AuthService
   get usuarioId(): number | null {
-  const raw = localStorage.getItem('usuario');
-  try {
-    const parsed = raw ? JSON.parse(raw) : null;
-    return parsed?.id || null;
-  } catch {
-    return null;
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    return usuario ? usuario.id : null;
   }
-}
-
- 
-
   //poniendo el rol a los usuarios, por defecto es un usuario
   getRol(): string | null {
   return localStorage.getItem('rol');

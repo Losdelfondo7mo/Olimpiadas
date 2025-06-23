@@ -14,28 +14,48 @@ import { ProductService } from '../../services/product.service';
   styleUrl: './orders.css'
 })
 export class AdminOrders implements OnInit {
-
-  constructor(private ordersService: OrdersService, private authService: AuthService, private productsService: ProductService) {
-  }
-
   pendientes: Pedido[] = [];
-  productosMap = new Map<number, any>(); 
+  aprobados: Pedido[] = [];
+  cancelados: Pedido[] = [];
 
-    ngOnInit() {
-      this.ordersService.getPendientes().subscribe(data => {
-      this.pendientes = data;
+  productosMap = new Map<number, any>();
+
+  constructor(
+    private ordersService: OrdersService,
+    private authService: AuthService,
+    private productsService: ProductService
+  ) {}
+
+  ngOnInit() {
+    this.ordersService.getPendientes().subscribe((data: Pedido[]) => {
+      this.pendientes = data.filter((p: Pedido) => p.estado === 'PENDIENTE');
+      this.aprobados = data.filter((p: Pedido) => p.estado === 'APROBADO');
+      this.cancelados = data.filter((p: Pedido) => p.estado === 'CANCELADO');
+    });
+
+    // Usa el método correcto que tengas definido en tu servicio
+    this.productsService.getProductos().subscribe((productos: any[]) => {
+      productos.forEach((p: any) => this.productosMap.set(p.id, p));
     });
   }
 
   confirmar(id: number) {
     this.ordersService.confirmarPedido(id).subscribe(() => {
-      this.pendientes = this.pendientes.filter((p: Pedido) => p.id !== id);
+      const pedido = this.pendientes.find(p => p.id === id);
+      if (pedido) {
+        this.aprobados.push(pedido);
+        this.pendientes = this.pendientes.filter(p => p.id !== id);
+      }
     });
   }
 
   cancelar(id: number) {
     this.ordersService.cancelarPedido(id).subscribe(() => {
-      this.pendientes = this.pendientes.filter((p: Pedido) => p.id !== id);
+      const pedido = this.pendientes.find(p => p.id === id);
+      if (pedido) {
+        this.cancelados.push(pedido);
+        this.pendientes = this.pendientes.filter(p => p.id !== id);
+      }
     });
   }
 }

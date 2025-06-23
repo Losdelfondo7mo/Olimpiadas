@@ -16,13 +16,14 @@ export class Users {
 
   ngOnInit(): void {
     this.usersService.getUsuarios().subscribe({
-      next: data => {
-        this.usuarios = data;
-      },
-      error: err => {
-        console.error('Error al obtener usuarios', err);
-      }
-    });
+  next: data => {
+    console.log('Usuarios recibidos:', data);
+    this.usuarios = data;
+  },
+  error: err => {
+    console.error('Error al obtener usuarios', err);
+  }
+});
   }
 
 }

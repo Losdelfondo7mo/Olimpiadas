@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone:true,
@@ -9,28 +10,44 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class MisPedidos implements OnInit {
-  pedidos: any[] = [];
+  pedidosPendientes: any[] = [];
+  pedidosAprobados: any[] = [];
+  pedidosCancelados: any[] = [];
 
-  constructor(private orderssService: OrdersService) {}
+  constructor(
+    private ordersService: OrdersService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-  const usuarioId = 4; // Obtenelo según tu lógica (ej: de sesión, localStorage, etc.)
-  this.orderssService.getMisPedidos(usuarioId).subscribe({
-    next: (data) => {
-      this.pedidos = data;
-    },
-    error: (err) => {
-      console.error('Error al cargar pedidos', err);
-    }
-  });
-}
+    const id = this.authService.usuarioId;
+    console.log('Usuario ID obtenido:', id);
 
+    if (id) {
+      this.ordersService.getMisPedidos(id).subscribe({
+        next: (data) => {
+          console.log('Pedidos obtenidos:', data);
+
+          // Clasifica los pedidos por estado
+          this.pedidosPendientes = data.filter((p: any) => p.estado === 'PENDIENTE');
+          this.pedidosAprobados = data.filter((p: any) => p.estado === 'APROBADO');
+          this.pedidosCancelados = data.filter((p: any) => p.estado === 'CANCELADO');
+        },
+        error: (err) => {
+          console.error('Error al cargar pedidos', err);
+        }
+      });
+    } else {
+      console.warn('No hay usuario logueado o no tiene id');
+    }
+  }
 
   cancelar(pedidoId: number) {
-  this.orderssService.cancelarPedido(pedidoId).subscribe(() => {
-    this.pedidos = this.pedidos.filter(p => p.id !== pedidoId);
-  }, error => {
-    console.error('Error al cancelar pedido', error);
-  });
-}
+    this.ordersService.cancelarPedido(pedidoId).subscribe(() => {
+      // Elimina solo de los pendientes (no de aprobados/cancelados)
+      this.pedidosPendientes = this.pedidosPendientes.filter(p => p.id !== pedidoId);
+    }, error => {
+      console.error('Error al cancelar pedido', error);
+    });
+  }
 }

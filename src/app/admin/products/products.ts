@@ -33,13 +33,18 @@ export class adminProducts implements OnInit{
     };
 
     productoEditando: Producto | null = null;
+  // Definimos las categorías y sus etiquetas
+  // Estas etiquetas se usarán para mostrar en la interfaz
 
-  categoriaLabels: { [key: string]: string } = {
-  viajes: 'Viajes de egresados',
-  alquileresAutos: 'Alquileres de autos',
-  vuelos: 'Vuelos',
-  hoteles: 'Hoteles 5 estrellas'
-};
+    categoriaLabels: { [key: string]: string } = {
+    paquetesCompletos: 'Paquetes turísticos completos',
+    vuelos: 'Vuelos nacionales e internacionales',
+    estadias: 'Estadías / Alojamientos',
+    alquilerAutos: 'Alquiler de autos',
+    actividades: 'Actividades y excursiones',
+    serviciosAdicionales: 'Servicios adicionales'
+  };
+
 
   categoriaKeys: string[] = [];
 

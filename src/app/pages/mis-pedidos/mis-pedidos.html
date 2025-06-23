@@ -1,34 +1,58 @@
 <div class="container mt-4">
-  <h2 class="mb-4">Mis Pedidos</h2>
 
-  <div *ngIf="!pedidos.length" class="alert alert-info">
-    No tienes pedidos realizados.
-  </div>
-
-  <ul class="list-group" *ngIf="pedidos.length">
-    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let pedido of pedidos">
-      <div>
-        <strong>Pedido ID:</strong> {{ pedido.id }} |
-        <strong>Estado:</strong> 
-        <span
-          class="badge"
-          [ngClass]="{
-            'bg-warning': pedido.estado === 'pendiente',
-            'bg-success': pedido.estado === 'aprobado',
-            'bg-danger': pedido.estado === 'cancelado'
-          }"
-        >
-          {{ pedido.estado | titlecase }}
-        </span>
+  <!-- Sección: Pedidos Pendientes -->
+  <h3 class="text-primary"> Pedidos Pendientes</h3>
+  <div *ngIf="pedidosPendientes.length > 0; else sinPendientes">
+    <div *ngFor="let pedido of pedidosPendientes" class="card mb-2 shadow-sm">
+      <div class="card-body d-flex justify-content-between align-items-center">
+        <div>
+          <strong>ID:</strong> {{ pedido.id }} |
+          <strong>Pedido:</strong> {{ pedido.n_pedido }} |
+          <strong>Total:</strong> ${{ pedido.monto_total }} |
+          <strong>Fecha:</strong> {{ pedido.fecha | date:'short' }}
+        </div>
+        <button class="btn btn-danger btn-sm" (click)="cancelar(pedido.id)">Cancelar</button>
       </div>
+    </div>
+  </div>
+  <ng-template #sinPendientes>
+    <p class="text-muted">No tienes pedidos pendientes.</p>
+  </ng-template>
 
-      <button
-        *ngIf="pedido.estado === 'pendiente'"
-        (click)="cancelar(pedido.id)"
-        class="btn btn-danger btn-sm"
-      >
-        Cancelar
-      </button>
-    </li>
-  </ul>
+  <hr>
+
+  <!-- Sección: Pedidos Aprobados -->
+  <h3 class="text-success">Pedidos Aprobados</h3>
+  <div *ngIf="pedidosAprobados.length > 0; else sinAprobados">
+    <div *ngFor="let pedido of pedidosAprobados" class="card mb-2 shadow-sm border-success">
+      <div class="card-body">
+        <strong>ID:</strong> {{ pedido.id }} |
+        <strong>Pedido:</strong> {{ pedido.n_pedido }} |
+        <strong>Total:</strong> ${{ pedido.monto_total }} |
+        <strong>Fecha:</strong> {{ pedido.fecha | date:'short' }}
+      </div>
+    </div>
+  </div>
+  <ng-template #sinAprobados>
+    <p class="text-muted">No tienes pedidos aprobados.</p>
+  </ng-template>
+
+  <hr>
+
+  <!-- Sección: Pedidos Cancelados -->
+  <h3 class="text-secondary"> Pedidos Cancelados</h3>
+  <div *ngIf="pedidosCancelados.length > 0; else sinCancelados">
+    <div *ngFor="let pedido of pedidosCancelados" class="card mb-2 shadow-sm border-secondary">
+      <div class="card-body">
+        <strong>ID:</strong> {{ pedido.id }} |
+        <strong>Pedido:</strong> {{ pedido.n_pedido }} |
+        <strong>Total:</strong> ${{ pedido.monto_total }} |
+        <strong>Fecha:</strong> {{ pedido.fecha | date:'short' }}
+      </div>
+    </div>
+  </div>
+  <ng-template #sinCancelados>
+    <p class="text-muted">No tienes pedidos cancelados.</p>
+  </ng-template>
+
 </div>

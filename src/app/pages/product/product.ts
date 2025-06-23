@@ -28,11 +28,26 @@ export class Product implements OnInit {
       }, 2000); // El toast se cierra solo después de 2 segundos
     }
 
-    ngOnInit() {
-      this.productosService.getProductos().subscribe(data => {
-        this.productos = data;
-      });
-    }
+   productosPorCategoria: { [categoria: string]: Producto[] } = {};
+
+ngOnInit() { 
+  this.productosService.getProductos().subscribe(data => {
+    this.productos = data;
+
+    // Agrupar productos por categoría
+    this.productosPorCategoria = this.productos.reduce((acc, producto) => {
+      if (!acc[producto.categoria]) {
+        acc[producto.categoria] = [];
+      }
+      acc[producto.categoria].push(producto);
+      return acc;
+    }, {} as { [categoria: string]: Producto[] });
+  });
+}
+
+  get categorias(): string[] {
+  return Object.keys(this.productosPorCategoria);
+}
 
     agregarAlCarrito(producto: Producto) {
     this.cartService.agregar(producto);
