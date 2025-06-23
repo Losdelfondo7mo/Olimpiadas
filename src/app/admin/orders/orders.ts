@@ -19,7 +19,7 @@ export class AdminOrders implements OnInit {
   }
 
   pendientes: Pedido[] = [];
-  productosMap = new Map<number, any>();  // Mapa producto_id -> datos del producto
+  productosMap = new Map<number, any>(); 
 
     ngOnInit() {
       this.ordersService.getPendientes().subscribe(data => {
