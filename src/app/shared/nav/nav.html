@@ -5,19 +5,29 @@
 <header class="custom-header py-1 shadow-sm" *ngIf="authService.estaAutenticado()">
   <nav class="container d-flex justify-content-end align-items-center flex-wrap" >
     <div class="d-flex gap-3">
-      <a routerLink="productos" class="btn custom-hover btn-sm">Productos</a>
-      <a routerLink="quienes_somos" class="btn custom-hover btn-sm">Nosotros</a>
-      <a routerLink="cart" class="btn custom-hover btn-sm">
-       <i class="bi bi-cart3 fs-7"></i>
-      </a>
-      <button
-        (click)="irAlPerfil()"
-        class="btn custom-hover btn-sm d-flex align-items-center gap-1"
-        title="Mi Perfil"
-      >
-        <i class="bi bi-person-circle fs-10"></i>
-        <span class="d-none d-sm-inline">{{ authService.usuarioActual }}</span>
-      </button>
+      <button routerLink="/mis-pedidos" class="btn custom-black-border btn-sm">
+  <i class="bi bi-card-list"></i> Mis pedidos
+</button>
+
+<a routerLink="productos" class="btn custom-black-border btn-sm">Productos</a>
+
+<a routerLink="cart" class="btn custom-black-border btn-sm">
+  <i class="bi bi-cart3 fs-7"></i>
+</a>
+
+<a routerLink="quienes_somos" class="btn custom-black-border btn-sm ">Nosotros</a>
+
+<button
+  (click)="irAlPerfil()"
+  class="btn custom-black-border btn-sm d-flex align-items-center gap-1"
+  title="Mi Perfil"
+>
+  <i class="bi bi-person-circle fs-10"></i>
+  <span class="d-none d-sm-inline">{{ authService.usuarioActual }}</span>
+</button>
+
+
+      
 
     </div>
   </nav>

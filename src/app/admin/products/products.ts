@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 
 interface Producto {
@@ -95,18 +96,47 @@ export class adminProducts implements OnInit{
 
 
   eliminar(productoId: number) {
-  if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-    this.productService.eliminarProducto(productoId).subscribe({
-      next: () => {
-        this.productos = this.productos.filter(p => p.id !== productoId);
-      },
-      error: (error) => {
-        console.error('Error al eliminar producto:', error);
-        alert('Hubo un error al eliminar el producto.');
-      }
-    });
-  }
+  console.log('Intentando eliminar ID:', productoId);
+
+  Swal.fire({
+    title: '¿Estás seguro de que deseas eliminar este producto?',
+    text: 'Esta acción no se puede deshacer.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.productService.eliminarProducto(productoId).subscribe({
+        next: () => {
+          console.log('Producto eliminado con éxito');
+          this.productos = this.productos.filter(p => p.id !== productoId);
+
+          // Confirmación visual de eliminación
+          Swal.fire({
+            icon: 'success',
+            title: 'Producto eliminado',
+            text: 'El producto fue eliminado correctamente.',
+            confirmButtonColor: '#3085d6'
+          });
+        },
+        error: (error) => {
+          console.error('Error al eliminar producto:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'No se puede eliminar el producto',
+            text: 'Este producto está asociado a un pedido existente.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#d33'
+          });
+        }
+      });
+    }
+  });
 }
+
 
   cancelarEdicion() {
     this.productoEditando = null;

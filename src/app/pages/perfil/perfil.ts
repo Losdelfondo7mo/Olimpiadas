@@ -10,12 +10,12 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class Perfil {
 
-   nombre: string | null = '';
-  apellido: string | null = '';
-  email: string | null = '';
-  usuario: string | null = '';
+    nombre: string | null = '';
+    apellido: string | null = '';
+    email: string | null = '';
+    usuario: string | null = '';
 
-  constructor(private authService: AuthService, private router:Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.nombre = localStorage.getItem('nombre');

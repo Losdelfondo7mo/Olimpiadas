@@ -40,14 +40,21 @@ export class AdminOrders implements OnInit {
   }
 
   confirmar(id: number) {
-    this.ordersService.confirmarPedido(id).subscribe(() => {
+  console.log('Confirmando pedido con ID:', id);
+  this.ordersService.confirmarPedido(id).subscribe({
+    next: () => {
       const pedido = this.pendientes.find(p => p.id === id);
       if (pedido) {
         this.aprobados.push(pedido);
         this.pendientes = this.pendientes.filter(p => p.id !== id);
       }
-    });
-  }
+    },
+    error: err => {
+      console.error('Error al confirmar pedido:', err);
+    }
+  });
+}
+
 
   cancelar(id: number) {
     this.ordersService.cancelarPedido(id).subscribe(() => {

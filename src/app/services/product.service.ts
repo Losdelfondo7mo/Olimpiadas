@@ -44,9 +44,9 @@ export class ProductService {
   }
 
   eliminarProducto(productoId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${productoId}`);
-  }
-
+  console.log('DELETE:', `${this.apiUrl}/${productoId}`);
+  return this.http.delete(`${this.apiUrl}/${productoId}`);
+}
  
   cargarProductos() {
     this.http.get<Producto[]>(this.apiUrl)

@@ -80,33 +80,40 @@ export class AuthComponent {
     const { usuario, contraseña } = this.loginForm.value;
 
     this.loginService.login(usuario, contraseña).subscribe({
-      next: (respuesta) => {
-        console.log(respuesta);
-        if (respuesta.access_token) {
-          localStorage.setItem('access_token', respuesta.access_token);
-          localStorage.setItem('usuario', JSON.stringify(respuesta));
-          localStorage.setItem( 'rol', respuesta.rol);
-          localStorage.setItem('nombre', respuesta.apellido)
-          this.router.navigate(['/productos']);
-        } else {
-          console.log('datos no encontrados')
-        }
-      },
-      error: (error) => {
-        console.error('Error en login:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Inicio de sesión fallido',
-          text: 'Usuario o contraseña mal escritas ',
-          confirmButtonText: 'Intentar de nuevo'
-        });
-      },
-      complete: () => {
-        console.info('Login completo');
-        this.loginForm.reset();
+  next: (respuesta) => {
+    console.log(respuesta);
+    if (respuesta.access_token) {
+      localStorage.setItem('access_token', respuesta.access_token);
+      localStorage.setItem('usuario', JSON.stringify(respuesta));
+      localStorage.setItem('rol', respuesta.rol);
+      localStorage.setItem('nombre', respuesta.apellido);
+
+      if (respuesta.rol === 'administrador') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/productos']);
       }
+
+    } else {
+      console.log('datos no encontrados');
+    }
+  },
+  error: (error) => {
+    console.error('Error en login:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Inicio de sesión fallido',
+      text: 'Usuario o contraseña mal escritas',
+      confirmButtonText: 'Intentar de nuevo'
     });
+  },
+  complete: () => {
+    console.info('Login completo');
+    this.loginForm.reset();
   }
+});
+  
+}
 
   goToRegister(): void {
     this.router.navigate(['/auth/registro']);

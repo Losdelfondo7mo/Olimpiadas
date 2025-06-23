@@ -6,11 +6,12 @@ import { AdminOrders } from '../orders/orders';
 import { Users } from "../users/users";
 import { AdminManager } from '../admin-manager/admin-manager';
 import { Estadisticas } from "../estadisticas/estadisticas";
+import { NavAdmin } from '../../shared/nav-admin/nav-admin';
 
 @Component({
   selector: 'app-dashboard',
   standalone:true,
-  imports: [CommonModule, adminProducts, AdminOrders, Users, AdminManager, Estadisticas],
+  imports: [CommonModule, adminProducts, AdminOrders, NavAdmin, Users, AdminManager, Estadisticas],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

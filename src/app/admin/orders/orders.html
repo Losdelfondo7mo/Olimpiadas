@@ -1,79 +1,115 @@
-<div class="container mt-4">
+<div class="container my-5">
 
   <!-- PENDIENTES -->
-  <h2 class="text-primary"> Pedidos Pendientes</h2>
-  <div *ngFor="let pedido of pendientes" class="pedido-card border border-primary mb-3 p-3">
-    <h3>Pedido ID: {{ pedido.n_pedido }}</h3>
-    <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
-    <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
-    <p><strong>Total:</strong> $ {{ pedido.monto_total }}</p>
+  <section>
+    <h2 class="section-title pending">Pedidos Pendientes</h2>
+    <div *ngIf="pendientes.length > 0; else noPendientes">
+      <div *ngFor="let pedido of pendientes" class="pedido-card pending-card shadow-sm mb-4 p-4 rounded-3">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+          <div>
+            <h4 class="mb-2">Pedido ID: <span class="text-primary">{{ pedido.n_pedido }}</span></h4>
+            <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
+            <p><strong>Total:</strong> <span class="text-success">$ {{ pedido.monto_total }}</span></p>
+          </div>
+          <div class="actions d-flex gap-2 align-items-center">
+            <button class="btn btn-success btn-sm px-4" (click)="confirmar(pedido.id)">
+              <i class="bi bi-check-lg me-1"></i> Confirmar
+            </button>
+            <button class="btn btn-danger btn-sm px-4" (click)="cancelar(pedido.id)">
+              <i class="bi bi-x-lg me-1"></i> Cancelar
+            </button>
+          </div>
+        </div>
 
-    <div *ngIf="pedido.detalles.length > 0; else noProductosPendiente">
-      <strong>Productos:</strong>
-      <ul>
-        <li *ngFor="let detalle of pedido.detalles">
-          {{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }} -
-          Cantidad: {{ detalle.cantidad }} -
-          Precio unitario: ${{ detalle.precio_unitario }}
-        </li>
-      </ul>
+        <div *ngIf="pedido.detalles.length > 0; else noProductosPendiente" class="mt-3">
+          <strong>Productos:</strong>
+          <ul class="list-group list-group-flush mt-2">
+            <li *ngFor="let detalle of pedido.detalles" class="list-group-item d-flex justify-content-between align-items-center px-0 border-0">
+              <span>{{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }}</span>
+              <span class="text-muted small">
+                Cantidad: {{ detalle.cantidad }} &nbsp;|&nbsp;
+                Precio unitario: ${{ detalle.precio_unitario }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noProductosPendiente>
+          <p class="fst-italic text-muted mt-3">No hay productos disponibles para este pedido.</p>
+        </ng-template>
+      </div>
     </div>
-    <ng-template #noProductosPendiente>
-      <p><em>No hay productos disponibles para este pedido.</em></p>
+    <ng-template #noPendientes>
+      <p class="text-muted fst-italic">No tienes pedidos pendientes.</p>
     </ng-template>
-
-    <button class="btn btn-success me-2" (click)="confirmar(pedido.id)">Confirmar</button>
-    <button class="btn btn-danger" (click)="cancelar(pedido.id)">Cancelar</button>
-  </div>
+  </section>
 
   <hr>
 
   <!-- APROBADOS -->
-  <h2 class="text-success">Pedidos Aprobados</h2>
-  <div *ngFor="let pedido of aprobados" class="pedido-card border border-success mb-3 p-3">
-    <h3>Pedido ID: {{ pedido.n_pedido }}</h3>
-    <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
-    <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
-    <p><strong>Total:</strong> $ {{ pedido.monto_total }}</p>
+  <section>
+    <h2 class="section-title approved">Pedidos Aprobados</h2>
+    <div *ngIf="aprobados.length > 0; else noAprobados">
+      <div *ngFor="let pedido of aprobados" class="pedido-card approved-card shadow-sm mb-4 p-4 rounded-3">
+        <h4 class="mb-2">Pedido ID: <span class="text-success">{{ pedido.n_pedido }}</span></h4>
+        <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
+        <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
+        <p><strong>Total:</strong> <span class="text-success">$ {{ pedido.monto_total }}</span></p>
 
-    <div *ngIf="pedido.detalles.length > 0; else noProductosAprobado">
-      <strong>Productos:</strong>
-      <ul>
-        <li *ngFor="let detalle of pedido.detalles">
-          {{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }} -
-          Cantidad: {{ detalle.cantidad }} -
-          Precio unitario: ${{ detalle.precio_unitario }}
-        </li>
-      </ul>
+        <div *ngIf="pedido.detalles.length > 0; else noProductosAprobado" class="mt-3">
+          <strong>Productos:</strong>
+          <ul class="list-group list-group-flush mt-2">
+            <li *ngFor="let detalle of pedido.detalles" class="list-group-item d-flex justify-content-between align-items-center px-0 border-0">
+              <span>{{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }}</span>
+              <span class="text-muted small">
+                Cantidad: {{ detalle.cantidad }} &nbsp;|&nbsp;
+                Precio unitario: ${{ detalle.precio_unitario }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noProductosAprobado>
+          <p class="fst-italic text-muted mt-3">No hay productos disponibles para este pedido.</p>
+        </ng-template>
+      </div>
     </div>
-    <ng-template #noProductosAprobado>
-      <p><em>No hay productos disponibles para este pedido.</em></p>
+    <ng-template #noAprobados>
+      <p class="text-muted fst-italic">No tienes pedidos aprobados.</p>
     </ng-template>
-  </div>
+  </section>
 
   <hr>
 
   <!-- CANCELADOS -->
-  <h2 class="text-secondary">Pedidos Cancelados</h2>
-  <div *ngFor="let pedido of cancelados" class="pedido-card border border-secondary mb-3 p-3">
-    <h3>Pedido ID: {{ pedido.n_pedido }}</h3>
-    <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
-    <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
-    <p><strong>Total:</strong> $ {{ pedido.monto_total }}</p>
+  <section>
+    <h2 class="section-title cancelled">Pedidos Cancelados</h2>
+    <div *ngIf="cancelados.length > 0; else noCancelados">
+      <div *ngFor="let pedido of cancelados" class="pedido-card cancelled-card shadow-sm mb-4 p-4 rounded-3">
+        <h4 class="mb-2">Pedido ID: <span class="text-secondary">{{ pedido.n_pedido }}</span></h4>
+        <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
+        <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
+        <p><strong>Total:</strong> <span class="text-secondary">$ {{ pedido.monto_total }}</span></p>
 
-    <div *ngIf="pedido.detalles.length > 0; else noProductosCancelado">
-      <strong>Productos:</strong>
-      <ul>
-        <li *ngFor="let detalle of pedido.detalles">
-          {{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }} -
-          Cantidad: {{ detalle.cantidad }} -
-          Precio unitario: ${{ detalle.precio_unitario }}
-        </li>
-      </ul>
+        <div *ngIf="pedido.detalles.length > 0; else noProductosCancelado" class="mt-3">
+          <strong>Productos:</strong>
+          <ul class="list-group list-group-flush mt-2">
+            <li *ngFor="let detalle of pedido.detalles" class="list-group-item d-flex justify-content-between align-items-center px-0 border-0">
+              <span>{{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }}</span>
+              <span class="text-muted small">
+                Cantidad: {{ detalle.cantidad }} &nbsp;|&nbsp;
+                Precio unitario: ${{ detalle.precio_unitario }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noProductosCancelado>
+          <p class="fst-italic text-muted mt-3">No hay productos disponibles para este pedido.</p>
+        </ng-template>
+      </div>
     </div>
-    <ng-template #noProductosCancelado>
-      <p><em>No hay productos disponibles para este pedido.</em></p>
+    <ng-template #noCancelados>
+      <p class="text-muted fst-italic">No tienes pedidos cancelados.</p>
     </ng-template>
-  </div>
+  </section>
 
 </div>

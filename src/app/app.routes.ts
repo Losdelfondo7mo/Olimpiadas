@@ -13,22 +13,28 @@ import { AuthCallback } from './auth/auth-callback';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 import { Error404 } from './pages/error404/error404';
 
-export const routes: Routes = [
-    {path: "quienes_somos", component:QuienesSomos,},
-    { path: 'auth/callback', component: AuthCallback },
 
-    {path: "auth", children:[
+export const routes: Routes = [
+    {path:"", redirectTo: "/auth", pathMatch: "full"},
+    {path: "quienes_somos", component:QuienesSomos, canActivate: [AuthGuard]},
+    { path: 'auth/callback', component: AuthCallback },
+    {path: "productos", component: Product, canActivate: [AuthGuard] },
+    {path: "cart", component: Cart, canActivate: [AuthGuard] },
+    {path: "perfil", component: Perfil, canActivate: [AuthGuard] },
+    {path: "mis-pedidos", component: MisPedidos, canActivate: [AuthGuard] },
+
+
+    {path: "auth", component: AuthComponent },
+    {path: "auth/registro", component: Registro },
+
+    {path: "auth-old", children:[
         { path: 'registro', component: Registro},
-        { path: '', component: AuthComponent},
+        { path: 'login', component: AuthComponent},
       
     ]},
-    {path: "perfil", component: Perfil, },
-    {path: "mis-pedidos", component: MisPedidos },
-    {path: "productos", component: Product, },
-    {path: "cart", component:Cart, },
     { path: 'admin', component: adminDashboard, canActivate: [AdminGuard] },
     { path: 'not-found', component: NotFound},
-    { path: '**', component: Error404},
-    {path:"", redirectTo: "/auth", pathMatch: "full"},
+    { path: '**', component: Error404}
+    
 
 ]

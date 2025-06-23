@@ -1,0 +1,58 @@
+ .orders-section {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 3px solid transparent;
+  }
+  .section-title.pending {
+    color: #d97706; /* Ámbar */
+    border-color: #fbbf24;
+  }
+  .section-title.approved {
+    color: #16a34a; /* Verde */
+    border-color: #4ade80;
+  }
+  .section-title.cancelled {
+    color: #6b7280; /* Gris oscuro */
+    border-color: #9ca3af;
+  }
+
+  .order-card {
+    border-radius: 0.75rem;
+    background: #fff;
+  }
+
+  .pending-card {
+    border-left: 5px solid #fbbf24;
+  }
+  .approved-card {
+    border-left: 5px solid #4ade80;
+  }
+  .cancelled-card {
+    border-left: 5px solid #9ca3af;
+  }
+
+  .order-info {
+    font-size: 1rem;
+    color: #374151;
+  }
+
+  .cancel-btn {
+    min-width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .cancel-btn:hover {
+    background-color: #dc2626;
+    color: white;
+  }

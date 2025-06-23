@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export interface LoginResponse {
   access_token: string;
@@ -18,6 +18,7 @@ export interface LoginResponse {
 })
 export class AuthService {
   apiUrl = 'https://backend-9s6b.onrender.com/api/auth';
+
 
   constructor(private http: HttpClient) {}
 
@@ -84,10 +85,18 @@ export class AuthService {
     const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
     return usuario ? usuario.id : null;
   }
-  //poniendo el rol a los usuarios, por defecto es un usuario
+
   getRol(): string | null {
-  return localStorage.getItem('rol');
+  const raw = localStorage.getItem('usuario');
+  try {
+    const usuario = raw ? JSON.parse(raw) : null;
+    return usuario?.rol || null;
+  } catch {
+    return null;
+  }
 }
+
+
 
   //cerrar sesión 
   cerrarSesion(): void {
