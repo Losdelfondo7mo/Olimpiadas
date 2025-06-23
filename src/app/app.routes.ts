@@ -11,6 +11,7 @@ import { NotFound } from './pages/not-found/not-found';
 import { Perfil } from './pages/perfil/perfil';
 import { AuthCallback } from './auth/auth-callback';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
+import { Error404 } from './pages/error404/error404';
 
 export const routes: Routes = [
     {path: "quienes_somos", component:QuienesSomos,},
@@ -27,6 +28,7 @@ export const routes: Routes = [
     {path: "cart", component:Cart, },
     { path: 'admin', component: adminDashboard, canActivate: [AdminGuard] },
     { path: 'not-found', component: NotFound},
+    { path: '**', component: Error404},
     {path:"", redirectTo: "/auth", pathMatch: "full"},
 
 ]

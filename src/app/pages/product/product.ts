@@ -38,4 +38,14 @@ export class Product implements OnInit {
     this.cartService.agregar(producto);
     this.mostrarToast(`"${producto.nombre}" fue agregado al carrito `);
   }
+
+  eliminar(productoId: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+      this.productosService.eliminarProducto(productoId).subscribe(() => {
+        this.productos = this.productos.filter(p => p.id !== productoId);
+      }, error => {
+        console.error('Error al eliminar el producto', error);
+      });
+    }
+  }
 }

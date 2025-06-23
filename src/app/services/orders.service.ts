@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Producto } from './cart.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
+export interface DetallePedido {
+  id?: number;
+  pedido_id?: number;
+  producto_id: number;
+  cantidad: number;
+  precio_unitario: number;
+}
+
 export interface Pedido {
   id: number;
+  n_pedido?: string;
   usuario: string;
-  productos: Producto[];
+  productos?: Producto[];
   total: number;
+  monto_total: number;
   estado: 'pendiente' | 'aprobado' | 'cancelado';
   fecha: Date;
   usuario_id: number
+  detalles: DetallePedido[]
 }
 
 @Injectable({
@@ -37,16 +48,15 @@ export class OrdersService {
 
   agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, pedido);
-
-
-  
 }
+  getMisPedidos(usuarioId: number, skip = 0, limit = 100): Observable<any> {
+  let params = new HttpParams()
+    .set('usuario_id', usuarioId.toString())
+    .set('skip', skip.toString())
+    .set('limit', limit.toString());
 
-
-  getMisPedidos(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/mis-pedidos`);
-  }
-
+  return this.http.get(`${this.baseUrl}/mis-pedidos`, { params });
+}
   cancelarPedido(id: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/cancelar/${id}`, {});
   }
@@ -59,20 +69,9 @@ export class OrdersService {
     return this.http.put(`${this.baseUrl}/confirmar/${id}`, {});
   }
 
+  getEstadisticas(): Observable<any> {
+  return this.http.get(`${this.baseUrl}/estadisticas`);
+}
+  
 
-
-  //lo viego sin back
-
-
-  getPedidos(): Pedido[] {
-    return this.pedidos;
-  }
-
-  cambiarEstado(id: number, estado: 'aprobado' | 'cancelado') {
-    const pedido = this.pedidos.find(p => p.id === id);
-    if (pedido) {
-      pedido.estado = estado;
-      localStorage.setItem('pedidos', JSON.stringify(this.pedidos));
-    }
-  }
 }

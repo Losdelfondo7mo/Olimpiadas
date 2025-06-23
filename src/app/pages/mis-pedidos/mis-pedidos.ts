@@ -14,14 +14,23 @@ export class MisPedidos implements OnInit {
   constructor(private orderssService: OrdersService) {}
 
   ngOnInit() {
-    this.orderssService.getMisPedidos().subscribe(data => {
+  const usuarioId = 4; // Obtenelo según tu lógica (ej: de sesión, localStorage, etc.)
+  this.orderssService.getMisPedidos(usuarioId).subscribe({
+    next: (data) => {
       this.pedidos = data;
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Error al cargar pedidos', err);
+    }
+  });
+}
+
 
   cancelar(pedidoId: number) {
-    this.orderssService.cancelarPedido(pedidoId).subscribe(() => {
-      this.pedidos = this.pedidos.filter(p => p.id !== pedidoId);
-    });
-  }
+  this.orderssService.cancelarPedido(pedidoId).subscribe(() => {
+    this.pedidos = this.pedidos.filter(p => p.id !== pedidoId);
+  }, error => {
+    console.error('Error al cancelar pedido', error);
+  });
+}
 }

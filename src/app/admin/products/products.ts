@@ -31,13 +31,25 @@ export class adminProducts implements OnInit{
       disponibilidad: true,
       categoria: '',
     };
-productoEditando: Producto | null = null;
+
+    productoEditando: Producto | null = null;
+
+  categoriaLabels: { [key: string]: string } = {
+  viajes: 'Viajes de egresados',
+  alquileresAutos: 'Alquileres de autos',
+  vuelos: 'Vuelos',
+  hoteles: 'Hoteles 5 estrellas'
+};
+
+  categoriaKeys: string[] = [];
 
 
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
+    this.categoriaKeys = Object.keys(this.categoriaLabels);
     this.productService.getProductos().subscribe(data => {
+      console.log('Productos:', data);
       this.productos = data;
     });
   }
@@ -77,12 +89,25 @@ productoEditando: Producto | null = null;
 }
 
 
-  eliminarProducto(id: number) {
-    this.productos = this.productos.filter(p => p.id !== id);
-    localStorage.setItem('productos', JSON.stringify(this.productos));
+  eliminar(productoId: number) {
+  if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+    this.productService.eliminarProducto(productoId).subscribe({
+      next: () => {
+        this.productos = this.productos.filter(p => p.id !== productoId);
+      },
+      error: (error) => {
+        console.error('Error al eliminar producto:', error);
+        alert('Hubo un error al eliminar el producto.');
+      }
+    });
   }
+}
 
   cancelarEdicion() {
     this.productoEditando = null;
   }
+
+
+  
+
 }

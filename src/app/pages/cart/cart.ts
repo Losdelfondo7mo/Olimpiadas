@@ -75,14 +75,15 @@ export class Cart {
   const usuario = JSON.parse(usuarioStr);
 
   const pedido = {
-  usuario_id: usuario.id,
-  usuario: usuario.usuario || '',
-  productos: this.cartService.currentCart.map(p => ({
-    id: p.id,
-    nombre: p.nombre,
-    precio: p.precio,
-    cantidad: p.cantidad
+   usuario_id: usuario.id,
+  usuario: this.authService.usuarioActual || 'N/A',
+  monto_total: this.cartService.total, // agregás este campo
+  detalles: this.cartService.currentCart.map(p => ({
+    producto_id: p.id,
+    cantidad: p.cantidad,
+    precio_unitario: p.precio
   })),
+  productos: this.cartService.currentCart,
   total: this.cartService.total
 };
 
@@ -90,6 +91,7 @@ export class Cart {
     next: () => {
       this.cartService.pagar();
       this.mostrarToast('¡Compra realizada con éxito!');
+      
     },
     error: err => console.error('Error al guardar el pedido:', err.error?.detail || err)
   });

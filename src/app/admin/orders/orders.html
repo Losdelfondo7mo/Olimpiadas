@@ -1,14 +1,24 @@
+<div *ngFor="let pedido of pendientes" class="pedido-card">
+  <h3>Pedido ID: {{ pedido.n_pedido }}</h3>
+  <p><strong>Usuario ID:</strong> {{ pedido.usuario_id }}</p>
+  <p><strong>Fecha:</strong> {{ pedido.fecha | date:'medium' }}</p>
+  <p><strong>Total:</strong> $ {{ pedido.monto_total }}</p>
 
+  <div *ngIf="pedido.detalles.length > 0; else noProductos">
+    <strong>Productos:</strong>
+    <ul>
+      <li *ngFor="let detalle of pedido.detalles">
+        {{ productosMap.get(detalle.producto_id)?.nombre || 'Producto desconocido' }} - 
+        Cantidad: {{ detalle.cantidad }} - 
+        Precio unitario: ${{ detalle.precio_unitario }}
+      </li>
+    </ul>
+  </div>
 
-<h2>Pedidos Pendientes</h2>
-<ul *ngIf="pendientes.length; else sinPedidos">
-  <li *ngFor="let pedido of pendientes">
-    <strong>ID:</strong> {{ pedido.id }} |
-    <strong>Usuario:</strong> {{ pedido.usuario?.nombre || 'N/A' }}
-    <button (click)="confirmar(pedido.id)">Confirmar</button>
-    <button (click)="cancelar(pedido.id)">Cancelar</button>
-  </li>
-</ul>
-<ng-template #sinPedidos>
-  <p>No hay pedidos pendientes.</p>
-</ng-template>
+  <ng-template #noProductos>
+    <p><em>No hay productos disponibles para este pedido.</em></p>
+  </ng-template>
+
+  <button (click)="confirmar(pedido.id)">Confirmar</button>
+  <button (click)="cancelar(pedido.id)">Cancelar</button>
+</div>

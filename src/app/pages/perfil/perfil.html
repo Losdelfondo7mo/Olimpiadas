@@ -23,11 +23,16 @@
       </li>
     </ul>
 
-    <div class="text-center">
+    <div class="text-center d-flex flex-column gap-2">
       <button (click)="logout()" class="btn btn-danger btn-sm d-flex align-items-center gap-2 mx-auto">
         <i class="bi bi-door-closed"></i> Cerrar sesión
+      </button>
+
+      <button routerLink="/mis-pedidos" class="btn btn-primary btn-sm d-flex align-items-center gap-2 mx-auto">
+        <i class="bi bi-card-list"></i> Mis pedidos
       </button>
     </div>
   </div>
 </div>
+
 

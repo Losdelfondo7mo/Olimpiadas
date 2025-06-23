@@ -22,10 +22,15 @@
             <option [ngValue]="false">No</option>
           </select>
         </div>
-        <div class="col-md-2">
-          <label class="form-label">Categoría </label>
-          <input type="text" [(ngModel)]="nuevoProducto.categoria" name="categoria" class="form-control" required>
-        </div>
+          <div class="col-md-2">
+            <label class="form-label">Categoría</label>
+            <select [(ngModel)]="nuevoProducto.categoria" name="categoria" class="form-select" required>
+              <option *ngFor="let key of categoriaKeys" [value]="key">
+                {{ categoriaLabels[key] }}
+              </option>
+            </select>
+          </div>
+
         <div class="col-md-2 d-grid">
           <button type="submit" class="btn btn-success">Agregar</button>
         </div>
@@ -44,6 +49,7 @@
       <tr>
         <th>Nombre</th>
         <th>Descripción</th>
+        <th>Categoria</th>
         <th>Precio</th>
         <th colspan="2">Acciones</th>
       </tr>
@@ -52,6 +58,7 @@
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombre }}</td>
         <td>{{ producto.descripcion }}</td>
+        <td>{{ categoriaLabels[producto.categoria] || producto.categoria }}</td>
         <td>$ {{ producto.precio }}</td>
         <td class="text-center">
           <button (click)="iniciarEdicion(producto)" class="btn btn-outline-warning btn-sm">
@@ -59,8 +66,8 @@
           </button>
         </td>
         <td class="text-center">
-          <button (click)="eliminarProducto(producto.id)" class="btn btn-outline-danger btn-sm">
-            <i class="bi bi-trash"></i>
+          <button (click)="eliminar(producto.id)" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash"></i> Eliminar
           </button>
         </td>
       </tr>
@@ -73,7 +80,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow">
       <div class="modal-header">
-        <h5 class="modal-title">✏️ Editar producto</h5>
+        <h5 class="modal-title"> Editar producto</h5>
         <button type="button" class="btn-close" (click)="cancelarEdicion()"></button>
       </div>
       <div class="modal-body">
@@ -92,9 +99,15 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">categoria</label>
-            <input type="text" [(ngModel)]="productoEditando.categoria" name="categoria" class="form-control" />
+            <label class="form-label">Categoría</label>
+            <select [(ngModel)]="productoEditando.categoria" name="categoria" class="form-select">
+              <option value="viaejes">Viajes de egresados</option>
+              <option value="alquiler de autos ">Alquileres de autos</option>
+              <option value="vuelos">vuelos</option>
+              <option value="hoteles">hoteles 5 estrellas</option>
+            </select>
           </div>
+
         </form>
       </div>
       <div class="modal-footer">

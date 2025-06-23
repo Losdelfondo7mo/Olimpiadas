@@ -1,13 +1,34 @@
-<h2>Mis Pedidos</h2>
-<ul *ngIf="pedidos.length; else sinPedidos">
-  <li *ngFor="let pedido of pedidos">
-    <strong>ID:</strong> {{ pedido.id }} |
-    <strong>Estado:</strong> {{ pedido.estado }}
-    <button *ngIf="pedido.estado === 'pendiente'" (click)="cancelar(pedido.id)">
-      Cancelar
-    </button>
-  </li>
-</ul>
-<ng-template #sinPedidos>
-  <p>No tienes pedidos realizados.</p>
-</ng-template>
+<div class="container mt-4">
+  <h2 class="mb-4">Mis Pedidos</h2>
+
+  <div *ngIf="!pedidos.length" class="alert alert-info">
+    No tienes pedidos realizados.
+  </div>
+
+  <ul class="list-group" *ngIf="pedidos.length">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let pedido of pedidos">
+      <div>
+        <strong>Pedido ID:</strong> {{ pedido.id }} |
+        <strong>Estado:</strong> 
+        <span
+          class="badge"
+          [ngClass]="{
+            'bg-warning': pedido.estado === 'pendiente',
+            'bg-success': pedido.estado === 'aprobado',
+            'bg-danger': pedido.estado === 'cancelado'
+          }"
+        >
+          {{ pedido.estado | titlecase }}
+        </span>
+      </div>
+
+      <button
+        *ngIf="pedido.estado === 'pendiente'"
+        (click)="cancelar(pedido.id)"
+        class="btn btn-danger btn-sm"
+      >
+        Cancelar
+      </button>
+    </li>
+  </ul>
+</div>

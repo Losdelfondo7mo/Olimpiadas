@@ -75,6 +75,16 @@ export class AuthService {
     }
   }
 
+  get usuarioId(): number | null {
+  const raw = localStorage.getItem('usuario');
+  try {
+    const parsed = raw ? JSON.parse(raw) : null;
+    return parsed?.id || null;
+  } catch {
+    return null;
+  }
+}
+
  
 
   //poniendo el rol a los usuarios, por defecto es un usuario

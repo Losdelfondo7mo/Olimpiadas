@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OrdersService, Pedido } from '../../services/orders.service';
 import { AuthService } from '../../services/auth.service';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -14,26 +15,27 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AdminOrders implements OnInit {
 
-  constructor(private ordersService: OrdersService, private authService: AuthService) {
+  constructor(private ordersService: OrdersService, private authService: AuthService, private productsService: ProductService) {
   }
 
-  pendientes: any[] = [];
+  pendientes: Pedido[] = [];
+  productosMap = new Map<number, any>();  // Mapa producto_id -> datos del producto
 
-  ngOnInit() {
-    this.ordersService.getPendientes().subscribe(data => {
+    ngOnInit() {
+      this.ordersService.getPendientes().subscribe(data => {
       this.pendientes = data;
     });
   }
 
   confirmar(id: number) {
     this.ordersService.confirmarPedido(id).subscribe(() => {
-      this.pendientes = this.pendientes.filter(p => p.id !== id);
+      this.pendientes = this.pendientes.filter((p: Pedido) => p.id !== id);
     });
   }
 
   cancelar(id: number) {
     this.ordersService.cancelarPedido(id).subscribe(() => {
-      this.pendientes = this.pendientes.filter(p => p.id !== id);
+      this.pendientes = this.pendientes.filter((p: Pedido) => p.id !== id);
     });
   }
 }
