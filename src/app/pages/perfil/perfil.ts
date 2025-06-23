@@ -17,11 +17,20 @@ export class Perfil {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.nombre = localStorage.getItem('nombre');
-    this.apellido = localStorage.getItem('apellido');
-    this.email = localStorage.getItem('email');
-    this.usuario = this.authService.usuarioActual;
+   ngOnInit(): void {
+    const usuarioString = localStorage.getItem('usuario');
+    if (usuarioString) {
+      const usuarioObj = JSON.parse(usuarioString);
+      this.nombre = usuarioObj.nombre || '';
+      this.apellido = usuarioObj.apellido || '';
+      this.email = usuarioObj.email || '';
+      this.usuario = usuarioObj.usuario || '';
+    } else {
+      this.nombre = '';
+      this.apellido = '';
+      this.email = '';
+      this.usuario = '';
+    }
   }
 
   logout(): void {

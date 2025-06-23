@@ -5,7 +5,6 @@ import { OrdersService, Pedido } from '../../services/orders.service';
 import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 
-
 @Component({
   selector: 'app-admin-orders',
   standalone: true,
@@ -33,26 +32,30 @@ export class AdminOrders implements OnInit {
       this.cancelados = data.filter((p: Pedido) => p.estado === 'CANCELADO');
     });
 
-    // Usa el método correcto que tengas definido en tu servicio
     this.productsService.getProductos().subscribe((productos: any[]) => {
       productos.forEach((p: any) => this.productosMap.set(p.id, p));
     });
   }
 
   confirmar(id: number) {
-  console.log('Confirmando pedido con ID:', id);
-  this.ordersService.confirmarPedido(id).subscribe({
-    next: () => {
-      const pedido = this.pendientes.find(p => p.id === id);
-      if (pedido) {
+  const pedido = this.pendientes.find(p => p.id === id);
+  if (pedido && pedido.detalles.length > 0) {
+    const producto_id = pedido.detalles[0].producto_id; // o iterar si hay más
+    this.ordersService.confirmarPedido(pedido.id, producto_id).subscribe({
+      next: () => {
         this.aprobados.push(pedido);
         this.pendientes = this.pendientes.filter(p => p.id !== id);
+      },
+      error: err => {
+        console.error('Error al confirmar pedido:', err);
+        if (err.error) {
+          console.error('Detalles del backend:', err.error);
+        }
       }
-    },
-    error: err => {
-      console.error('Error al confirmar pedido:', err);
-    }
-  });
+    });
+  } else {
+    console.warn('Pedido no encontrado o sin detalles para confirmar');
+  }
 }
 
 
@@ -66,4 +69,3 @@ export class AdminOrders implements OnInit {
     });
   }
 }
-

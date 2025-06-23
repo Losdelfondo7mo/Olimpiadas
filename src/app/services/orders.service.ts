@@ -65,12 +65,13 @@ export class OrdersService {
     return this.http.get(`${this.baseUrl}/pendientes`);
   }
 
-  confirmarPedido(id: number): Observable<any> {
+  confirmarPedido(pedidoId: number, producto_id: number): Observable<any> {
   const token = localStorage.getItem('access_token');
   const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-  return this.http.put(`${this.baseUrl}/confirmar/${id}`, {}, { headers });
+  return this.http.put(`${this.baseUrl}/confirmar/${producto_id}`, { pedidoId }, { headers });
 }
+
 
 
 
