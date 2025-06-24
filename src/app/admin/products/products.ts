@@ -53,7 +53,6 @@ export class adminProducts implements OnInit{
   ngOnInit() {
     this.categoriaKeys = Object.keys(this.categoriaLabels);
     this.productService.getProductos().subscribe(data => {
-      console.log('Productos:', data);
       this.productos = data;
     });
   }
@@ -93,8 +92,6 @@ export class adminProducts implements OnInit{
 
 
   eliminar(productoId: number) {
-  console.log('Intentando eliminar ID:', productoId);
-
   Swal.fire({
     title: '¿Estás seguro de que deseas eliminar este producto?',
     text: 'Esta acción no se puede deshacer.',
@@ -108,7 +105,7 @@ export class adminProducts implements OnInit{
     if (result.isConfirmed) {
       this.productService.eliminarProducto(productoId).subscribe({
         next: () => {
-          console.log('Producto eliminado con éxito');
+
           this.productos = this.productos.filter(p => p.id !== productoId);
 
           // Confirmación visual de eliminación

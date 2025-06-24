@@ -92,9 +92,7 @@ export class Registro  {
       
       confirmButtonText: 'Aceptar'
   });
-
-        console.log(this.registerForm)
-      }
+}
     });
   } else {
     Swal.fire({

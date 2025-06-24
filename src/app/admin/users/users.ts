@@ -17,7 +17,7 @@ export class Users {
   ngOnInit(): void {
     this.usersService.getUsuarios().subscribe({
   next: data => {
-    console.log('Usuarios recibidos:', data);
+
     this.usuarios = data;
   },
   error: err => {

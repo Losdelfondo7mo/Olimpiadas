@@ -40,7 +40,7 @@ export class AdminOrders implements OnInit {
 loadPedidos() {
   this.ordersService.getTodosPedidos().subscribe({
     next: (data) => {
-      console.log('Pedidos cargados:', data); 
+
 
       this.pendientes = data.filter(p => p.estado === 'PENDIENTE');
       this.aprobados = data.filter(p => p.estado === 'APROBADO');

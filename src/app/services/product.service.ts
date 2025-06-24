@@ -34,7 +34,6 @@ export class ProductService {
 
     editarProducto(producto: Producto): Observable<Producto> {
     const token = localStorage.getItem('access_token');
-    console.log('token usado:', token)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -44,7 +43,6 @@ export class ProductService {
   }
 
   eliminarProducto(productoId: number): Observable<any> {
-  console.log('DELETE:', `${this.apiUrl}/${productoId}`);
   return this.http.delete(`${this.apiUrl}/${productoId}`);
 }
  

@@ -32,10 +32,6 @@ export class AuthService {
     contraseña,
   }).pipe(
     tap(respuesta => {
-      console.log('Respuesta del login:', respuesta);
-      console.log('Tipo de respuesta.usuario:', typeof respuesta.usuario);
-      console.log('Valor de respuesta.usuario:', respuesta.usuario);
-
       this.guardarSesion(respuesta.access_token);
       //guardamos los datos que nos pasa el usuario en el localstorage
         if (respuesta.usuario) {

@@ -20,14 +20,10 @@ export class MisPedidos implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.authService.usuarioId;
-    console.log('Usuario ID obtenido:', id);
-
+    const id = this.authService.usuarioId; // Obtiene el ID del usuario logueado
     if (id) {
       this.ordersService.getMisPedidos(id).subscribe({
         next: (data) => {
-          console.log('Pedidos obtenidos:', data);
-
           // Clasifica los pedidos por su estado
           this.pedidosPendientes = data.filter((p: any) => p.estado === 'PENDIENTE');
           this.pedidosAprobados = data.filter((p: any) => p.estado === 'APROBADO');

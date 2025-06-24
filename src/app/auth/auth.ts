@@ -32,13 +32,11 @@ export class AuthComponent {
   this.http.get<any[]>('https://backend-9s6b.onrender.com/api/auth/oauth/providers')
     .subscribe({
       next: res => {
-        console.log('Proveedores recibidos:', res);
         // Convertir array a objeto
         this.providers = res.reduce((acc, p) => {
           acc[p.name] = p.authorization_url;
           return acc;
         }, {} as Record<string, string>);
-        console.log('Proveedores procesados:', this.providers);
       },
       error: err => console.error('Error al obtener proveedores', err)
     });
@@ -67,10 +65,8 @@ export class AuthComponent {
 
   onEnviar(event: Event) {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
       alert('Bien, pudiste ingresar');
     } else {
-      console.log('Formulario inválido');
       alert('Lo siento, verifica que los datos sean correctos');
     }
   }
@@ -95,7 +91,6 @@ export class AuthComponent {
       }
 
     } else {
-      console.log('datos no encontrados');
     }
   },
   error: (error) => {
