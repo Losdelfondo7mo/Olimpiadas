@@ -21,9 +21,9 @@ export class QuienesSomos {
     {
       nombre: 'Axel Gonzalez',
       imagen: "/miembros/Axel.jpeg",
-      descripcion: 'Scrum Master',
+      descripcion: 'Lider de Proyecto',
       email: 'axelgonzalezyf28@gmail.com',
-      rol: 'Scrum Master'
+      rol: 'Lider de Proyecto'
     },
     {
       nombre: 'Lautaro Antiñanco',

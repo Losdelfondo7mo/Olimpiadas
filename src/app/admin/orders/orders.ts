@@ -57,20 +57,16 @@ loadPedidos() {
   if (pedido && pedido.detalles.length > 0) {
     const producto_id = pedido.detalles[0].producto_id;
     this.ordersService.confirmarPedido(pedido.id, producto_id).subscribe({
-      next: () => {
-        this.loadPedidos(); 
-      },
-      error: err => {
-        console.error('Error al confirmar pedido:', err);
-      }
+      next: () => this.loadPedidos(),
+      error: err => console.error('Error al confirmar pedido:', err)
     });
   }
 }
 
-cancelar(id: number) {
-  this.ordersService.cancelarPedido(id).subscribe(() => {
-    this.loadPedidos(); 
-  });
-}
+  cancelar(id: number) {
+    this.ordersService.cancelarPedido(id).subscribe(() => {
+      this.loadPedidos(); 
+    });
+  }
 }
 

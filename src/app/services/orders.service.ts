@@ -62,8 +62,15 @@ export class OrdersService {
   cancelarPedido(pedidoId: number): Observable<any> {
     const token = localStorage.getItem('access_token')!;
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
-  }
+
+    console.log('Cancelando pedido →', {
+    url: `${this.baseUrl}/cancelar/${pedidoId}`,
+    headers,
+    body: {}
+  });
+
+  return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
+}
 
  getTodosPedidos(): Observable<Pedido[]> {
     const token = localStorage.getItem('access_token')!;
@@ -73,14 +80,20 @@ export class OrdersService {
 
 
  confirmarPedido(pedidoId: number, producto_id: number): Observable<any> {
-    const token = localStorage.getItem('access_token')!;
-    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.put(
-      `${this.baseUrl}/confirmar/${pedidoId}`,
-      { producto_id },
-      { headers }
-    );
-  }
+  const token = localStorage.getItem('access_token')!;
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+  console.log('Confirmando pedido →', {
+    url: `${this.baseUrl}/confirmar/${pedidoId}`,
+    headers,
+    body: { producto_id }
+  });
+
+  return this.http.put(`${this.baseUrl}/confirmar/${pedidoId}`, { producto_id }, { headers });
+}
+
+
+
 
 
   getPendientes(): Observable<any> {
