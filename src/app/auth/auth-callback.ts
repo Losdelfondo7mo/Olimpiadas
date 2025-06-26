@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth-callback',
@@ -7,16 +8,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AuthCallback implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // Buscar el token en el parámetro 'token' (enviado por el backend)
     const token = this.route.snapshot.queryParamMap.get('token');
+
     if (token) {
-      localStorage.setItem('access_token', token);
-      this.router.navigate(['/productos']);
+      this.authService.guardarSesion(token);
+
+      // ⚠️ Recomendado: Llamar al backend para obtener los datos del usuario
+      this.authService.verificarUsuarioConToken(token).subscribe({
+        next: (usuario) => {
+          localStorage.setItem('usuario', JSON.stringify(usuario));
+          this.router.navigate(['/productos']); // o al home
+        },
+        error: () => {
+          this.router.navigate(['/auth']);
+        }
+      });
     } else {
-      this.router.navigate(['/not-found']);
+      this.router.navigate(['/auth']);
     }
   }
 }

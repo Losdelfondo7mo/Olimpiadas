@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Administrador, AdminManagerService } from '../../services/admin-manager.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-manager',
@@ -41,13 +42,23 @@ export class AdminManager implements OnInit{
   };
 
   this.adminManagerService.crearAdministrador(datosParaEnviar).subscribe({
-    next: () => {
-      alert('✅ Administrador creado correctamente');
-      this.nuevoAdmin = { nombre: '', apellido: '', usuario: '', email: '', password: '' };
-    },
-    error: () => {
-      alert('❌ Error al crear el administrador');
-    }
-  });
+  next: () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Administrador creado',
+      text: 'Administrador creado correctamente',
+      confirmButtonText: 'OK'
+    });
+    this.nuevoAdmin = { nombre: '', apellido: '', usuario: '', email: '', password: '' };
+  },
+  error: () => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error al crear el administrador',
+      confirmButtonText: 'Intentar de nuevo'
+    });
+  }
+});
 }
 }

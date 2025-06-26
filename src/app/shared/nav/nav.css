@@ -2,26 +2,23 @@
   background: var(--bg-white);
   box-shadow: var(--shadow-light);
   border-bottom: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
 }
 
-.navbar-brand {
-  font-family: var(--font-family);
-  font-weight: 700;
-  color: var(--primary-color) !important;
+.custom-header nav.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.nav-link {
-  font-family: var(--font-family);
-  font-weight: 500;
-  color: var(--text-primary) !important;
-  transition: var(--transition);
-  border-radius: var(--border-radius-small);
-  padding: 0.5rem 1rem !important;
-}
-
-.nav-link:hover {
-  color: var(--primary-color) !important;
-  background-color: rgba(102, 126, 234, 0.1);
+/* Botones sin hover como antes */
+.custom-header .btn:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .btn.custom-hover {
@@ -72,6 +69,48 @@
   right: -8px;
   min-width: 20px;
   text-align: center;
+}
+
+/* Responsive */
+
+/* Para pantallas menores a 768px (tablets y celulares) */
+@media (max-width: 767.98px) {
+  .custom-header nav.container {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .custom-header .dropdown.position-relative {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  /* Ajustar botones para que sean full width en móvil */
+  .custom-header .btn.custom-black-border,
+  .custom-header .btn.custom-hover,
+  .custom-header a.btn.custom-black-border {
+    width: 100%;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+  }
+
+  /* Contador carrito posicionado bien */
+  .cart-counter {
+    top: -6px;
+    right: -6px;
+  }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 479.98px) {
+  .custom-header nav.container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-header .dropdown.position-relative {
+    width: 100%;
+  }
 }
 
 

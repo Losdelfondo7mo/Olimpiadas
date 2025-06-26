@@ -67,7 +67,6 @@
   display: flex;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.4s ease;
 }
 
 .auth-panel.active {
@@ -101,13 +100,8 @@
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.info-section button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
 
 .form-section {
   width: 50%;
@@ -133,7 +127,6 @@
   border-radius: 8px;
   font-size: 0.9rem;
   box-sizing: border-box;
-  transition: all 0.3s ease;
 }
 
 .form-section form input:focus {
@@ -151,7 +144,6 @@
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
   margin-bottom: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 export interface LoginResponse {
   access_token: string;
@@ -119,4 +119,14 @@ export class AuthService {
   cambiarContraseña(usuarioId: number, datos: any): Observable<any> {
     return this.http.put(`https://backend-9s6b.onrender.com/api/usuarios/cambiar-password/${usuarioId}`, datos);
   }
+
+  verificarUsuarioConToken(token: string): Observable<any> {
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.get<any>('https://backend-9s6b.onrender.com/api/auth/usuario/me', { headers });
+  }
+
+
 }

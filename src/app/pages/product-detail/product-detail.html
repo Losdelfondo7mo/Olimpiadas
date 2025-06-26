@@ -19,3 +19,29 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055" *ngIf="toastVisible">
+  <div class="toast-modern show">
+    <div class="toast-content">
+      <div class="toast-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="toast-message">
+        {{ toastMensaje }}
+      </div>
+      <button
+        type="button"
+        class="toast-close"
+        aria-label="Close"
+        (click)="toastVisible = false"
+      >
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    <div class="toast-progress"></div>
+  </div>
+</div>

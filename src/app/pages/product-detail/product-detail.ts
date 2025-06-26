@@ -53,7 +53,7 @@ producto: Producto | undefined;
 
   resenas: { nombre: string; comentario: string; calificacion: number }[] = [];
 
-nuevaResena = {
+  nuevaResena = {
   nombre: '',
   comentario: '',
   calificacion: 5,

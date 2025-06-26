@@ -23,6 +23,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="!changePasswordForm.valid">Cambiar Contraseña</button>
+
           </form>
           <div *ngIf="mensaje" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}" class="alert mt-3">
             {{ mensaje }}

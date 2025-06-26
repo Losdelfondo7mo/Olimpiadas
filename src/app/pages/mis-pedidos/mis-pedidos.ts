@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth.service';
 export class MisPedidos implements OnInit {
   pedidosPendientes: any[] = [];
   pedidosAprobados: any[] = [];
-  // Eliminado: pedidosCancelados para ocultar en vista de usuario
 
   constructor(
     private ordersService: OrdersService,
@@ -22,18 +21,17 @@ export class MisPedidos implements OnInit {
   ngOnInit() {
     const id = this.authService.usuarioId;
     if (id) {
-      this.loadPedidos();
+      this.loadPedidos(id);
     } else {
       console.warn('No hay usuario logueado o no tiene id');
     }
   }
 
-  loadPedidos() {
-    this.ordersService.getTodosPedidos().subscribe({
+  loadPedidos(usuarioId: number) {
+    this.ordersService.getMisPedidos(usuarioId).subscribe({
       next: (data: any[]) => {
         this.pedidosPendientes = data?.filter((p: any) => p.estado === 'PENDIENTE') || [];
         this.pedidosAprobados = data?.filter((p: any) => p.estado === 'CONFIRMADO') || [];
-        // No cargamos pedidos cancelados en vista de usuario
       },
       error: (err: any) => {
         console.error('Error al cargar pedidos', err);
@@ -51,6 +49,4 @@ export class MisPedidos implements OnInit {
       }
     });
   }
-
-  // Método eliminarPedido eliminado - solo disponible en admin
 }

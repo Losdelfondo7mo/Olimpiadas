@@ -9,25 +9,26 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cambiar-contra.html',
-  styleUrl: './cambiar-contra.css'
+  styleUrls: ['./cambiar-contra.css']
 })
 export class CambiarContraComponent {
   changePasswordForm: FormGroup;
   mensaje: string = '';
   esError: boolean = false;
 
+  // Validator como función flecha, para poder usar this.passwordMatchValidator
+  passwordMatchValidator = (form: FormGroup) => {
+    const nueva = form.get('contraseña_nueva')?.value;
+    const confirmar = form.get('confirmar_contraseña')?.value;
+    return nueva === confirmar ? null : { mismatch: true };
+  };
+
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.changePasswordForm = this.fb.group({
       contraseña_actual: ['', Validators.required],
       contraseña_nueva: ['', [Validators.required, Validators.minLength(6)]],
       confirmar_contraseña: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
-  }
-
-  passwordMatchValidator(form: FormGroup) {
-    const nueva = form.get('contraseña_nueva')?.value;
-    const confirmar = form.get('confirmar_contraseña')?.value;
-    return nueva === confirmar ? null : { mismatch: true };
+    }, { validators: this.passwordMatchValidator });
   }
 
   onSubmit() {

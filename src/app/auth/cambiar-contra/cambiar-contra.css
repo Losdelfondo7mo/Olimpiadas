@@ -37,11 +37,17 @@
 .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
   background-color: #0069d9;
   border-color: #0062cc;
+  cursor: pointer;
+}
+
+.btn{
+  cursor: pointer;
 }
 
 /* Estilos para el componente de cambiar contraseña */
