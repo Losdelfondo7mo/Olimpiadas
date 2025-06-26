@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Producto } from './cart.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 
 export interface DetallePedido {
   id?: number;
@@ -14,33 +12,41 @@ export interface DetallePedido {
 
 export interface Pedido {
   id: number;
-  n_pedido?: string;
-  usuario: string;
-  productos?: Producto[];
-  total: number;
+  n_pedido: string; // Added n_pedido
+  usuario_id: number | null;
   monto_total: number;
-  estado: 'PENDIENTE' | 'APROBADO' | 'CANCELADO';
-  fecha: Date;
-  usuario_id: number
-  detalles: DetallePedido[]
+  fecha: string;
+  estado: 'PENDIENTE' | 'CONFIRMADO' | 'CANCELADO' | 'DENEGADO' | 'ENTREGADO';
+  productos: any[];
+  detalles?: any[];
+}
+
+export interface PedidoCrear {
+  productos: ProductoItem[];
+  total?: number;
+  usuario_id?: number;
+  usuario?: string;
+}
+
+export interface ProductoItem {
+  id: number;
+  nombre: string;
+  precio: number;
+  cantidad: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  private pedidos: Pedido[] = [];
-  private contadorId = 1;
-
   private baseUrl = 'https://backend-9s6b.onrender.com/api/pedidos';
 
   constructor(private http: HttpClient) {}
 
-  // conexion con el backend 
-
-  agregarPedido(pedido: Omit<Pedido, 'id' | 'estado' | 'fecha'>): Observable<any> {
+  agregarPedido(pedido: PedidoCrear): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, pedido);
-}
+  }
+
   getMisPedidos(usuarioId: number, skip = 0, limit = 100): Observable<Pedido[]> {
     const token = localStorage.getItem('access_token')!;
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
@@ -56,42 +62,41 @@ export class OrdersService {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
     console.log('Cancelando pedido →', {
-    url: `${this.baseUrl}/cancelar/${pedidoId}`,
-    headers,
-    body: {}
-  });
+      url: `${this.baseUrl}/cancelar/${pedidoId}`,
+      headers,
+      body: {}
+    });
 
-  return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
+    return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
   }
 
- getTodosPedidos(): Observable<Pedido[]> {
+  getTodosPedidos(): Observable<Pedido[]> {
     const token = localStorage.getItem('access_token')!;
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<Pedido[]>(`${this.baseUrl}`, { headers });
+    return this.http.get<Pedido[]>(`${this.baseUrl}/todos`, { headers });
   }
 
+  confirmarPedido(pedidoId: number): Observable<any> {
+    const token = localStorage.getItem('access_token')!;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
- confirmarPedido(pedidoId: number, producto_id: number): Observable<any> {
-  const token = localStorage.getItem('access_token')!;
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    console.log('Confirmando pedido →', {
+      url: `${this.baseUrl}/confirmar/${pedidoId}`,
+      headers,
+      body: { confirmar: true }
+    });
 
-  console.log('Confirmando pedido →', {
-    url: `${this.baseUrl}/confirmar/${pedidoId}`,
-    headers,
-    body: { producto_id }
-  });
-
-  return this.http.put(`${this.baseUrl}/confirmar/${pedidoId}`, { producto_id }, { headers });
+    return this.http.put(`${this.baseUrl}/confirmar/${pedidoId}`, { confirmar: true }, { headers });
   }
 
   getPendientes(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/pendientes`);
+    return this.http.get(`${this.baseUrl}/pendientes`);
   }
 
   getEstadisticas(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/estadisticas`);
+    return this.http.get(`${this.baseUrl}/estadisticas`);
   }
-  
+
   eliminarPedido(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }

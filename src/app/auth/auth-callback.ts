@@ -10,10 +10,11 @@ export class AuthCallback implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    const token = this.route.snapshot.queryParamMap.get('access_token');
+    // Buscar el token en el parámetro 'token' (enviado por el backend)
+    const token = this.route.snapshot.queryParamMap.get('token');
     if (token) {
       localStorage.setItem('access_token', token);
-      this.router.navigate(['/auth']);
+      this.router.navigate(['/productos']);
     } else {
       this.router.navigate(['/not-found']);
     }

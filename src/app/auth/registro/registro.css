@@ -1,6 +1,7 @@
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .auth-wrapper{
     width: 90%;
+    min-height: 400px; /* Altura mínima para móviles */
     height: auto;
     flex-direction: column;
   }
@@ -36,7 +37,6 @@
   color: #fff;
   border: 1px solid #fff;
   background-color: transparent;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .custom-btn:hover {
@@ -48,13 +48,14 @@
 .auth-wrapper {
   position: relative;
   width: 800px;
-  height: 500px;
+  min-height: 500px;
+  height: auto;
   overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-heavy);
+  background: var(--bg-white);
   padding: 10px;
-  margin: auto;
+  margin: 3rem auto; /* Agregar margen superior e inferior */
 }
 
 .auth-panel {
@@ -66,6 +67,7 @@
   display: flex;
   opacity: 0;
   pointer-events: none;
+  transition: var(--transition);
 }
 
 .auth-panel.active {
@@ -76,7 +78,7 @@
 
 .info-section {
   width: 50%;
-  background: linear-gradient(135deg, #2651D3, #3d6ef2);
+  background: var(--primary-gradient);
   color: white;
   padding: 2rem;
   display: flex;
@@ -85,14 +87,27 @@
   justify-content: center;
 }
 
+.info-section h2 {
+  font-family: var(--font-family);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 .info-section button {
-  padding: 0.8rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: white;
-  color: #2651D3;
+  color: var(--primary-color);
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: var(--border-radius-small);
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-family);
+}
+
+.info-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
 }
 
 .form-section {
@@ -113,40 +128,60 @@
 
 .form-section form input {
   width: 100%;
-  margin-bottom: 0.4rem;
-  padding: 0.5rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--border-radius-small);
   font-size: 0.9rem;
   box-sizing: border-box;
+  transition: var(--transition);
+  font-family: var(--font-family);
+}
 
+.form-section form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .form-section form button {
   width: 100%;
-  padding: 0.5rem;
-  background: #2651D3;
+  padding: 0.75rem;
+  background: var(--primary-gradient);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: var(--border-radius-small);
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: var(--transition);
+  margin-bottom: 10px;
+  font-family: var(--font-family);
+  box-shadow: var(--shadow-medium);
 }
 
 .form-section form button:hover {
-  background-color: #1e3ea5;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-heavy);
 }
 
-.is-valid{
-  border: 2px solid green!important;
+.is-valid {
+  border-color: var(--success-color) !important;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1) !important;
 }
 
-.is-invalid{
-  border: 2px solid red !important;
+.is-invalid {
+  border-color: var(--danger-color) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
 }
 
-.text-danger{
+.text-danger {
   font-size: 0.8rem;
-  margin: 0 0 4px ;
+  margin: 0 0 4px;
+  color: var(--danger-color);
+  font-family: var(--font-family);
+}
+
+.carousel-img {
+  height: 200px;
+  object-fit: cover;
 }

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Agregar imports faltantes
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-mis-pedidos',
   templateUrl: './mis-pedidos.html',
   imports: [CommonModule]
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 export class MisPedidos implements OnInit {
   pedidosPendientes: any[] = [];
   pedidosAprobados: any[] = [];
-  pedidosCancelados: any[] = [];
+  // Eliminado: pedidosCancelados para ocultar en vista de usuario
 
   constructor(
     private ordersService: OrdersService,
@@ -20,44 +20,37 @@ export class MisPedidos implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.authService.usuarioId; // Obtiene el ID del usuario logueado
+    const id = this.authService.usuarioId;
     if (id) {
-      this.ordersService.getMisPedidos(id).subscribe({
-        next: (data) => {
-          // Clasifica los pedidos por su estado
-          this.pedidosPendientes = data.filter((p: any) => p.estado === 'PENDIENTE');
-          this.pedidosAprobados = data.filter((p: any) => p.estado === 'APROBADO');
-          this.pedidosCancelados = data.filter((p: any) => p.estado === 'CANCELADO');
-        },
-        error: (err) => {
-          console.error('Error al cargar pedidos', err);
-        }
-      });
+      this.loadPedidos();
     } else {
       console.warn('No hay usuario logueado o no tiene id');
     }
   }
 
-  cancelar(pedidoId: number) {
-    this.ordersService.cancelarPedido(pedidoId).subscribe(() => {
-      this.pedidosPendientes = this.pedidosPendientes.filter(p => p.id !== pedidoId);
-    }, error => {
-      console.error('Error al cancelar pedido', error);
+  loadPedidos() {
+    this.ordersService.getTodosPedidos().subscribe({
+      next: (data: any[]) => {
+        this.pedidosPendientes = data?.filter((p: any) => p.estado === 'PENDIENTE') || [];
+        this.pedidosAprobados = data?.filter((p: any) => p.estado === 'CONFIRMADO') || [];
+        // No cargamos pedidos cancelados en vista de usuario
+      },
+      error: (err: any) => {
+        console.error('Error al cargar pedidos', err);
+      }
     });
   }
 
-  eliminarPedido(id: number) {
-    if (confirm('¿Estás seguro que querés eliminar este pedido?')) {
-      this.ordersService.eliminarPedido(id).subscribe({
-        next: () => {
-          this.pedidosAprobados = this.pedidosAprobados.filter(p => p.id !== id);
-          this.pedidosCancelados = this.pedidosCancelados.filter(p => p.id !== id);
-        },
-        error: (err) => {
-          console.error('Error al eliminar pedido:', err);
-          alert('No se pudo eliminar el pedido.');
-        }
-      });
-    }
+  cancelar(pedidoId: number) {
+    this.ordersService.cancelarPedido(pedidoId).subscribe({
+      next: () => {
+        this.pedidosPendientes = this.pedidosPendientes.filter(p => p.id !== pedidoId);
+      },
+      error: (error: any) => {
+        console.error('Error al cancelar pedido', error);
+      }
+    });
   }
+
+  // Método eliminarPedido eliminado - solo disponible en admin
 }

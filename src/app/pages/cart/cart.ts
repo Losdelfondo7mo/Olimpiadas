@@ -73,27 +73,34 @@ import { FormsModule } from '@angular/forms';
   }
 
   const usuario = JSON.parse(usuarioStr);
+  
+  // Add null check for usuarioId
+  const usuarioId = this.authService.usuarioId;
+  if (!usuarioId) {
+    console.error('Usuario no autenticado');
+    this.mostrarToast('Error: Usuario no autenticado');
+    return;
+  }
 
+  // Fix the pedido object to match backend schema
   const pedido = {
-    usuario_id: usuario.id,
-    usuario: this.authService.usuarioActual || 'N/A',
-    monto_total: this.cartService.total,
-    detalles: this.cartService.currentCart.map(p => ({
-    producto_id: p.id,
-    cantidad: p.cantidad,
-    precio_unitario: p.precio
-  })),
-    productos: this.cartService.currentCart,
-    total: this.cartService.total
+    productos: this.cartService.currentCart.map(p => ({
+      id: p.id,
+      nombre: p.nombre,
+      precio: p.precio,
+      cantidad: p.cantidad
+    })),
+    total: this.cartService.total,
+    usuario_id: usuarioId,
+    usuario: this.authService.usuarioCompleto?.nombre || this.authService.usuarioCompleto?.email
   };
-
+  
   this.ordersService.agregarPedido(pedido).subscribe({
     next: () => {
       this.cartService.pagar();
       this.mostrarToast('¡Compra realizada con éxito!');
-      
     },
-    error: err => console.error('Error al guardar el pedido:', err.error?.detail || err)
+    error: (err: any) => console.error('Error al guardar el pedido:', err.error?.detail || err)
   });
 }
 
