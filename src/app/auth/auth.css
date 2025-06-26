@@ -1,7 +1,7 @@
 @media (max-width: 768px){
   .auth-wrapper{
     width: 90%;
-    min-height: 400px; /* Altura mínima para móviles */
+    min-height: 400px;
     height: auto;
     flex-direction: column;
   }
@@ -49,8 +49,8 @@
 .auth-wrapper {
   position: relative;
   width: 800px;
-  min-height: 500px; /* Agregar altura mínima */
-  height: auto; /* Permitir crecimiento automático */
+  min-height: 500px;
+  height: auto;
   overflow: hidden;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-heavy);

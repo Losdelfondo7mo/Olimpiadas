@@ -274,7 +274,6 @@ body:not(.dark-theme) .product-card {
   margin-bottom: 0.75rem;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -284,7 +283,6 @@ body:not(.dark-theme) .product-card {
   color: #718096;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 0;
