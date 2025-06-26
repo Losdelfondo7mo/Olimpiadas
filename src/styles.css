@@ -24,7 +24,7 @@ body.dark-theme .modal-content, body.dark-theme .pedido-card {
 }
 
 .card {
-  background-color: var(--card-bg)!important;
+  background-color: var(--bg-color)!important;
 }
 
 /* Estilos para el titulo del login y el registro */
