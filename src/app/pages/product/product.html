@@ -12,25 +12,7 @@
     <div class="products-grid">
       <div class="product-card-wrapper" *ngFor="let producto of productosPorCategoria[categoria]">
         <div class="card product-card">
-          <div class="card-image-container">
-            <!-- Usar una imagen por defecto o gradiente en lugar de producto.imagen -->
-            <div class="card-image card-image-default">
-              <div class="image-overlay">
-                <div class="quick-actions">
-                  <button
-                    (click)="verProducto(producto)"
-                    class="btn btn-quick-view"
-                    [attr.aria-label]="'Vista rápida de ' + producto.nombre"
-                  >
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="product-badge">
-              <span class="badge-category">{{ producto.categoria }}</span>
-            </div>
-          </div>
+          <!-- Se elimina todo el bloque de card-image-container -->
           
           <div class="card-body">
             <div class="product-info">
