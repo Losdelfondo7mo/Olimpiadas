@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <div class="card text-center">
+    <div class="card-header bg-danger text-white">
+      <h2>Pago Fallido</h2>
+    </div>
+    <div class="card-body">
+      <i class="fas fa-times-circle fa-5x text-danger mb-3"></i>
+      <h3>Hubo un problema con tu pago</h3>
+      <p>Número de pedido: {{pedidoId}}</p>
+      <p>Por favor, intenta nuevamente o utiliza otro método de pago.</p>
+      <button class="btn btn-primary mt-3" (click)="volverAlCarrito()">
+        Volver al carrito
+      </button>
+    </div>
+  </div>
+</div>

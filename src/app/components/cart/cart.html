@@ -1,0 +1,14 @@
+<!-- ... existing code ... -->
+
+<div class="cart-actions">
+  <button class="btn btn-danger" (click)="vaciar()" [disabled]="carrito.length === 0">
+    <i class="fas fa-trash"></i> Vaciar carrito
+  </button>
+  
+  <!-- Replace the existing payment button with this -->
+  <button class="btn btn-success" (click)="pagar()" [disabled]="carrito.length === 0">
+    <i class="fas fa-credit-card"></i> Pagar con Mercado Pago
+  </button>
+</div>
+
+<!-- ... existing code ... -->
