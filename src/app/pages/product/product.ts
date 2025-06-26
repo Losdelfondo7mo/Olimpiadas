@@ -3,6 +3,7 @@ import { Cart } from '../cart/cart';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Producto, ProductService } from '../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -14,7 +15,7 @@ import { Producto, ProductService } from '../../services/product.service';
 export class Product implements OnInit {
   productos: Producto[] = [];
 
-  constructor(private productosService: ProductService, private cartService: CartService) {}
+  constructor(private productosService: ProductService, private cartService: CartService, private router: Router) {}
 
     toastVisible = false;
     toastMensaje = '';
@@ -30,8 +31,8 @@ export class Product implements OnInit {
 
    productosPorCategoria: { [categoria: string]: Producto[] } = {};
 
-ngOnInit() { 
-  this.productosService.getProductos().subscribe(data => {
+  ngOnInit() { 
+    this.productosService.getProductos().subscribe(data => {
     this.productos = data;
 
     // Agrupar productos por categoría
@@ -49,7 +50,7 @@ ngOnInit() {
   return Object.keys(this.productosPorCategoria);
 }
 
-    agregarAlCarrito(producto: Producto) {
+  agregarAlCarrito(producto: Producto) {
     this.cartService.agregar(producto);
     this.mostrarToast(`"${producto.nombre}" fue agregado al carrito `);
   }
@@ -63,4 +64,9 @@ ngOnInit() {
       });
     }
   }
+
+  verProducto(producto: Producto) {
+  this.router.navigate(['/producto', producto.id]);
+}
+
 }

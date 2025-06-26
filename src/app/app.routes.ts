@@ -12,6 +12,7 @@ import { Perfil } from './pages/perfil/perfil';
 import { AuthCallback } from './auth/auth-callback';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 import { Error404 } from './pages/error404/error404';
+import { ProductDetail } from './pages/product-detail/product-detail';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {path: "cart", component: Cart, canActivate: [AuthGuard] },
     {path: "perfil", component: Perfil, canActivate: [AuthGuard] },
     {path: "mis-pedidos", component: MisPedidos, canActivate: [AuthGuard] },
+    { path: 'producto/:id', component: ProductDetail, canActivate: [AuthGuard] },
 
 
     {path: "auth", component: AuthComponent },
