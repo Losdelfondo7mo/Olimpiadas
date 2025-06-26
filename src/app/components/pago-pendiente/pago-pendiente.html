@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <div class="card text-center">
+    <div class="card-header bg-warning text-dark">
+      <h2>Pago Pendiente</h2>
+    </div>
+    <div class="card-body">
+      <i class="fas fa-clock fa-5x text-warning mb-3"></i>
+      <h3>Tu pago está siendo procesado</h3>
+      <p>Número de pedido: {{pedidoId}}</p>
+      <p>El pago está en proceso de verificación. Te notificaremos por correo electrónico cuando se confirme.</p>
+      <button class="btn btn-primary mt-3" (click)="verMisPedidos()">
+        Ver mis pedidos
+      </button>
+    </div>
+  </div>
+</div>

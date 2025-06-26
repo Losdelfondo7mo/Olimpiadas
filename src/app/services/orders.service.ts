@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service'; // Add this import
 
 export interface DetallePedido {
   id?: number;
@@ -35,13 +36,20 @@ export interface ProductoItem {
   cantidad: number;
 }
 
+// Add this interface
+export interface MercadoPagoPreference {
+  id: string;
+  init_point: string;
+  sandbox_init_point: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
   private baseUrl = 'https://backend-9s6b.onrender.com/api/pedidos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {} // Add AuthService injection
 
   agregarPedido(pedido: PedidoCrear): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, pedido);
@@ -99,5 +107,16 @@ export class OrdersService {
 
   eliminarPedido(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  // Add this method
+  crearPreferenciaPago(pedidoId: number): Observable<MercadoPagoPreference> {
+    const url = `${this.baseUrl}/crear-preferencia/${pedidoId}`;
+    return this.http.post<MercadoPagoPreference>(url, {}, {
+      headers: {
+        'Authorization': `Bearer ${this.authService.obtenerToken()}`
+      },
+      withCredentials: true
+    });
   }
 }
