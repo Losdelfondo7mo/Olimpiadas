@@ -26,7 +26,6 @@
 
 .btn.custom-hover {
   background: var(--primary-gradient);
-  color: white;
   border: none;
   border-radius: var(--border-radius-small);
   padding: 0.5rem 1rem;
@@ -38,7 +37,6 @@
 .btn.custom-hover:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
-  color: white;
 }
 
 .dropdown-menu {
@@ -54,6 +52,7 @@
   padding: 0.5rem 1rem;
   transition: var(--transition);
   font-weight: 500;
+  cursor: pointer;
 }
 
 .dropdown-item:hover {

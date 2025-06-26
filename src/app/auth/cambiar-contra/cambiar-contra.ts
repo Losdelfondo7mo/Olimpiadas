@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   selector: 'app-cambiar-contra',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './cambiar-contra.component.html',
-  styleUrl: './cambiar-contra.component.css'
+  templateUrl: './cambiar-contra.html',
+  styleUrl: './cambiar-contra.css'
 })
 export class CambiarContraComponent {
   changePasswordForm: FormGroup;

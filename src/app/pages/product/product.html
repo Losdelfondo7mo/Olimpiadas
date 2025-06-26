@@ -1,74 +1,75 @@
 <div class="products-container">
   <div *ngFor="let categoria of categorias" class="category-section">
+    
+    <!-- Encabezado de categoría -->
     <div class="category-header">
-      <h2 class="category-title">
+      <h2 class="category-title" style="color: #2651D3;">
         <span class="category-icon"></span>
         {{ categoria }}
-        <span class="category-count">({{ productosPorCategoria[categoria].length }})</span>
+        <span class="category-count" style="color: #2651D3;">
+          ({{ productosPorCategoria[categoria].length }})
+        </span>
       </h2>
-      <div class="category-divider"></div>
+      <div class="category-divider" style="background-color: #2651D3; height: 2px;"></div>
     </div>
 
+    <!-- Productos -->
     <div class="products-grid">
       <div class="product-card-wrapper" *ngFor="let producto of productosPorCategoria[categoria]">
-        <div class="card product-card">
-          <div class="card-image-container">
-            <!-- Usar una imagen por defecto o gradiente en lugar de producto.imagen -->
-            <div class="card-image card-image-default">
-              <div class="image-overlay">
-                <div class="quick-actions">
-                  <button
-                    (click)="verProducto(producto)"
-                    class="btn btn-quick-view"
-                    [attr.aria-label]="'Vista rápida de ' + producto.nombre"
-                  >
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="product-badge">
-              <span class="badge-category">{{ producto.categoria }}</span>
-            </div>
-          </div>
+        <div class="card product-card" style="border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
           
-          <div class="card-body">
+          <!-- SIN imagen -->
+
+          <!-- Detalles del producto -->
+          <div class="card-body" style="padding: 1rem;">
             <div class="product-info">
-              <h5 class="product-title">{{ producto.nombre }}</h5>
+              <h5 class="product-title" style="color: #2651D3;">{{ producto.nombre }}</h5>
               <p class="product-description">{{ producto.descripcion }}</p>
             </div>
 
-            <div class="product-footer">
-              <div class="price-section">
-                <span class="price-label">Precio</span>
-                <span class="price">${{ producto.precio }}</span>
+            <!-- Footer del producto -->
+            <div class="product-footer" style="margin-top: 1rem;">
+              <div class="price-section" style="margin-bottom: 0.5rem;">
+                <span class="price-label" style="font-weight: bold;">Precio</span>
+                <span class="price" style="color: #2651D3;">${{ producto.precio }}</span>
               </div>
-              
-              <div class="action-buttons">
+
+              <!-- Botones de acción -->
+              <div class="action-buttons" style="display: flex; gap: 0.5rem;">
+                <!-- Botón Agregar con nuevo color -->
                 <button
                   (click)="agregarAlCarrito(producto)"
-                  class="btn btn-add-cart"
+                  class="btn"
+                  [ngStyle]="{
+                    backgroundColor: '#28a745',
+                    color: '#fff',
+                    border: '1px solid #28a745'
+                  }"
                   [attr.aria-label]="'Agregar ' + producto.nombre + ' al carrito'"
                 >
                   <i class="bi bi-cart-plus"></i>
                   <span>Agregar</span>
                 </button>
 
+                <!-- Botón Ver Detalles con color del header -->
                 <button
                   (click)="verProducto(producto)"
-                  class="btn btn-view-details"
+                  class="custom-btn btn btn-view-details"
                   [attr.aria-label]="'Ver detalles de ' + producto.nombre"
                 >
                   <i class="bi bi-arrow-right"></i>
                 </button>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
+
 
 <!-- Toast mejorado -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055" *ngIf="toastVisible">

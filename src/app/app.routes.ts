@@ -13,7 +13,7 @@ import { AuthCallback } from './auth/auth-callback';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 import { Error404 } from './pages/error404/error404';
 import { ProductDetail } from './pages/product-detail/product-detail';
-import { CambiarContraComponent } from './auth/cambiar-contra/cambiar-contra.component';
+import { CambiarContraComponent } from './auth/cambiar-contra/cambiar-contra';
 
 
 export const routes: Routes = [
