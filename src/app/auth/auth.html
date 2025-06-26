@@ -6,7 +6,7 @@
       <button (click)="goToRegister()">Crear Cuenta</button>
     </div>
     <div class="form-section">
-      <h2>Iniciar Sesión</h2>
+      <h2 class="login-registro">Iniciar Sesión</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin($event)">
         <input formControlName="usuario" type="text" placeholder="Usuario" required required [class.is-valid]=" Username?.valid && Username?.touched" [class.is-invalid] ="Username?.invalid && Username?.touched"/>
             @if (Username?.errors && Username?.touched) {

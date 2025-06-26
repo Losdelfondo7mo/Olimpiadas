@@ -3,6 +3,13 @@
 
 <router-outlet></router-outlet>
 
+<!-- Botón de toggle -->
+<button (click)="toggleDarkMode()" class="btn-darkmode-flotante">
+  <i [ngClass]="modoOscuro ? 'bi-sun' : 'bi-moon'"></i>
+</button>
+
+
+
 <app-footer></app-footer>
 
 

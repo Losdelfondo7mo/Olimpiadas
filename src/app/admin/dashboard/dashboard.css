@@ -7,3 +7,7 @@
   background-color: #2651d3;
   color: white;
 }
+
+.modo-oscuro{
+  color: var(--text-color)!important;
+}

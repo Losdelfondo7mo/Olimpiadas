@@ -17,11 +17,32 @@ import { CommonModule } from '@angular/common';
 })
   export class App {
   constructor(public authService: AuthService) {}
+  darkMode: boolean = false;
+  modoOscuro = false;
+
+  ngOnInit(): void {
+    const saved = localStorage.getItem('darkMode');
+    if (saved === 'true') {
+      this.darkMode = true;
+      document.body.classList.add('dark-theme');
+    }
+  }
 
   get mostrarNav(): boolean {
     const rol = this.authService.getRol();
     return rol !== 'administrador';
   }
+
+
+  toggleDarkMode() {
+  this.modoOscuro = !this.modoOscuro;
+
+  if (this.modoOscuro) {
+    document.body.classList.add('dark-theme');
+  } else {
+    document.body.classList.remove('dark-theme');
+  }
+}
 }
 
 

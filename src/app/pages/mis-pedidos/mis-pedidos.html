@@ -1,11 +1,11 @@
 <div class="container mt-5">
 
-  <!-- Pedidos Pendientes -->
+  <!-- Pedidos pendientes -->
   <section class="orders-section">
-    <h3 class="section-title pending">Pedidos Pendientes</h3>
+    <h3 class="section-title pending">Pedidos pendientes</h3>
     <div *ngIf="pedidosPendientes.length > 0; else sinPendientes">
       <div *ngFor="let pedido of pedidosPendientes" class="card order-card pending-card mb-3 shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3 etiquetas">
           <div class="order-info">
             <i class="bi bi-clock-history me-2"></i>
             <strong>ID:</strong> {{ pedido.id }} &nbsp;|&nbsp;
@@ -26,12 +26,12 @@
 
   <hr>
 
-  <!-- Pedidos Aprobados -->
+  <!-- Pedidos aprobados -->
   <section class="orders-section">
-    <h3 class="section-title approved">Pedidos Aprobados</h3>
+    <h3 class="section-title approved">Pedidos aprobados</h3>
     <div *ngIf="pedidosAprobados.length > 0; else sinAprobados">
       <div *ngFor="let pedido of pedidosAprobados" class="card order-card approved-card mb-3 shadow-sm">
-        <div class="card-body d-flex flex-wrap gap-3">
+        <div class="card-body d-flex flex-wrap gap-3 etiquetas">
           <i class="bi bi-check-circle-fill text-success me-2 fs-5 align-self-center"></i>
           <div>
             <strong>ID:</strong> {{ pedido.id }} <br>
@@ -49,18 +49,20 @@
 
   <hr>
 
-  <!-- Pedidos Cancelados -->
+  <!-- Pedidos cancelados -->
   <section class="orders-section">
-    <h3 class="section-title cancelled">Pedidos Cancelados</h3>
+    <h3 class="section-title cancelled">Pedidos cancelados</h3>
     <div *ngIf="pedidosCancelados.length > 0; else sinCancelados">
       <div *ngFor="let pedido of pedidosCancelados" class="card order-card cancelled-card mb-3 shadow-sm">
         <div class="card-body d-flex flex-wrap gap-3">
-          <i class="bi bi-x-circle-fill text-secondary me-2 fs-5 align-self-center"></i>
-          <div>
+          <button class="btn btn-outline-danger btn-sm" (click)="eliminarPedido(pedido.id)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+          <div class="card-text">
             <strong>ID:</strong> {{ pedido.id }} <br>
             <strong>Pedido:</strong> {{ pedido.n_pedido }} <br>
             <strong>Total:</strong> ${{ pedido.monto_total }} <br>
-            <strong>Fecha:</strong> {{ pedido.fecha | date:'short' }}
+            <strong>Fecha:</strong> <p>{{ pedido.fecha | date:'short' }}</p>
           </div>
         </div>
       </div>

@@ -1,20 +1,24 @@
-<div class="container py-5">
-  <h2 class="text-center mb-5">¿Quiénes somos?</h2>
-  <div class="row justify-content-center">
-    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let miembro of miembros">
-      <div class="card-flip">
-        <div class="card-front">
-          <img [src]="miembro.imagen" [alt]="miembro.nombre" class="team-img mb-3" />
-          <h5 class="fw-bold">{{ miembro.nombre }}</h5>
-          <p class="text-muted small">{{ miembro.descripcion }}</p>
+ <body>
+  
+  
+  <div class="container py-5">
+    <h2 class="text-center mb-5">¿Quiénes somos?</h2>
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let miembro of miembros">
+        <div class="card-flip">
+          <div class="card-front">
+            <img [src]="miembro.imagen" [alt]="miembro.nombre" class="team-img mb-3" />
+            <h5 class="fw-bold">{{ miembro.nombre }}</h5>
+            <p class="text-muted small">{{ miembro.descripcion }}</p>
+          </div>
+          <div class="card-back">
+            <h5 class="fw-bold mb-3">Contacto</h5>
+            <p><strong>Email:</strong> {{ miembro.email }}</p>
+            <p><strong>Rol:</strong> {{ miembro.rol }}</p>
+          </div>
         </div>
-        <div class="card-back">
-          <h5 class="fw-bold mb-3">Contacto</h5>
-          <p><strong>Email:</strong> {{ miembro.email }}</p>
-          <p><strong>Rol:</strong> {{ miembro.rol }}</p>
-        </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
+</body>

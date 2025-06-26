@@ -68,5 +68,20 @@ loadPedidos() {
       this.loadPedidos(); 
     });
   }
+
+  eliminarPedido(id: number) {
+    if (confirm('¿Estás seguro que querés eliminar este pedido?')) {
+      this.ordersService.eliminarPedido(id).subscribe({
+        next: () => {
+          this.aprobados = this.aprobados.filter(p => p.id !== id);
+          this.cancelados = this.cancelados.filter(p => p.id !== id);
+        },
+        error: (err) => {
+          console.error('Error al eliminar pedido:', err);
+          alert('No se pudo eliminar el pedido.');
+        }
+      });
+    }
+  }
 }
 

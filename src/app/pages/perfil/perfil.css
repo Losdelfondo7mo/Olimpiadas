@@ -1,6 +1,6 @@
 
 .perfil-fondo {
-  background-color: #f1f3f5; 
+  background-color: var(--card-bg); 
   min-height: 100vh;
 }
 
@@ -40,3 +40,8 @@
 .profile-item:nth-child(2) { --order: 2; }
 .profile-item:nth-child(3) { --order: 3; }
 .profile-item:nth-child(4) { --order: 4; }
+
+
+li{
+  color: var(--text-color)
+}

@@ -13,3 +13,22 @@ form label {
 .modal-backdrop {
   z-index: 1040;
 }
+
+
+/* Estilos para el modo oscuro */
+label,.modo-oscuro {
+ color: var(--text-color) !important;
+}
+
+input, select, form{
+  color: var(--text-color) !important;
+  background-color: var(--card-bg) !important;
+}
+
+table, thead, th, td  {
+  color: var(--text-color) !important;
+  background-color: var(--card-bg) !important;
+}
+
+
+

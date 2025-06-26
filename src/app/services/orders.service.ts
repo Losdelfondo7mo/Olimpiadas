@@ -34,15 +34,7 @@ export class OrdersService {
 
   private baseUrl = 'https://backend-9s6b.onrender.com/api/pedidos';
 
-  constructor(private http: HttpClient) {
-    
-    // lo que tengo creado primero sin back
-    const guardados = localStorage.getItem('pedidos');
-    if (guardados) {
-      this.pedidos = JSON.parse(guardados);
-      this.contadorId = this.pedidos.length + 1;
-    }
-  }
+  constructor(private http: HttpClient) {}
 
   // conexion con el backend 
 
@@ -70,7 +62,7 @@ export class OrdersService {
   });
 
   return this.http.put(`${this.baseUrl}/cancelar/${pedidoId}`, {}, { headers });
-}
+  }
 
  getTodosPedidos(): Observable<Pedido[]> {
     const token = localStorage.getItem('access_token')!;
@@ -90,26 +82,17 @@ export class OrdersService {
   });
 
   return this.http.put(`${this.baseUrl}/confirmar/${pedidoId}`, { producto_id }, { headers });
-}
-
-
-
-
+  }
 
   getPendientes(): Observable<any> {
   return this.http.get(`${this.baseUrl}/pendientes`);
-}
-
-
-
-
-
-
-
+  }
 
   getEstadisticas(): Observable<any> {
   return this.http.get(`${this.baseUrl}/estadisticas`);
-}
+  }
   
-
+  eliminarPedido(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }
