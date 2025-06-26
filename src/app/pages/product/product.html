@@ -1,36 +1,68 @@
-<div class="container py-5">
-  <div *ngFor="let categoria of categorias">
-    <h2 class="category-title">{{ categoria }}</h2>
+<div class="products-container">
+  <div *ngFor="let categoria of categorias" class="category-section">
+    <div class="category-header">
+      <h2 class="category-title">
+        <span class="category-icon">🏷️</span>
+        {{ categoria }}
+        <span class="category-count">({{ productosPorCategoria[categoria].length }})</span>
+      </h2>
+      <div class="category-divider"></div>
+    </div>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
-      <div class="col" *ngFor="let producto of productosPorCategoria[categoria]">
-        <div class="card travel-card h-100">
+    <div class="products-grid">
+      <div class="product-card-wrapper" *ngFor="let producto of productosPorCategoria[categoria]">
+        <div class="card product-card">
+          <div class="card-image-container">
+            <!-- Usar una imagen por defecto o gradiente en lugar de producto.imagen -->
+            <div class="card-image card-image-default">
+              <div class="image-overlay">
+                <div class="quick-actions">
+                  <button
+                    (click)="verProducto(producto)"
+                    class="btn btn-quick-view"
+                    [attr.aria-label]="'Vista rápida de ' + producto.nombre"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="product-badge">
+              <span class="badge-category">{{ producto.categoria }}</span>
+            </div>
+          </div>
           
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text">{{ producto.descripcion }}</p>
+          <div class="card-body">
+            <div class="product-info">
+              <h5 class="product-title">{{ producto.nombre }}</h5>
+              <p class="product-description">{{ producto.descripcion }}</p>
+            </div>
 
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-              <span class="price">${{ producto.precio }}</span>
-              <div class="d-flex gap-2">
+            <div class="product-footer">
+              <div class="price-section">
+                <span class="price-label">Precio</span>
+                <span class="price">${{ producto.precio }}</span>
+              </div>
+              
+              <div class="action-buttons">
                 <button
                   (click)="agregarAlCarrito(producto)"
-                  class="btn btn-primary btn-sm"
+                  class="btn btn-add-cart"
                   [attr.aria-label]="'Agregar ' + producto.nombre + ' al carrito'"
                 >
-                  <i class="bi bi-cart-plus-fill"></i> Añadir
+                  <i class="bi bi-cart-plus"></i>
+                  <span>Agregar</span>
                 </button>
 
                 <button
                   (click)="verProducto(producto)"
-                  class="btn btn-outline-secondary btn-sm"
+                  class="btn btn-view-details"
                   [attr.aria-label]="'Ver detalles de ' + producto.nombre"
                 >
-                  <i class="bi bi-box-arrow-up-right"></i> Ver
+                  <i class="bi bi-arrow-right"></i>
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -38,23 +70,25 @@
   </div>
 </div>
 
-<!-- Toast de éxito -->
-<div
-  class="toast-container position-fixed bottom-0 end-0 p-3"
-  style="z-index: 1055"
-  *ngIf="toastVisible"
->
-  <div class="toast show text-white bg-success border-0">
-    <div class="d-flex">
-      <div class="toast-body">
+<!-- Toast mejorado -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055" *ngIf="toastVisible">
+  <div class="toast-modern show">
+    <div class="toast-content">
+      <div class="toast-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="toast-message">
         {{ toastMensaje }}
       </div>
       <button
         type="button"
-        class="btn-close btn-close-white me-2 m-auto"
+        class="toast-close"
         aria-label="Close"
         (click)="toastVisible = false"
-      ></button>
+      >
+        <i class="bi bi-x"></i>
+      </button>
     </div>
+    <div class="toast-progress"></div>
   </div>
 </div>

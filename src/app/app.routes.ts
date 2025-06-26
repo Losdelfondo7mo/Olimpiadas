@@ -13,6 +13,7 @@ import { AuthCallback } from './auth/auth-callback';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 import { Error404 } from './pages/error404/error404';
 import { ProductDetail } from './pages/product-detail/product-detail';
+import { CambiarContraComponent } from './auth/cambiar-contra/cambiar-contra.component';
 
 
 export const routes: Routes = [
@@ -24,8 +25,7 @@ export const routes: Routes = [
     {path: "perfil", component: Perfil, canActivate: [AuthGuard] },
     {path: "mis-pedidos", component: MisPedidos, canActivate: [AuthGuard] },
     { path: 'producto/:id', component: ProductDetail, canActivate: [AuthGuard] },
-
-
+    {path: "cambiar-contrasena", component: CambiarContraComponent, canActivate: [AuthGuard] },
     {path: "auth", component: AuthComponent },
     {path: "auth/registro", component: Registro },
 

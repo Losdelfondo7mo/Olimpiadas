@@ -1,4 +1,4 @@
-<div class="auth-wrapper my-5">
+<div class="auth-wrapper">
   <div class="auth-panel active">
     <div class="info-section">
       <h1>¡Bienvenido!</h1>
@@ -6,6 +6,7 @@
       <button (click)="backToLogin()">Iniciar Sesión</button>
     </div>
     <div class="form-section">
+      <h2 class="login-registro">Crear Cuenta</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onRegister($event)">
         <input formControlName="nombre" type="text" placeholder="Nombre" required [class.is-valid]=" Nombre?.valid && Nombre?.touched" [class.is-invalid] ="Nombre?.invalid && Nombre?.touched"/>
           @if (Nombre?.errors && Nombre?.touched) {

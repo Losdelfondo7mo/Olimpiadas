@@ -82,14 +82,25 @@ export class AuthService {
   }
 
   getRol(): string | null {
-  const raw = localStorage.getItem('usuario');
-  try {
-    const usuario = raw ? JSON.parse(raw) : null;
-    return usuario?.rol || null;
-  } catch {
-    return null;
+    const raw = localStorage.getItem('usuario');
+    try {
+      const usuario = raw ? JSON.parse(raw) : null;
+      return usuario?.rol || null;
+    } catch {
+      return null;
+    }
   }
-}
+
+  get usuario(): any | null {
+    const raw = localStorage.getItem('usuario');
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  }
+
   get usuarioCompleto(): LoginResponse | null {
   const raw = localStorage.getItem('usuario');
   if (!raw) return null;
@@ -103,5 +114,9 @@ export class AuthService {
   cerrarSesion(): void {
   localStorage.removeItem('usuario');
   localStorage.removeItem('access_token');
-}
+  }
+
+  cambiarContraseña(usuarioId: number, datos: any): Observable<any> {
+    return this.http.put(`https://backend-9s6b.onrender.com/api/usuarios/cambiar-password/${usuarioId}`, datos);
+  }
 }

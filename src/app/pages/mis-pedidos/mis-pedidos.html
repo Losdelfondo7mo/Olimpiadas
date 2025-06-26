@@ -1,4 +1,5 @@
-<div class="container mt-5">
+<div class="orders-container">
+  <h2 class="orders-title">Mis Pedidos</h2>
 
   <!-- Pedidos pendientes -->
   <section class="orders-section">
@@ -47,29 +48,7 @@
     </ng-template>
   </section>
 
-  <hr>
-
-  <!-- Pedidos cancelados -->
-  <section class="orders-section">
-    <h3 class="section-title cancelled">Pedidos cancelados</h3>
-    <div *ngIf="pedidosCancelados.length > 0; else sinCancelados">
-      <div *ngFor="let pedido of pedidosCancelados" class="card order-card cancelled-card mb-3 shadow-sm">
-        <div class="card-body d-flex flex-wrap gap-3">
-          <button class="btn btn-outline-danger btn-sm" (click)="eliminarPedido(pedido.id)">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
-          <div class="card-text">
-            <strong>ID:</strong> {{ pedido.id }} <br>
-            <strong>Pedido:</strong> {{ pedido.n_pedido }} <br>
-            <strong>Total:</strong> ${{ pedido.monto_total }} <br>
-            <strong>Fecha:</strong> <p>{{ pedido.fecha | date:'short' }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <ng-template #sinCancelados>
-      <p class="text-muted fst-italic">No tienes pedidos cancelados.</p>
-    </ng-template>
-  </section>
+  <!-- Sección de pedidos cancelados ELIMINADA completamente -->
+  <!-- Los pedidos cancelados solo serán visibles en el panel de administración -->
 
 </div>

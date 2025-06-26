@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OrdersService, Pedido } from '../../services/orders.service';
 import { AuthService } from '../../services/auth.service';
@@ -16,6 +16,9 @@ export class AdminOrders implements OnInit {
   pendientes: Pedido[] = [];
   aprobados: Pedido[] = [];
   cancelados: Pedido[] = [];
+  
+  // Eliminar esta línea
+  // sinPendientes = true;
 
   productosMap = new Map<number, any>();
 
@@ -25,50 +28,38 @@ export class AdminOrders implements OnInit {
   ) {}
 
   ngOnInit() {
-  this.ordersService.getPendientes().subscribe({
-    next: (data: Pedido[]) => {
-      this.pendientes = data.filter(p => p.estado === 'PENDIENTE');
-      this.aprobados = data.filter(p => p.estado === 'APROBADO');
-      this.cancelados = data.filter(p => p.estado === 'CANCELADO');
-    },
-    error: (err) => {
-      console.error('Error al cargar pedidos', err);
-    }
-  });
-}
-
-loadPedidos() {
-  this.ordersService.getTodosPedidos().subscribe({
-    next: (data) => {
-
-
-      this.pendientes = data.filter(p => p.estado === 'PENDIENTE');
-      this.aprobados = data.filter(p => p.estado === 'APROBADO');
-      this.cancelados = data.filter(p => p.estado === 'CANCELADO');
-    },
-    error: (err) => {
-      console.error('Error al cargar pedidos:', err);
-    }
-  });
-}
-
-  confirmar(id: number) {
-  const pedido = this.pendientes.find(p => p.id === id);
-  if (pedido && pedido.detalles.length > 0) {
-    const producto_id = pedido.detalles[0].producto_id;
-    this.ordersService.confirmarPedido(pedido.id, producto_id).subscribe({
-      next: () => this.loadPedidos(),
-      error: err => console.error('Error al confirmar pedido:', err)
-    });
+    this.loadPedidos();
   }
+  
+  loadPedidos() {
+    this.ordersService.getTodosPedidos().subscribe({
+      next: (data: Pedido[]) => {
+        this.pendientes = data?.filter(p => p.estado === 'PENDIENTE') || [];
+        this.aprobados = data?.filter(p => p.estado === 'CONFIRMADO') || []; // Cambiar APROBADO por CONFIRMADO
+        this.cancelados = data?.filter(p => p.estado === 'CANCELADO') || [];
+      },
+      error: (err: any) => {
+        console.error('Error al cargar pedidos:', err);
+      }
+    });
 }
-
+  
+  confirmar(id: number) {
+    const pedido = this.pendientes.find(p => p.id === id);
+    if (pedido) {
+      this.ordersService.confirmarPedido(pedido.id).subscribe({
+        next: () => this.loadPedidos(),
+        error: err => console.error('Error al confirmar pedido:', err)
+      });
+    }
+  }
+  
   cancelar(id: number) {
     this.ordersService.cancelarPedido(id).subscribe(() => {
       this.loadPedidos(); 
     });
   }
-
+  
   eliminarPedido(id: number) {
     if (confirm('¿Estás seguro que querés eliminar este pedido?')) {
       this.ordersService.eliminarPedido(id).subscribe({
