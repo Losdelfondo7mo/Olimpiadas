@@ -50,4 +50,20 @@
   cursor: pointer;
 }
 
+
+form{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+input{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.etiqueta{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
 /* Estilos para el componente de cambiar contraseña */

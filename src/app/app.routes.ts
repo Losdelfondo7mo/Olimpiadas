@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth';
 import { Registro } from './auth/registro/registro';
-import { QuienesSomos } from './pages/quienes_somos/quienes_somos';
 import { Product } from './pages/product/product';
 // Cambiar esta línea - COMMENTED OUT
 // import { Cart } from './components/cart/cart';
@@ -10,9 +9,7 @@ import { Cart } from './pages/cart/cart';
 import { Perfil } from './pages/perfil/perfil';
 import { MisPedidos } from './pages/mis-pedidos/mis-pedidos';
 import { ProductDetail } from './pages/product-detail/product-detail';
-import { CambiarContraComponent } from './pages/cambiar-contra/cambiar-contra';
 import { AuthCallback } from './auth/auth-callback/auth-callback';
-import { adminDashboard } from './pages/admin/admin';
 import { NotFound } from './pages/not-found/not-found';
 import { Error404 } from './pages/error404/error404';
 import { AuthGuard } from './guards/auth.guard';
@@ -21,6 +18,9 @@ import { AdminGuard } from './guards/admin.guard';
 import { PagoExitoso } from './components/pago-exitoso/pago-exitoso';
 import { PagoFallido } from './components/pago-fallido/pago-fallido';
 import { PagoPendiente } from './components/pago-pendiente/pago-pendiente';
+import { adminDashboard } from './admin/dashboard/dashboard';
+import { QuienesSomos } from './pages/quienes-somos/quienes-somos';
+import { CambiarContraComponent } from './auth/cambiar-contra/cambiar-contra';
 
 export const routes: Routes = [
   {path:"", redirectTo: "/auth", pathMatch: "full"},

@@ -16,7 +16,6 @@ export class CambiarContraComponent {
   mensaje: string = '';
   esError: boolean = false;
 
-  // Validator como función flecha, para poder usar this.passwordMatchValidator
   passwordMatchValidator = (form: FormGroup) => {
     const nueva = form.get('contraseña_nueva')?.value;
     const confirmar = form.get('confirmar_contraseña')?.value;
@@ -40,7 +39,7 @@ export class CambiarContraComponent {
             this.mensaje = 'Contraseña cambiada con éxito';
             this.esError = false;
             
-            // Esperar 2 segundos antes de cerrar sesión y redirigir
+            // Esperar 2 segundos
             setTimeout(() => {
               this.authService.cerrarSesion();
               this.router.navigate(['/auth']);

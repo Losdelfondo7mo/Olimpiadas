@@ -209,3 +209,7 @@ body.dark-theme .table-hover tbody tr:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-medium);
 }
+
+.sin-modo-oscuro {
+  color: white!important;
+}

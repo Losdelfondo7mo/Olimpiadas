@@ -15,7 +15,7 @@ import { NavAdmin } from '../../shared/nav-admin/nav-admin';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class adminDashboard {
+export class adminDashboard{
   activeTab: string = 'productos';
 
   setTab(tab: string) {

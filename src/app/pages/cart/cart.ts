@@ -115,19 +115,12 @@ export class Cart implements OnInit {
     });
   }
 
-  // Add this method to initialize Mercado Pago
   initMercadoPago(preference: MercadoPagoPreference) {
-    // Store the preference ID
     this.preferenceId = preference.id;
     
-    // Clear the cart
+    // borrar lo del carrito
     this.cartService.vaciar();
     
-    // Add logging
-    console.log('Redirecting to Mercado Pago:', preference.init_point);
-    
-    // Redirect to Mercado Pago checkout
-    // Para producción usar init_point, para desarrollo usar sandbox_init_point
     const isProduction = window.location.hostname === 'los-del-fondo-7mo.web.app';
     window.location.href = isProduction ? preference.init_point : preference.sandbox_init_point;
   }
